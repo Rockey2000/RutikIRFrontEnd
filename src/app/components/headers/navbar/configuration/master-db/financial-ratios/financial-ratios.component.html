@@ -1,0 +1,219 @@
+<!-- <div class="upperBody" *ngIf="addLineItem"> -->
+<div *ngIf="lineItemsTable">
+  <span class="p-input-icon-left searchbar" style="margin-bottom: 10px">
+    <i class="pi pi-search"></i>
+    <input
+      type="text"
+      styleClass="searchInputBox"
+      pInputText
+      placeholder="Search"
+      (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+    />
+  </span>
+  <button
+    pButton
+    class="p-button-sm button button1"
+    label="Add ratio"
+    icon="pi pi-plus-circle"
+    (click)="addLneItem()"
+  ></button>
+
+  <p-table
+    #dt
+    dataKey="id"
+    styleClass="p-datatable-sm financialRatioTable"
+    responsiveLayout="scroll"
+    scrollHeight="100vh"
+    [value]="ratios"
+    [globalFilterFields]="['id', 'lineItem', 'formula', 'formulaType']"
+  >
+    <ng-template pTemplate="header">
+      <tr class="tableHeader">
+        <th>Sr. No</th>
+        <th>Line Item</th>
+        <th>Formula</th>
+        <th>Type</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product && let-i="rowIndex">
+      <tr class="tablerow">
+        <td>
+          {{ i+1 }}
+        </td>
+
+        <td>
+          {{ product.lineItem }}
+        </td>
+        <td>
+          {{ product.formula }}
+        </td>
+        <td>
+          {{ product.formulaType }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- table to add line-items -->
+<div *ngIf="topButtons">
+  <h2>
+    <i class="pi pi-chevron-left" (click)="onClickCancel()"></i>
+    Add Financial Ratio
+  </h2>
+  <!-- </div>
+
+<div *ngIf="createFormula"> -->
+  <form [formGroup]="financialRatioForm" autocomplete="off">
+    <div style="margin: 5vh">
+      <div class="grid p-fluid">
+        <div class="field col-12 md:col-3">
+        <label  for="name">Line Item Name</label>
+        
+          <input
+            type="text"
+            class="p-inputtext"
+            formControlName="lineItem"
+            pInputText
+            required
+            placeholder="Enter"
+          />
+          <br>
+          <small *ngIf="!financialRatioForm.get('lineItem')?.valid
+           && financialRatioForm.get('lineItem')?.touched">
+           <span style="color: red;">Enter Valid Line Item Name</span>
+           <br>
+           <span style="color: red">Line Item Name contains Alphabets only</span>
+           <br />
+           <span style="color: red"
+             >Line Item Name contains minimum 3 character and maximum 15 character
+           </span> 
+          </small>
+        </div>
+        <div class="field col-12 md:col-3">
+        <label  for="name"
+          >Line Item Type</label
+        >
+
+        
+          <p-dropdown
+            [options]="dataTypes"
+            optionValue="type"
+            formControlName="formulaType"
+            optionLabel="type"
+            placeholder="Select"
+            styleClass="inputBox1"
+            [required]="true"
+          >
+         </p-dropdown>
+         <br>
+         <small *ngIf="!financialRatioForm.get('formulaType')?.valid &&
+         financialRatioForm.get('formulaType')?.touched">
+       <span style="color: red;"> Field Is Mandatory </span>
+       </small>
+        </div>
+      </div>
+    </div>
+
+    <p-card
+      styleClass="externalCard"
+      [style]="{ width: '95%', margin: '0px 20px 40px 20px' }"
+    >
+      <h4>Ratio Builder</h4>
+      <ng-template pTemplate="content">
+        <div class="p-fluid grid">
+          <div class="p-fluid col-3">
+            <p-card styleClass="accesscard">
+              <ng-template pTemplate="title">
+                <p>Attributes</p>
+                <p-dropdown
+                  [filter]="true"
+                  filterBy="lineItem"
+                  styleClass="dropdown4"
+                  [options]="attributes"
+                  optionLabel="name"
+                  optionValue="name"
+                  placeholder="Attribute"
+                  [style]="{ width: '100%' }"
+                  [(ngModel)]="selectedLineItem"
+                  [ngModelOptions]="{ standalone: true }"
+                  (onChange)="onClickLineItem(selectedLineItem)"
+                  [required]="true"
+                  #selectedAttribute="ngModel"
+                >
+              </p-dropdown>
+              <br>
+              <small *ngIf="!selectedAttribute?.valid && selectedAttribute?.touched">
+                <span style="color: red"> Field Is Mandatory</span>
+              </small>
+              </ng-template>
+            </p-card>
+          </div>
+
+          <div class="field col-12 md:col-3">
+            <p-card styleClass="accesscard">
+              <ng-template pTemplate="title">
+                <p>Operations</p>
+                <p-dropdown
+                  [filter]="true"
+                  filterBy="symbol"
+                  styleClass="dropdown3"
+                  [options]="operations"
+                  optionLabel="symbol"
+                  optionValue="symbol"
+                  placeholder="Operations"
+                  [style]="{ width: '100%' }"
+                  [(ngModel)]="selectedSymbol"
+                  [ngModelOptions]="{ standalone: true }"
+                  (onChange)="onClickSymbol(selectedSymbol)"
+
+                >
+               </p-dropdown>
+               <!-- <br>
+               <small *ngIf="!selectedSymbol?.valid && selectedSymbol?.touched">
+                 <span style="color: red;">Mandatory Field</span>
+               </small> -->
+              </ng-template>
+            </p-card>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-card styleClass="formulaCard">
+              <h4 style="color: white">Quick Ratio:</h4>
+              <br /> <table>
+              <tr  style="display: inline-block;" class="displayFlex" *ngFor="let item of formula;let i = index">
+               <td>{{item.item}}</td>
+              </tr>
+               </table>
+               <!-- <div class="displayFlex" *ngFor="let item of formula;let i = index">
+                {{item.item}}
+              
+             </div> -->
+            </p-card>
+            <div class="footer">
+              <button style="width: 60px;height:25px;" class="p-button-sm button"   pButton (click)="onclear()">clear</button>
+            </div>  
+          </div>
+        </div>
+      </ng-template>
+    </p-card>
+    <div style="text-align: right">
+      <button
+        class="p-button-sm p-button-outlined cancelButton"
+        pButton
+        label="Cancel"
+        (click)="onClickCancel()"
+      ></button>
+      &nbsp;
+      <button
+      [disabled]="!financialRatioForm.valid"
+
+        class="p-button-sm button saveButton1"
+        pButton
+        label="Save"
+        (click)="onClickSave()"
+      ></button>
+    </div>
+    <!-- <p-card styleClass="card"></p-card> -->
+  </form>
+</div>

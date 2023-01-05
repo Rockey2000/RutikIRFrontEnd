@@ -1,0 +1,80 @@
+::ng-deep .headerLabel1 {
+    color: white !important;
+    font-size: larger !important;
+    font-weight: bold;
+  }
+  ::ng-deep .headerLabel1 * {
+    padding-top: 5rem !important;
+  }
+
+  ::ng-deep .dataValueTable{
+    margin-top: 30px;
+  }
+  ::ng-deep .usersTable {
+    margin-top: 40px;
+    border-radius: 07px;
+    /* overflow: hidden !important; */
+    border: 1px solid #2d2d2d;
+  }
+
+  .tablerow::ng-deep * {
+    color: white !important;
+    border-bottom: none !important;
+    background-color: #2d2d2d !important;
+  }
+  
+  .tablerow:hover {
+    color: white !important;
+    background-color: #415385 !important;
+    border-bottom: none !important;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #3b3b3b !important;
+  }
+  tr:nth-child(odd) {
+    background-color: #2d2d2d !important;
+  }
+  
+.tableHeader::ng-deep * {
+    background-color: #191919 !important;
+    color: white !important;
+    border-bottom: none !important;
+  }
+
+  :host::ng-deep .tableDP1 *{
+    background-color: #2d2d2d !important;
+    color: white !important;
+    border: none;
+  }
+  
+  ::ng-deep .tableDP1{
+  width: 10rem !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  }
+  :host::ng-deep .tableDP2 *{
+    background-color: #2d2d2d !important;
+    color: white !important;
+    border: none;
+  }
+  
+  ::ng-deep .tableDP2{
+  width: 10rem !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  }
+  :host::ng-deep .tableDP3 *{
+    background-color: #2d2d2d !important;
+    color: white !important;
+    border: none;
+  }
+  
+  ::ng-deep .tableDP3{
+  width: 10rem !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  }
+::ng-deep .checkbox{
+    background-color: aquamarine;
+  }

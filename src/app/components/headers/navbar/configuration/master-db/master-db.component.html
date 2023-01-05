@@ -1,0 +1,67 @@
+<div class="grid">
+  <div class="p-fluid col-2">
+    <p-dropdown
+      styleClass="tableList"
+      [options]="docList"
+      [(ngModel)]="selectedTableName"
+      optionLabel="docName"
+      optionValue="docName"
+      placeholder="Select"
+      (onChange)="onClickTable()"
+    ></p-dropdown>
+  </div>
+</div>
+&nbsp;
+
+<div>
+  <router-outlet></router-outlet>
+  <!-- <div *ngIf="selectedTableName === 'Balance Sheet' || table" style="color: white">
+    <app-balance-sheet [selectedTable]="selectedTableName"></app-balance-sheet>
+  </div>
+
+  <div *ngIf="selectedTableName === 'Income Statement'" style="color: white" >
+    <app-income-statement
+      [selectedTable]="selectedTableName"
+    ></app-income-statement>
+  </div>
+
+  <div *ngIf="selectedTableName === 'Cash Flow'" style="color: white">
+    <app-cash-flow [selectedTable]="selectedTableName"></app-cash-flow>
+  </div>
+
+  <div *ngIf="selectedTableName === 'Shareholder Data'" style="color: white">
+    <app-shareholder-data
+      [selectedTable]="selectedTableName"
+    ></app-shareholder-data>
+  </div>
+
+  <div
+    *ngIf="selectedTableName === 'Shareholder Contact Details'"
+    style="color: white"
+  >
+    <app-sh-contact-details
+      [selectedTable]="selectedTableName"
+    ></app-sh-contact-details>
+  </div>
+
+  <div *ngIf="selectedTableName === 'Shareholder Meeting'" style="color: white">
+    <app-meeting-data [selectedTable]="selectedTableName"></app-meeting-data>
+  </div>
+
+  <div *ngIf="selectedTableName === 'Financial Ratios'" style="color: white">
+    <app-financial-ratios
+      [selectedTable]="selectedTableName"
+    ></app-financial-ratios>
+  </div> -->
+</div>
+<br />
+
+<!-- Notification msg's -->
+
+<p-toast></p-toast>
+<div class="externalDiv">
+  <p-confirmDialog
+    header="Confirmation"
+    icon="pi pi-exclamation-triangle"
+  ></p-confirmDialog>
+</div>

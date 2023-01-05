@@ -1,0 +1,583 @@
+<!-- To add New User Details -->
+<form [formGroup]="userForm" autocomplete="off">
+  <div *ngIf="addUserDialogBox">
+    <label class="headerLabel1">
+      <i
+        class="pi pi-chevron-left"
+        style="width: 16px; height: 10px; cursor: pointer"
+        (click)="onClickBack()"
+      ></i>
+     <span>{{editUserForm? 'Edit User' : 'Create New User' }}</span>
+    </label>
+    <p-card styleClass="accessCard">
+      <div class="grid p-fluid">
+        <div class="field col-12 md:col-3">
+          <label>First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            formControlName="firstName"
+            pInputText
+            placeholder="Enter"
+            required
+            class="p-pInputText-sm"
+          />
+          <br />
+          <small
+            *ngIf="
+              !userForm.get('firstName')?.valid &&
+              userForm.get('firstName')?.touched
+            "
+          >
+            <span style="color: red">Invalid First Name</span> <br />
+          </small>
+          <small
+            *ngIf="
+              userForm.get('firstName')?.errors &&
+              userForm.get('firstName')?.touched
+            "
+          >
+            <span style="color: red">First Name contains Alphabets only</span>
+            <br />
+            <span style="color: red"
+              >First Name contains minimum 3 character and maximum 15 character
+            </span>
+          </small>
+        </div>
+
+        <div class="field col-12 md:col-3">
+          <label>Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            placeholder="Enter"
+            formControlName="lastName"
+            pInputText
+            required
+            class="p-pInputText-sm"
+          />
+          <br />
+          <small
+            *ngIf="
+              !userForm.get('lastName')?.valid &&
+              userForm.get('lastName')?.touched
+            "
+          >
+            <span style="color: red">Invalid LastName</span> <br />
+          </small>
+          <small
+            *ngIf="
+              userForm.get('firstName')?.errors &&
+              userForm.get('lastName')?.touched
+            "
+          >
+            <span style="color: red">Last Name contains Alphabets only</span>
+            <br />
+            <span style="color: red"
+              >Last Name contains minimum 3 character and maximum 15 character
+            </span>
+          </small>
+        </div>
+
+        <div class="field col-12 md:col-3">
+          <label>Domain</label>
+          <input
+            type="text"
+            id="domain"
+            formControlName="domain"
+            pInputText
+            placeholder="Enter"
+            required
+            class="p-pInputText-sm"
+          />
+          <br />
+          <small
+            *ngIf="
+              !userForm.get('domain')?.valid && userForm.get('domain')?.touched
+            "
+          >
+            <span style="color: red">Enter Valid Domain</span> <br />
+          </small>
+          <small
+            *ngIf="
+              userForm.get('firstName')?.errors &&
+              userForm.get('domain')?.touched
+            "
+          >
+            <span style="color: red">Domain Name contains Alphabets only</span>
+            <br />
+            <span style="color: red"
+              >Domain Name contains minimum 3 character and maximum 15 character
+            </span>
+          </small>
+        </div>
+
+        <div class="field col-12 md:col-3">
+          <label>Email</label>
+          <input
+            type="email"
+            id="emailId"
+            placeholder="Enter"
+            formControlName="email"
+            pInputText
+            required
+            class="p-pInputText-sm"
+          />
+          <br />
+          <small
+            *ngIf="
+              !userForm.get('email')?.valid && userForm.get('email')?.touched
+            "
+          >
+            <span style="color: red">Invalid Email</span>
+          </small>
+        </div>
+      </div>
+      <div class="grid p-fluid">
+        <div class="field col-12 md:col-3">
+          <label>Mobile Number</label>
+          <input
+            type="text"
+            id="mobileNumber"
+            placeholder="Enter"
+            formControlName="mobileNumber"
+            pInputText
+            class="p-pInputText-sm"
+          />
+          <br />
+          <small
+            *ngIf="
+              !userForm.get('mobileNumber')?.valid &&
+              userForm.get('mobileNumber')?.touched
+            "
+          >
+            <span style="color: red">Invalid Mobile Number</span> <br />
+          </small>
+          <small
+            *ngIf="
+              userForm.get('mobileNumber')?.errors &&
+              userForm.get('mobileNumber')?.touched
+            "
+          >
+            <span style="color: red"
+              >Mobile Number should start with 6/7/8/9</span
+            >
+          </small>
+        </div>
+
+        <div class="field col-12 md:col-3">
+          <label>Role</label>
+          <p-dropdown
+            [required]="true"
+            styleClass="roleDropdown"
+            [options]="roles1"
+            formControlName="roleName"
+            optionLabel="roleName"
+            optionValue="roleName"
+            placeholder="select Role"
+            (onChange)="onSelectRole()"
+          ></p-dropdown>
+          <br />
+          <small
+            *ngIf="
+              !userForm.get('role')?.valid && userForm.get('role')?.touched
+            "
+          >
+            <span style="color: red">mandatory Field</span>
+          </small>
+        </div>
+
+        <div class="field col-12 md:col-3">
+          <label>Assigned Name</label>
+          <input
+            type="text"
+            id="assignedName"
+            placeholder="Enter"
+            formControlName="assignedName"
+            pInputText
+            required
+            class="p-pInputText-sm"
+          />
+          <br />
+          <small
+            *ngIf="
+              !userForm.get('assignedName')?.valid &&
+              userForm.get('assignedName')?.touched
+            "
+          >
+            <span style="color: red">Enter Valid Assigned Name</span> <br />
+          </small>
+          <small
+            *ngIf="
+              userForm.get('assignedName')?.errors &&
+              userForm.get('assignedName')?.touched
+            "
+          >
+            <span style="color: red"
+              >Assigned name contains Alphabets only</span
+            >
+            <br />
+            <span style="color: red"
+              >Assigned name contains minimum 3 character and maximum 15
+              character</span
+            >
+          </small>
+        </div>
+      </div>
+
+      <div class="grid p-fluid">
+        <div class="field col-12 md:col-3">
+          <label>Status</label> <br />
+          <p-inputSwitch
+            [required]="true"
+            styleClass="inputSwitch"
+            placeholder="Enter"
+            [(ngModel)]="checked"
+            formControlName="status"
+            (onChange)="handleChange($event)"
+          ></p-inputSwitch>
+          &nbsp;
+          <span style="font-size: large" *ngIf="checked">Active</span>
+          <span style="font-size: large" *ngIf="!checked">In-active</span>
+        </div>
+        <label class="col-fixed" style="width: 100px"></label>
+        <div class="col"></div>
+      </div>
+    </p-card>
+<span *ngIf="!editUserForm">
+    <button
+      [disabled]="!userForm.valid"
+      pButton
+      label="Save"
+      class="p-button-sm saveButton"
+      (click)="onClickSave()"
+    ></button>
+</span>
+    <span *ngIf="editUserForm" style="float: right;">
+      <button
+      pButton
+      icon="pi pi-save"
+      label="Update"
+      class="p-button-sm updateButton"
+      [disabled]="!userForm.valid"
+      (click)="onClickUpdate()"
+    ></button>
+
+    <button
+    style="margin-left:10px;"
+    *ngIf="editUserForm"
+      pButton
+      label="Delete"
+      (click)="onClickDelete(userData.userid)"
+      class="p-button-sm p-button-outlined deleteButton"
+    ></button>
+
+    </span>
+  </div>
+  <!-- <p-card *ngIf="addUserDialogBox" styleClass="pcard"></p-card> -->
+</form>
+
+<!-- edit user -->
+<div *ngIf="editUserDialog">
+  <label class="headerLabel1">
+    <i
+      class="pi pi-chevron-left"
+      style="width: 16px; height: 10px; cursor: pointer"
+      (click)="onClickBack()"
+    ></i>
+    Edit User Details
+  </label>
+
+  <p-card styleClass="editAccessCard">
+    <div class="grid p-fluid">
+      <div class="field col-12 md:col-3">
+        <label>First Name</label>
+        <input
+          type="text"
+          id="firstName"
+          [(ngModel)]="userData.firstName"
+          pInputText
+          [ngModelOptions]="{ standalone: true }"
+          [pattern]="firstNamePattern"
+          #firstName="ngModel"
+          required
+          class="p-pInputText-sm"
+        />
+        <br />
+        <small *ngIf="!firstName?.valid && firstName?.touched">
+          <span style="color: red">Invalid First Name</span>
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label>Last Name</label>
+        <input
+          type="text"
+          id="lastName"
+          [(ngModel)]="userData.lastName"
+          pInputText
+          [ngModelOptions]="{ standalone: true }"
+          required
+          #lastName="ngModel"
+          [pattern]="lastNamePattern"
+          class="p-pInputText-sm"
+        />
+        <br />
+        <small *ngIf="!lastName?.valid && lastName?.touched">
+          <span style="color: red">Invalid Last Name</span>
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label>Domain</label>
+        <input
+          type="text"
+          id="domain"
+          [(ngModel)]="userData.domain"
+          pInputText
+          [ngModelOptions]="{ standalone: true }"
+          #domain="ngModel"
+          required
+          [pattern]="domainPattern"
+          class="p-pInputText-sm"
+        />
+        <br />
+        <small *ngIf="!domain?.valid && domain?.touched">
+          <span style="color: red">Invalid Domain</span>
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label>Email</label>
+        <input
+          type="email"
+          id="emailId"
+          [(ngModel)]="userData.email"
+          pInputText
+          required
+          #email="ngModel"
+          [ngModelOptions]="{ standalone: true }"
+          [pattern]="emailPattern"
+          class="p-pInputText-sm"
+        />
+        <small *ngIf="!email?.valid && email.touched">
+          <span style="color: red">Invalid Email</span>
+        </small>
+      </div>
+    </div>
+
+    <div class="grid p-fluid">
+      <div class="field col-12 md:col-3">
+        <label>Mobile Number</label>
+        <input
+          type="text"
+          id="mobileNumber"
+          [(ngModel)]="userData.mobileNumber"
+          pInputText
+          [ngModelOptions]="{ standalone: true }"
+          #mobileNumber="ngModel"
+          [pattern]="mobnumPattern"
+          required
+          class="p-pInputText-sm"
+        />
+        <br />
+        <small *ngIf="!mobileNumber?.valid && mobileNumber?.touched">
+          <span style="color: red">Invalid Mobile Number</span>
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label>Role</label>
+        <p-dropdown
+          styleClass="roleDropdown"
+          [options]="roles1"
+          [(ngModel)]="userData.roleName"
+          optionLabel="roleName"
+          placeholder="select"
+          optionValue="roleName"
+          [required]="true"
+          #role="ngModel"
+          [ngModelOptions]="{ standalone: true }"
+        ></p-dropdown>
+        <br />
+        <small *ngIf="!role?.valid && role?.touched">
+          <span style="color: red">Mandatory Field</span>
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-3">
+        <label>Assigned Name</label>
+        <input
+          type="text"
+          id="assignedName"
+          [(ngModel)]="userData.assignedName"
+          pInputText
+          [ngModelOptions]="{ standalone: true }"
+          #assignedName="ngModel"
+          required
+          [pattern]="assignedNamePattern"
+          class="p-pInputText-sm"
+        />
+        <br />
+        <small *ngIf="!assignedName?.valid && assignedName?.touched">
+          <span style="color: red">Invalid Assigned Name></span>
+        </small>
+      </div>
+    </div>
+
+    <div class="grid p-fluid">
+      <div class="field col-12 md:col-3">
+        <label>Status</label> <br />
+        <p-inputSwitch
+          styleClass="inputBox"
+          trueValue="Active"
+          falseValue="In-active"
+          [(ngModel)]="checked"
+          (onChange)="handleChange($event)"
+          [ngModelOptions]="{ standalone: true }"
+        ></p-inputSwitch>
+        &nbsp;
+        <span style="font-size: large" *ngIf="checked">{{ checked }}</span>
+        <span style="font-size: large" *ngIf="!checked">{{ checked }}</span>
+      </div>
+      <label class="col-fixed" style="width: 100px"></label>
+      <div class="col"></div>
+    </div>
+  </p-card>
+  <div style="float: right">
+    <button
+      pButton
+      label="Delete"
+      (click)="onClickDelete(userData.userid)"
+      class="p-button-sm p-button-outlined deleteButton"
+    ></button>
+    &nbsp;
+    <button
+      pButton
+      icon="pi pi-save"
+      label="Update"
+      class="p-button-sm updateButton"
+      (click)="onClickUpdate()"
+    ></button>
+  </div>
+  <!-- <p-card styleClass="accessCard1"></p-card> -->
+</div>
+
+<!-- to view all Users -->
+
+<div *ngIf="viewUsers">
+  <!-- <p-dropdown
+        styleClass="dropdown"
+        [options]="allUsers"
+        optionLabel="firstName"
+        optionValue="firstName"
+        [showClear]="true"
+        [filter]="true"
+        placeholder="select First Name"
+        (onChange)="dt.filter($event.value, 'firstName', 'startsWith')"
+      ></p-dropdown>
+      &nbsp;
+      <p-dropdown
+        styleClass="dropdown"
+        [options]="roles1"
+        optionLabel="roleName"
+        optionValue="roleName"
+        [showClear]="true"
+        [filter]="true"
+        placeholder="select role"
+        (onChange)="dt.filter($event.value, 'role', 'startsWith')"
+      ></p-dropdown> -->
+
+  <span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input
+      pInputText
+      class="p-inputtext-sm searchInputBox"
+      type="text"
+      (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+      placeholder="Search..."
+    />
+  </span>
+  &nbsp;
+  <button
+    pButton
+    label="Create New User"
+    icon="pi pi-plus-circle"
+    class="p-button-sm addUserButton"
+    (click)="onClickAddUser()"
+  ></button>
+
+  <br /><br />
+  <p-table
+    styleClass="p-datatable-sm usersTable"
+    #dt
+    [value]="allUsers"
+    [rows]="7"
+    [paginator]="false"
+    responsiveLayout="scroll"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    [globalFilterFields]="[
+      'firstName',
+      'lastName',
+      'roleName',
+      'domain',
+      'email',
+      'mobileNumber',
+      'Assigned AA',
+      'Assigned CU',
+      'Date',
+      'status',
+      'assignedName'
+    ]"
+  >
+    <ng-template pTemplate="header">
+      <tr class="tableHeader">
+        <!-- <th></th> -->
+        <th pSortableColumn="firstName" class="userHeader">
+          <label>First Name</label>
+        </th>
+        <th pSortableColumn="lastName">Last Name</th>
+        <th pSortableColumn="role">Role</th>
+        <th pSortableColumn="domain">Domain</th>
+        <th pSortableColumn="email">Email ID</th>
+        <th pSortableColumn="mobileNumber">Mobile Number</th>
+        <th pSortableColumn="Assigned CU">Assigned Name</th>
+        <th>Date</th>
+        <th pSortableColumn="status">Status</th>
+        <!-- <th></th> -->
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr (click)="editUser(user.userid)" class="tablerow">
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.roleName }}</td>
+        <td>{{ user.domain }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.mobileNumber }}</td>
+        <td>{{ user.assignedName }}</td>
+        <td>{{ user.createdOn | date: "EEE, dd-MMM yyyy" }}</td>
+        <td>{{ user.status }}</td>
+        <!-- <td>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-sm pbutton mr-2 editButton"
+              (click)="editUser(user.id)"
+            ></button>
+          </td> -->
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

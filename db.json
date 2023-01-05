@@ -1,0 +1,213 @@
+{
+  "user": [
+    {
+      "firstName": "Akshay shinde",
+      "lastName": "Shinde",
+      "email": "ashinde1760@gmail.com",
+      "mobileNumber": "9767897601",
+      "domain": "gmail",
+      "assignedName": "Siddesh",
+      "role": "Super Admin",
+      "configurationAccess": [
+        {
+          "access": "Financial Ratios"
+        }
+      ],
+      "dashboardAccess": [
+        {
+          "access": "section 3"
+        }
+      ],
+      "dataInjestionAccess": [
+        {
+          "access": "section 1"
+        }
+      ],
+      "createdOn": 1662139037136,
+      "status": "In-active",
+      "id": 1
+    },
+    {
+      "firstName": "Shivraj",
+      "lastName": "Godle",
+      "email": "shivraj@hotmail.com",
+      "mobileNumber": "9887867868",
+      "domain": "hotmail",
+      "assignedName": "Siddesh",
+      "role": "Admin",
+      "configurationAccess": [
+        {
+          "access": "Line Item Nomenclature"
+        }
+      ],
+      "dashboardAccess": [
+        {
+          "access": "section 3"
+        }
+      ],
+      "dataInjestionAccess": [
+        {
+          "access": "section 1"
+        }
+      ],
+      "createdOn": 1662139193568,
+      "status": "In-active",
+      "id": 2
+    }
+  ],
+  "role": [
+    {
+      "roleName": "Admin",
+      "description": "Access to view and download",
+      "dashboardAccess": [
+        "Data Injestion",
+        "Configuration"
+      ],
+      "status": "Active",
+      "createdOn": 1663650446199,
+      "id": 1,
+      "updatedOn": 1663651420111
+    },
+    {
+      "roleName": "SuperAdmin",
+      "description": "Access to edit roles",
+      "dashboardAccess": [
+        "Post Earning Analysis",
+        "Configuration",
+        "Role Management"
+      ],
+      "status": "Active",
+      "createdOn": 1663651632182,
+      "id": 2
+    }
+  ],
+  "masterData": [
+    {
+      "clientId": {
+        "clientID": "a123"
+      },
+      "portfolioId": "sas",
+      "folio": "sdd",
+      "shareholderName": "Akshay",
+      "holdingValue": "sefe",
+      "holdingPercentage": "dsd",
+      "minorcode": "PRO",
+      "tableName": "Shareholder Data",
+      "date": "2022-10-10T18:30:00.000Z",
+      "id": 1
+    },
+    {
+      "name": "",
+      "POC": "",
+      "address": "",
+      "email": "",
+      "contact": "",
+      "minorcode": "CMM",
+      "tableName": "Shareholder Contact Details",
+      "id": 2
+    },
+    {
+      "name": "Akshay Shinde",
+      "POC": "sasa",
+      "address": "pathare mala, chandan nagar bypass, nagar road pune14.\npathare mala, chandan nagar bypass, nagar road pune14",
+      "email": "ashinde1760@gmail.com",
+      "contact": "dsds",
+      "minorcode": "CBO",
+      "tableName": "Shareholder Contact Details",
+      "id": 3
+    },
+    {
+      "date": "2022-10-10T18:30:00.000Z",
+      "Organisation": "",
+      "subject": "",
+      "location": "",
+      "status": "",
+      "startTime": "",
+      "EndTime": "",
+      "Comments": "",
+      "Participants": "",
+      "Feedback": "",
+      "tableName": "Shareholder Meeting",
+      "id": 4
+    },
+    {
+      "date": "2022-10-10T18:30:00.000Z",
+      "Organisation": "sas",
+      "meetingWith": "BUY",
+      "subject": "sas",
+      "location": "sds",
+      "status": "",
+      "startTime": "dsd",
+      "EndTime": "dsd",
+      "StakeholderType": "BUY",
+      "meetingType": "Conference call",
+      "Comments": "2022-10-09T18:30:00.000Z",
+      "Participants": "dsds",
+      "Feedback": "dsd",
+      "tableName": "Shareholder Meeting",
+      "id": 5
+    }
+  ],
+  "formula": [
+    {
+      "formulaName": "EBIT",
+      "formulaType": "number",
+      "formula": "dsd+sasdas-sads*100",
+      "id": 1
+    },
+    {
+      "formulaName": "Revenue",
+      "formulaType": "number",
+      "formula": "dsd+sads*100",
+      "id": 2
+    }
+  ],
+  "analystLineItem": [
+    {
+      "analystId": "1720",
+      "masterTableSource": "sasas",
+      "analystLineItemName": "sasa",
+      "analystTableHeaderName": "jdjjds",
+      "id": 1
+    },
+    {
+      "analystId": "1740",
+      "masterTableSource": "sasas",
+      "analystLineItemName": "dfhj",
+      "analystTableHeaderName": "dsdkh",
+      "id": 2
+    },
+    {
+      "analystId": "",
+      "masterTableSource": "",
+      "analystLineItemName": "",
+      "analystTableHeaderName": "",
+      "id": 3
+    },
+    {
+      "analystId": "1730",
+      "masterTableSource": "Income Statment",
+      "analystLineItemName": "capital gain",
+      "analystTableHeaderName": "capital",
+      "id": 4
+    }
+  ],
+  "analystDetails":[
+    {
+    "analystName": "Rutik",
+    "analystId":"1100"
+    },
+    {
+      "analystName": "Akshay",
+      "analystId":"1200"
+      },
+      {
+        "analystName": "Siddesh",
+        "analystId":"1300"
+        },
+        {
+          "analystName": "Shubham",
+          "analystId":"1400"
+          }
+  ]
+}

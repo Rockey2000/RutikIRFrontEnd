@@ -1,0 +1,395 @@
+
+  <div class="upperBody" *ngIf="lineItemsTable">
+    <span class="p-input-icon-left searchbar" style="margin-bottom: 10px">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        class="searchInputBox"
+        pInputText
+        placeholder="Search"
+        (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+
+      />
+    </span>
+    <button
+      pButton
+      class="p-button-sm button button1"
+      label="Add Line Items"
+      icon="pi pi-plus-circle"
+      (click)="addLneItem()"
+    ></button>
+ 
+
+  <div style="margin: 0%; padding: 0%" >
+    <!-- <span class="p-input-icon-left searchbar" style="margin-bottom: 10px">
+          <i class="pi pi-search"></i>
+          <input type="text" pInputText placeholder="Search" />
+        </span> -->
+    <p-table
+    #dt1
+      styleClass="p-datatable-sm meetingDataTable"
+      responsiveLayout="scroll"
+      scrollHeight="100vh"
+      [value]="lineItems"
+      [globalFilterFields]="[
+      'date',
+      'startTime',
+      'endTime',
+      'organisation',
+      'stakeholderType',
+      'meetingType',
+      'status'
+    
+
+
+      ]"
+    >
+      <ng-template pTemplate="header">
+        <tr class="tableHeader">
+          <th>Sr. No</th>
+          <th>Meeting Date</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Organisation</th>
+          <th>Stakeholder Type</th>
+          <th>Meeting Type</th>
+          <th>Status</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product && let-i="rowIndex">
+        <tr class="tablerow">
+          <td>
+            {{ i + 1 }}
+          </td>
+
+          <td>
+            {{ product.date | date: "EEE, dd-MMM yyyy" }}
+          </td>
+          <td>
+            {{ product.startTime }}
+          </td>
+          <td>
+            {{ product.endTime }}
+          </td>
+          <td>
+            {{ product.organisation }}
+          </td>
+          <td>
+            {{ product.stakeholderType }}
+          </td>
+          <td>
+            {{ product.meetingType }}
+          </td>
+          <td>
+            {{ product.status }}
+          </td>
+          <!-- <td>
+              {{ product.folio }}
+            </td> -->
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<!-- table to add line-items -->
+<div *ngIf="topButtons">
+  <label class="label">
+    <i class="pi pi-chevron-left" (click)="onClickBack()"></i>
+    Add Shareholder Meeting Details
+  </label>
+  <form [formGroup]="lineItemForm" autocomplete="off">
+    <p-card
+      styleClass="contactDetailsCard"
+      [style]="{ width: '95%', margin: '0px 40px 40px 40px' }"
+    >
+      <ng-template pTemplate="content">
+        <div class="p-fluid grid">
+          <div class="field col-4">
+            <div class="field">
+              <label for="emailId">Date</label>
+              <p-calendar
+                class="inputBox"
+                placeholder="select Date"
+                formControlName="date"
+              ></p-calendar>
+            </div>
+
+            <div class="field">
+              <label for="organization">Organization</label>
+              <input
+                class="inputBox"
+                type="text"
+                id="organization"
+                pInputText
+                formControlName="organisation"
+                placeholder="Enter"
+                [pattern]="orgnisationPattern"
+                required
+              />
+              <br>
+              <small *ngIf="!lineItemForm.get('organisation')?.valid && lineItemForm.get('organisation')?.touched">
+                <span style="color: red;">Enter Valid Orgnization Name</span>
+                <span style="color: red">Orgnization Name contains Alphabets only</span>
+            <br />
+            <span style="color: red"
+              >Orgnization Name contains minimum 3 character and maximum 15 character
+            </span>
+              </small>
+            </div>
+            <!-- </div>
+            <div class="field col-12 md:col-4"> -->
+            <div class="field">
+              <label for="folio">Direct/Broker Meeting</label>
+              <p-dropdown
+                [options]="meetingsWith"
+                optionLabel="meetingWith"
+                optionValue="meetingWith"
+                placeholder="select"
+                styleClass="dropdown"
+                formControlName="broker"
+                [required]="true"
+
+              ></p-dropdown>
+              <br>
+              <small *ngIf="!lineItemForm.get('broker')?.valid && lineItemForm.get('broker')?.touched
+              ">
+                <span style="color: red;">Field Is Mandetory</span>
+              </small>
+            </div>
+            <!-- </div>
+            <div class="field col-12 md:col-4"> -->
+            <div class="field">
+              <label for="subject">Subject</label>
+              <input
+                class="inputBox"
+                type="text"
+                id="meetingType"
+                formControlName="subject"
+                placeholder="Enter"
+                pInputText
+                [pattern]="subjectPattern"
+                required
+              />
+              <br>
+              <small *ngIf="!lineItemForm.get('subject')?.valid && lineItemForm.get('subject')?.touched">
+                <span style="color: red;">Enter Valid Subject</span>
+                <br>
+                <span style="color: red">Subject Name contains Alphabets only</span>
+            <br />
+            <span style="color: red"
+              >Subject Name contains minimum 3 character and maximum 15 character
+            </span>
+              </small>
+            </div>
+            <!-- </div>
+            <div class="field col-12 md:col-4"> -->
+            <div class="field">
+              <label for="location">Location</label>
+              <input
+                class="inputBox"
+                type="text"
+                formControlName="location"
+                placeholder="Enter"
+                id="location"
+                pInputText
+                required
+                [pattern]="locationPattern"
+              />
+              <br>
+              <small *ngIf="!lineItemForm.get('location')?.valid && lineItemForm.get('location')?.touched">
+                <span style="color: red;">Enter Valid Location</span>
+                <br>
+                <span style="color: red">Location Name contains Alphabets only</span>
+            
+              </small>
+            </div>
+            <!-- </div>
+            <div class="field col-12 md:col-4"> -->
+            <div class="field">
+              <label for="holdingPercentage">Status</label>
+              <p-dropdown
+                [options]="status"
+                optionLabel="status"
+                optionValue="status"
+                placeholder="select"
+                styleClass="dropdown"
+                formControlName="status"
+                [required]="true"
+              ></p-dropdown>
+              <br>
+              <small *ngIf="!lineItemForm.get('status')?.valid && lineItemForm.get('status')?.touched">
+                <span style="color: red;"> Field Is Mandetory</span>
+              </small>
+            </div>
+          </div>
+          <div class="col-1"></div>
+          <div class="col-7">
+            <div class="grid">
+              <div class="col-6">
+                <div class="field">
+                  <label for="minorcode">Start Time</label>
+                  <input
+                    class="inputBox"
+                    type="text"
+                    id="holdingPercentage"
+                    pInputText
+                    placeholder="Enter"
+                    formControlName="startTime"
+                  />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="field">
+                  <label for="emailId">End Time</label>
+                  <input
+                    class="inputBox"
+                    type="text"
+                    id="holdingPercentage"
+                    pInputText
+                    placeholder="Enter"
+                    formControlName="endTime"
+                  />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="field">
+                  <label for="emailId">Stakeholder Type</label>
+                  <p-dropdown
+                    [options]="stakeholders"
+                    optionLabel="stakeholderType"
+                    optionValue="stakeholderType"
+                    placeholder="select"
+                    styleClass="dropdown"
+                    placeholder="Enter"
+                    formControlName="stakeholderType"
+                    [required]="true"
+                  ></p-dropdown>
+                  <br>
+                  <small *ngIf="!lineItemForm.get('stakeholderType')?.valid && lineItemForm.get('stakeholderType')?.touched">
+                    <span style="color: red;"> Field Is Mandetory</span>
+                  </small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="field">
+                  <label for="emailId">Meeting Type</label>
+                  <p-dropdown
+                    [options]="meetingTypes"
+                    optionLabel="meetingType"
+                    optionValue="meetingType"
+                    placeholder="select"
+                    styleClass="dropdown"
+                    placeholder="Enter"
+                    formControlName="meetingType"
+                    [required]="true"
+                  ></p-dropdown>
+                  <br>
+                  <small *ngIf="!lineItemForm.get('meetingType')?.valid && lineItemForm.get('meetingType')?.touched">
+                    <span style="color: red;">Field Is Mandetory</span>
+                  </small>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="field">
+                  <label for="emailId">Comments</label>
+                  <input
+                    class="inputBox"
+                    type="text"
+                    id="coments"
+                    pInputText
+                    placeholder="Enter"
+                    formControlName="comments"
+                    required
+                    [pattern]="commentPattern"
+                  />
+                  <br>
+                  <small *ngIf="!lineItemForm.get('comments')?.valid && lineItemForm.get('comments')?.touched">
+                    <span style="color: red;">Enter valid Comments</span>
+                    <br>
+                    <span style="color: red">Comments Contains Alphabets Only</span>
+            <br />
+            <span style="color: red"
+              >Comments Contains Minimum 3 Character And Maximum 15 Character
+            </span>
+                  </small>
+                  </div>
+              </div>
+              <div class="col-12">
+                <div class="field">
+                  <label for="emailId">Participants</label>
+                  <textarea
+                    class="inputBox"
+                    type="text"
+                    id="holdingPercentage"
+                    pInputTextarea
+                    class="dropdown"
+                    placeholder="Enter"
+                    formControlName="participants"
+                    required
+                    [pattern]="participantsPattern"
+                  ></textarea>
+                  <br>
+                  <small *ngIf="!lineItemForm.get('participants')?.valid && lineItemForm.get('participants')?.touched">
+                    <span style="color: red;">Enter Valid Participants Details</span>
+                    <br>
+                    <span style="color: red">Participants Details Contains Alphabets Only</span>
+            <br />
+            <span style="color: red"
+              >Participants Details Contains minimum 3 character and maximum 15 character
+            </span>
+                  </small>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="field">
+                  <label for="emailId">Feedback</label>
+                  <input
+                    class="inputBox"
+                    type="text"
+                    id="holdingPercentage"
+                    pInputText
+                    placeholder="Enter"
+                    formControlName="feedback"
+                    required
+                    [pattern]="feedbackPattern"
+                  />
+                  <br>
+                  <small *ngIf="!lineItemForm.get('feedback')?.valid && lineItemForm.get('feedback')?.touched">
+                    <span style="color: red;">Enter Valid Feedback Details</span>
+                    <br>
+                    <span style="color: red">FeedBack Details Contains Alphabets Only</span>
+                    <br />
+                    <span style="color: red"
+                      >Feedback Details Contains minimum 3 character and maximum 15 character
+                    </span>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-card>
+    <div style="text-align: right" >
+      <button
+        class="p-button-sm p-button-outlined cancelButton"
+        pButton
+        label="Cancel"
+        (click)="onClickBack()"
+      ></button>
+      &nbsp;
+      <button
+      [disabled]="!lineItemForm.valid"
+
+        class="p-button-sm saveButton"
+        pButton
+        label="Save"
+        (click)="onClickSave()"
+      ></button>
+    </div>
+    <!-- <p-card styleClass="card"></p-card> -->
+
+  </form>
+</div>

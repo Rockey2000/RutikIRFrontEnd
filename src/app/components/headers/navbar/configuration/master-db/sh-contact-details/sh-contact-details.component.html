@@ -1,0 +1,290 @@
+<div class="upperBody" *ngIf="lineItemsTable">
+  <span class="p-input-icon-left searchbar" style="margin-bottom: 10px">
+    <i class="pi pi-search"></i>
+    <input type="text" class="searchInputBox" 
+    pInputText placeholder="Search"
+    (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+    
+    />
+  </span>
+  <button
+    pButton
+    class="p-button-sm button button1"
+    label="Add Line Items"
+    icon="pi pi-plus-circle"
+    (click)="addLneItem()"
+  ></button>
+
+  <div style="margin: 0%; padding: 0%" >
+    <!-- <span class="p-input-icon-left searchbar" style="margin-bottom: 10px">
+          <i class="pi pi-search"></i>
+          <input type="text" pInputText placeholder="Search" />
+        </span> -->
+    <p-table
+        #dt1
+      styleClass="p-datatable-sm contactDetailsTable"
+      responsiveLayout="scroll"
+      scrollHeight="100vh"
+      [value]="lineItems"
+      [globalFilterFields]="[
+      'name',
+      'poc',
+      'address',
+      'email',
+      'contact',
+      'minorcode']"
+    >
+      <ng-template pTemplate="header">
+        <tr class="tableHeader">
+          <th>Sr. No</th>
+          <th>Name</th>
+          <th>POC</th>
+          <th>Address</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>Minorcode</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product && let-i="rowIndex">
+        <tr class="tablerow">
+          <td>
+            {{ i + 1 }}
+          </td>
+
+          <td>
+            {{ product.name }}
+          </td>
+          <td>
+            {{ product.poc }}
+          </td>
+          <td>
+            {{ product.address }}
+          </td>
+          <td>
+            {{ product.email }}
+          </td>
+          <td>
+            {{ product.contact }}
+          </td>
+          <td>
+            {{ product.minorcode }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<!-- table to add line-items -->
+<div *ngIf="topButtons">
+  <!-- 
+        <button
+          pButton
+          type="button"
+          icon="pi pi-plus-circle"
+          class="p-button-sm button"
+          label="Add"
+          appNewrow
+          [table]="dt"
+          [newRow]="newRow()"
+        ></button> -->
+
+  <label class="label">
+    <i class="pi pi-chevron-left" (click)="onClickCancle()"></i>
+    Add Shareholder Contact Details
+  </label>
+  <form [formGroup]="lineItemForm" autocomplete="off">
+    <p-card
+      styleClass="contactDetailsCard"
+      [style]="{ width: '95%', margin: '0px 40px 40px 40px' }"
+    >
+      <ng-template pTemplate="content">
+        <div class="grid fluid">
+          <label for="clientId" class="col-1" style="margin-top: 10px;">Name</label>
+          <div class="field col-12 md:col-3">
+
+            <input
+              class="p-pInputText-sm inputBox"
+              type="text"
+              id="name"
+              formControlName="name"
+              pInputText
+              required
+              [pattern]="namePattern"
+              placeholder="Enter"
+            />
+            <br />
+            <small
+              *ngIf="
+                !lineItemForm.get('name')?.valid &&
+                lineItemForm.get('name')?.touched
+              "
+            >
+              <span style="color: red">Enter Valid Name</span>
+              <!-- <br /> -->
+              <span style="color: red">&nbsp;Name contains Alphabets only</span>
+              <!-- <br /> -->
+              <span style="color: red"
+                >&nbsp;First Name contains minimum 3 character and maximum 15
+                character
+              </span>
+            </small>
+          </div>
+
+          <label for="shareholderName" class="col-1" style="margin-left: 40px;margin-top: 15px;">Address</label>
+          <div class="field col-12 md:col-6">
+            <textarea
+              class="inputBox"
+              type="text"
+              id="holdingPercentage"
+              formControlName="address"
+              pInputTextarea
+              required
+              placeholder="Enter"
+            ></textarea>
+            <br />
+            <small
+              *ngIf="
+                !lineItemForm.get('address')?.valid &&
+                lineItemForm.get('address')?.touched
+              "
+            >
+              <span style="color: red">Enter Valid Address</span>
+              <!-- <br /> -->
+              <!-- <span style="color: red">&nbsp;Address contains Alphabets only</span>
+              <br /> 
+              <span style="color: red"
+                >&nbsp;Address contains minimum 3 character and maximum 15 character
+              </span> -->
+            </small>
+          </div>
+        </div>
+        <div class="grid fluid">
+          <label for="PortfolioID" class="col-1" style="margin-top: 10px;">POC</label>
+          <div class="field col-12 md:col-3">
+          
+            <input
+              class="inputBox"
+              formControlName="poc"
+              type="text"
+              id="PortfolioID"
+              pInputText
+              [pattern]="pocPattern"
+              required
+              placeholder="Enter"
+            />
+            <br />
+            <small
+              *ngIf="
+                !lineItemForm.get('poc')?.valid &&
+                lineItemForm.get('poc')?.touched
+              "
+            >
+              <span style="color: red">Enter Valid POC</span>
+              <!-- <br /> -->
+              <span style="color: red">&nbsp;POC contains Alphabets only</span>
+              <!-- <br /> -->
+              <span style="color: red"
+                >&nbsp;POC contains minimum 3 character and maximum 15 character
+              </span>
+            </small>
+          </div>
+          <label for="holdingValue" style="margin-bottom: 10px" class="col-1" style="margin-left: 40px;margin-top: 10px;">Contact</label>
+          <div class="field col-12 md:col-3">
+            <input
+              class="inputBox"
+              type="text"
+              id="holdingValue"
+              formControlName="contact"
+              pInputText
+              required
+              [pattern]="contactPattern"
+              placeholder="Enter"
+            />
+            <br />
+            <small
+              *ngIf="
+                !lineItemForm.get('contact')?.valid &&
+                lineItemForm.get('contact')?.touched
+              "
+            >
+              <span style="color: red">Enter Valid Contact Details</span>
+              <!-- <br /> -->
+              <span style="color: red"
+                >&nbsp;Mobile Number should start with 6/7/8/9</span
+              >
+            </small>
+          </div>
+        </div>
+
+        <div class="grid p-fluid">
+          <label for="folio" class="col-1" style="margin-top: 10px;">Email</label>
+          <div class="field col-12 md:col-3">
+          
+            <input
+              class="inputBox"
+              type="text"
+              formControlName="email"
+              id="folio"
+              pInputText
+              required
+              placeholder="Enter"
+              [pattern]="emailPattern"
+            />
+            <br />
+            <small
+              *ngIf="
+                !lineItemForm.get('email')?.valid &&
+                lineItemForm.get('email')?.touched
+              "
+            >
+              <span style="color: red">Enter Valid Email Address</span>
+            </small>
+          </div>
+        </div>
+        <div class="grid p-fluid">
+          <label for="minorcode" class="col-1" style="margin-top: 10px;" >Minorcode</label>
+          <div class="field col-12 md:col-3">
+            
+            <p-dropdown
+              [required]="true"
+              styleClass="inputBox dropdown"
+              formControlName="minorcode"
+              [options]="minorcodes"
+              optionLabel="minorcode"
+              optionValue="minorcode"
+              placeholder="select"
+              [required]="true"
+            ></p-dropdown>
+            <!-- <br /> -->
+            <small
+              *ngIf="
+                !lineItemForm.get('minorcode')?.valid &&
+                lineItemForm.get('minorcode')?.touched
+              "
+            >
+              <span style="color: red"> Field Is Mandetory</span>
+            </small>
+          </div>
+        </div>
+      </ng-template>
+    </p-card>
+    <div style="text-align: right">
+      <button
+        class="p-button-sm p-button-outlined cancelButton"
+        pButton
+        label="Cancel"
+        (click)="onClickCancle()"
+      ></button>
+      &nbsp;
+      <button
+        [disabled]="!lineItemForm.valid"
+        class="p-button-sm saveButton"
+        pButton
+        label="Save"
+        (click)="onClickSave()"
+      ></button>
+    </div>
+    <!-- <p-card styleClass="card"></p-card> -->
+  </form>
+</div>

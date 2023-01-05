@@ -1,0 +1,14 @@
+<h2 style="color: white">
+  <i
+    class="pi pi-chevron-left"
+    (click)="onClickBack()"
+    style="cursor: pointer"
+  ></i>
+  Line Item Nomenclature
+</h2>
+
+<p-tabMenu class="tabmenu" [model]="items" routerLinkActive="active" [activeItem]="items[0]"></p-tabMenu>
+<div>
+  <br />
+  <router-outlet></router-outlet>
+</div>

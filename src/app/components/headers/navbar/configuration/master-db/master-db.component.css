@@ -1,0 +1,81 @@
+/* ::ng-deep .dropdown {
+  background-color: #2d2d2d !important;
+  border: 1px solid #50ad95 !important;
+  color: white !important;
+}
+
+::ng-deep input,
+.content {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+:host::ng-deep .dropdown * {
+  background-color: #2d2d2d !important;
+  color: white;
+}
+
+
+
+table {
+  counter-reset: section;
+}
+
+.count:before {
+  counter-increment: section;
+  content: counter(section);
+}
+
+
+:host::ng-deep .tableList * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+.tableHeader::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+}
+
+.tablerow,
+.table::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+}
+
+
+::ng-deep .button{
+  background-color: #D04A02 !important;
+  color: white !important;
+  border: 1px solid #D04A02 !important;
+  border-radius: 7%;
+}
+
+::ng-deep .uploadButton{
+  color: #D04A02 !important;
+  border: 1px solid #D04A02 !important;
+}
+
+
+::ng-deep .searchInputBox {
+  border: 1px solid #50ad95 !important;
+}
+
+::ng-deep .tableList {
+  width: 30% !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+} */
+
+
+:host::ng-deep .tableList *{
+  background-color: #2d2d2d !important;
+  color: white !important;
+
+}
+
+::ng-deep .tableList {
+  background-color: #2d2d2d !important;
+  color: white !important;
+
+}

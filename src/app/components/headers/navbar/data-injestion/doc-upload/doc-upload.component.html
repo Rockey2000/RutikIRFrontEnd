@@ -1,0 +1,96 @@
+<h2>Data</h2>
+<div class="outerDiv">
+  <div>
+    <p-dropdown class="dropdown"
+     placeholder="Select"
+     [options]="client"
+        defaultLabel="Client"
+        optionLabel="accessclient"
+        optionValue="accessclient"
+        placeholder="Select"
+        selectedItemsLabel="{0} items selected"
+    >
+    </p-dropdown>
+    <p-dropdown class="dropdown" placeholder="Select"
+    [options]="client"
+        defaultLabel="Client"
+        optionLabel="accessclient"
+        optionValue="accessclient"
+        placeholder="Select"
+        selectedItemsLabel="{0} items selected"
+    ></p-dropdown>
+
+    <!-- <button pButton icon="pi pi-list" id="listButton"></button>
+
+    <button pButton icon="pi pi-microsoft" id="gridButton"></button>
+
+    <button pButton icon="pi pi-calendar" id="calenderButton"></button>
+
+    <button
+        pButton
+        icon="pi pi-filter"
+        label="Filter"
+        class="filterBtn"
+      ></button> -->
+
+    <button
+      class="uploadButton"
+      pButton
+      label="Upload New Data"
+      icon="pi pi-plus-circle"
+      (click)="uploadNewData()"
+    ></button>
+    <span class="p-input-icon-left searchBox">
+      <i class="pi pi-search"></i>
+      <input type="text" pInputText placeholder="Search" class="searchInputBox" />
+    </span>
+
+  </div>
+</div>
+
+  <p-table
+  styleClass="p-datatable-sm uplodedDataTable"
+  #dt
+  [value]="dataIngestionData"
+  [rows]="7"
+  [paginator]="false"
+  responsiveLayout="scroll"
+  [rowHover]="true"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+  [globalFilterFields]="[
+    'client',
+    'documentType',
+    'fileName',
+    'analystName',
+   ]"
+>
+  <ng-template pTemplate="header">
+    <tr class="tableHeader">
+      <!-- <th></th> -->
+      <th>
+      <label>Client Name</label>
+      </th>
+      <th >Document Type</th>
+      <th>File Name</th>
+      <th>Analyst Name</th>
+      <th >Time Period</th>
+</tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+
+      <tr (click)="editTableValue(data.fileId)" class="tablerow">
+      <td>{{ data.client }}</td>
+      <td>{{ data.documentType }}</td>
+      <td>{{ data.fileName }}</td>
+      <td>{{ data.analystName }}</td>
+      <td>{{data.reportFrom| date: "EEE, dd-MMM yyyy"}} To {{data.reportTo| date: "EEE, dd-MMM yyyy"}}</td>
+      </tr>
+  </ng-template>
+</p-table>
+
+
+
+
+<router-outlet></router-outlet>

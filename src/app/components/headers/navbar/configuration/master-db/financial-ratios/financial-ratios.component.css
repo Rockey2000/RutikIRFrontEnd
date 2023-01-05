@@ -1,0 +1,326 @@
+/* ::ng-deep .dropdown {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  transition: none !important;
+}
+
+::ng-deep input,
+.content {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+:host::ng-deep .dropdown * {
+  background-color: #2d2d2d !important;
+  color: white;
+}
+
+:host::ng-deep .dropdown1 {
+  background-color: black !important;
+  color: white !important;
+}
+
+
+::ng-deep .label {
+  background-color: #26776d !important;
+  padding: 10px !important;
+  width: 100% !important;
+}
+
+::ng-deep .inputBox {
+  background-color: black !important;
+  color: white !important;
+  border-radius: 0% !important;
+  width: 20%;
+}
+
+::ng-deep .inputBox1 {
+  background-color: black !important;
+  color: white !important;
+  border-radius: 0% !important;
+  width: 15%;
+}
+
+::ng-deep .dropdownBox {
+  background-color: black !important;
+  border-radius: 0% !important;
+  margin-left: 100px !important;
+}
+
+table {
+  counter-reset: section;
+}
+
+.count:before {
+  counter-increment: section;
+  content: counter(section);
+}
+
+::ng-deep .tableList {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+.tableHeader::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+  padding: 10px !important;
+}
+
+.tablerow,
+.table::ng-deep * {
+  color: white !important;
+}
+
+::ng-deep .button {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: 1px solid #d04a02 !important;
+  border-radius: 7%;
+}
+
+
+::ng-deep .outlinedButton {
+  color: #d04a02 !important;
+  border: 1px solid #d04a02 !important;
+}
+
+::ng-deep .uploadButton {
+  color: #d04a02 !important;
+  border: 1px solid #d04a02 !important;
+}
+
+::ng-deep tr {
+  font-family: Helvetica;
+  font-size: 18px;
+}
+
+::ng-deep .searchbar{
+  border-color: #50AD95 !important;
+  text-align: left;
+  margin-top: 20px;
+  font-size: medium;
+}
+
+::ng-deep .button1{
+  float: right;
+  border-radius: 0%;
+  font-family: Helvetica;
+  font-size: 18px;
+  margin-top: 25px;
+  border-radius: 3px !important;
+}
+
+tr:nth-child(even) {
+  background-color: #3b3b3b !important;
+}
+tr:nth-child(odd) {
+  background-color: #2d2d2d !important;
+}
+
+::ng-deep .balancesheettable {
+  border-radius: 10px;
+  border: 2px solid #3b3b3b !important;
+  overflow: hidden !important;
+}
+
+::ng-deep .balancesheettable tr:last-child td {
+  border-bottom: 0 solid;
+}
+
+::ng-deep .searchInputBox {
+  border: 1px solid #50ad95 !important;
+}
+
+::ng-deep .userDialog {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-family: Helvetica !important;
+}
+
+::ng-deep .accesscard {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-family: Helvetica !important;
+}
+
+::ng-deep .formulaCard {
+  background-color: #3b3b3b !important;
+  margin-bottom: 5vh;
+}
+
+::ng-deep .AttributeTitle {
+  background-color: #50ad95;
+}
+
+::ng-deep .OperationsTitle {
+  background-color: #26776d;
+  color: white;
+  padding: 10px;
+  width: 100% !important;
+}
+
+::ng-deep h3{
+  font-weight: bold !important;
+  background-color: #26776d !important;
+  color: white !important;
+  padding: 15px !important;
+  margin: 0%;
+} */
+
+::ng-deep .searchbar {
+  border-color: #50ad95 !important;
+  text-align: left;
+  margin-top: 20px;
+  font-size: medium;
+}
+
+::ng-deep input {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-size: medium !important;
+}
+
+::ng-deep .button1 {
+  float: right;
+  border-radius: 0%;
+  font-family: Helvetica;
+  font-size: 18px;
+  margin-top: 25px;
+  border-radius: 3px !important;
+}
+
+::ng-deep .button {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: 1px solid #d04a02 !important;
+  border-radius: 7%;
+}
+
+tr:nth-child(even) {
+  background-color: #3b3b3b !important;
+}
+tr:nth-child(odd) {
+  background-color: #2d2d2d !important;
+}
+
+::ng-deep .financialRatioTable {
+  margin-top: 20px !important;
+  border-radius: 10px;
+  border: 2px solid #3b3b3b !important;
+  overflow: hidden !important;
+}
+::ng-deep .tablerow {
+  color: white !important;
+  border: none !important;
+}
+
+::ng-deep td {
+  border: none !important;
+}
+
+::ng-deep .tableList {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+.tableHeader::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+  padding: 10px !important;
+  border-bottom: none !important;
+}
+
+::ng-deep .inputBox {
+  font-size: medium;
+  width: 55%;
+}
+:host::ng-deep .inputBox1 * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .inputBox1 {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  width: 55%;
+
+}
+
+::ng-deep .dropdownBox {
+  margin-left: 5% !important;
+}
+
+::ng-deep .externalCard {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .accesscard {
+  background-color: #191919 !important;
+  color: white;
+  height: 200px;
+}
+
+::ng-deep p {
+  background-color: #26776d !important;
+  padding: 10px !important;
+  font-size: medium;
+  width: 100% !important;
+  margin-bottom: 0% !important;
+}
+:host::ng-deep .dropdown4 * {
+  background-color: #191919 !important;
+  color: white !important;
+  border-radius: 0% !important;
+  border: none !important;
+}
+:host::ng-deep .dropdown3 * {
+  background-color: #191919 !important;
+  color: white !important;
+  border-radius: 0% !important;
+  border: none !important;
+}
+
+::ng-deep .formulaCard {
+  background-color: #3b3b3b !important;
+  color: white !important;
+}
+
+::ng-deep .formula {
+  background-color: #5e5e5e !important;
+  color: white !important;
+  font-size: x-large;
+  flex-wrap: wrap;
+}
+
+::ng-deep .cancelButton {
+  color: #d04a02 !important;
+  width: 7% !important;
+}
+
+::ng-deep .saveButton1 {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  width: 7% !important;
+}
+
+::ng-deep h2{
+  cursor: pointer !important;
+  font-size: larger !important;
+
+}
+
+::ng-deep .card{
+  background-color: #191919;
+  margin-top: 5vh;
+}
+.footer{
+  float: right;
+  margin-right: 30px;
+  margin-top: 10px;
+}
+/* .flexDiv{
+  display: flex;
+} */

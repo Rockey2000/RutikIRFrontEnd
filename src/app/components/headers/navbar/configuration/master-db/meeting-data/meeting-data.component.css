@@ -1,0 +1,136 @@
+::ng-deep .dropdown {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep input,
+.content {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+:host::ng-deep .dropdown * {
+  background-color: #2d2d2d !important;
+  color: white;
+}
+
+/* new css */
+
+table {
+  counter-reset: section;
+}
+
+.count:before {
+  counter-increment: section;
+  content: counter(section);
+}
+
+::ng-deep .tableList {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+.tableHeader::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+  padding: 10px !important;
+}
+
+.tablerow,
+.table::ng-deep * {
+  /* background-color: #191919 !important; */
+  color: white !important;
+}
+
+::ng-deep .button {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: 1px solid #d04a02 !important;
+  border-radius: 7%;
+}
+
+::ng-deep .outlinedButton {
+  color: white !important;
+  border: 1px solid #d04a02 !important;
+}
+
+::ng-deep .uploadButton {
+  color: #d04a02 !important;
+  border: 1px solid #d04a02 !important;
+}
+
+::ng-deep tr {
+  font-family: Helvetica;
+  font-size: 18px;
+}
+
+::ng-deep .searchbar {
+  border-color: #50ad95 !important;
+  text-align: left;
+  margin-top: 20px;
+  font-size: medium;
+}
+
+::ng-deep .button1 {
+  float: right;
+  border-radius: 0%;
+  font-family: Helvetica;
+  font-size: 18px;
+  margin-top: 25px;
+  border-radius: 3px !important;
+}
+tr:nth-child(even) {
+  background-color: #3b3b3b !important;
+}
+tr:nth-child(odd) {
+  background-color: #2d2d2d !important;
+}
+
+::ng-deep .meetingDataTable {
+  margin-top: 20px !important;
+  border-radius: 10px;
+  border: 2px solid #3b3b3b !important;
+  overflow: hidden !important;
+}
+
+::ng-deep .meetingDataTable tr:last-child td {
+  border-bottom: 0 solid;
+}
+
+::ng-deep .searchInputBox {
+  border: 1px solid #50ad95 !important;
+}
+
+::ng-deep .contactDetailsCard {
+  margin-top: 20px !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-family: Helvetica !important;
+}
+
+::ng-deep .field {
+  margin-bottom: 5vh;
+}
+
+::ng-deep .label {
+  cursor: pointer !important;
+  font-size: larger !important;
+}
+
+::ng-deep .cancelButton {
+  color: #d04a02 !important;
+  width: 7% !important;
+}
+
+
+::ng-deep .saveButton {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  width: 7% !important;
+}
+
+::ng-deep .card{
+  background-color: #191919;
+  margin-top: 5vh;
+}

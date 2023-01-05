@@ -1,0 +1,63 @@
+::ng-deep .lineItemsMapTable{
+    margin-top: 20px !important;
+    border-radius: 10px;
+    border: 2px solid #3b3b3b !important;
+    overflow: hidden !important;
+  }
+
+  .tableHeader::ng-deep * {
+    background-color: #191919 !important;
+    color: white !important;
+    padding: 10px !important;
+    border-bottom: none !important;
+  }
+
+  tr:nth-child(even) {
+    background-color: #3b3b3b !important;
+    color: white;
+  }
+  tr:nth-child(odd) {
+    background-color: #2d2d2d !important;
+    color: white;
+  }
+
+  :host::ng-deep .Analystdropdown * {
+    background-color: #2d2d2d !important;
+    color: white;
+
+  }
+::ng-deep .Analystdropdown  {
+    background-color: #2d2d2d !important;
+    color: white;
+
+  }
+
+  :host::ng-deep .Masterdropdown * {
+    background-color: #2d2d2d !important;
+    color: white;
+
+   
+  }
+::ng-deep .Masterdropdown{
+    background-color: #2d2d2d !important;
+    color: white;
+
+  }
+
+::ng-deep .inputBox  {
+    background-color: #2d2d2d !important;
+    color: white;
+   
+  }
+
+  ::ng-deep .saveButton{
+    background-color: #D04A02 !important;
+    color: white !important;
+    border: none !important;
+  }
+  ::ng-deep .button {
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: 1px solid #d04a02 !important;
+    border-radius: 7%;
+  }

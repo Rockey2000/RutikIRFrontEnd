@@ -1,0 +1,128 @@
+::ng-deep .dataBox {
+  margin-top: 30px;
+}
+
+::ng-deep .headerLabel1 {
+  color: white !important;
+  font-size: larger !important;
+  font-weight: bold;
+}
+::ng-deep .headerLabel1 * {
+  padding-top: 5rem !important;
+}
+
+:host::ng-deep .cascade {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: 1px solid #26776d !important;
+}
+
+:host::ng-deep .cascade * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+:host::ng-deep .analystDropdown * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .analystDropdown {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  width: 200px;
+  border: 1px solid #26776d !important;
+}
+
+.calender {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: 1px solid #26776d !important;
+}
+
+:host::ng-deep .upload * {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+}
+
+:host::ng-deep .uploadBtn {
+  margin-left: -55px !important;
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 3px !important;
+}
+::ng-deep .datatable{
+ margin-top: 20px;
+
+}
+::ng-deep .table{
+  margin-top: 30px;
+}
+
+:host::ng-deep .tableDropdown *{
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: none;
+}
+
+::ng-deep .tableDropdown{
+width: 10rem !important;
+background-color: #2d2d2d !important;
+color: white !important;
+}
+
+::ng-deep .usersTable {
+  margin-top: 40px;
+  border-radius: 07px;
+  overflow: hidden !important;
+  border: 1px solid #2d2d2d;
+}
+
+.tableHeader::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+  border-bottom: none !important;
+}
+
+:host::ng-deep .roleHeader * {
+  background-color: #2d2d2d !important;
+  padding: 8px !important;
+  border-radius: 5px !important;
+  margin: 5px !important;
+  cursor: pointer;
+}
+
+.tablerow::ng-deep * {
+  color: white !important;
+  border-bottom: none !important;
+  background-color: #2d2d2d !important;
+}
+
+.tablerow:hover {
+  color: white !important;
+  background-color: #415385 !important;
+  border-bottom: none !important;
+}
+
+tr:nth-child(even) {
+  background-color: #3b3b3b !important;
+}
+tr:nth-child(odd) {
+  background-color: #2d2d2d !important;
+}
+
+:host::ng-deep .updateBtn {
+float: right;
+  margin: 10px;
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 3px !important;
+}
+
+::ng-deep .dataValueTable{
+  margin-top: 30px;
+}

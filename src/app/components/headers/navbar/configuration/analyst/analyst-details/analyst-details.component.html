@@ -1,0 +1,175 @@
+<div>
+  <div *ngIf="analystDetailsTable">
+    <span class="p-input-icon-left search-box">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        pInputText
+        class="p-inputtext-sm searchInputBox"
+        placeholder="Search"
+        (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+      />
+    </span>
+    <button
+      pButton
+      label="Add New Analyst"
+      icon="pi pi-plus-circle"
+      class="p-button-sm addAnalystButton"
+      (click)="onClickAdd()"
+    ></button>
+    <br />
+    <br />
+
+    <p-table
+      styleClass="p-datatable-sm lineItemsMapTable "
+      #dt
+      [value]="analystDetails"
+      [rows]="5"
+      [paginator]="false"
+      responsiveLayout="scroll"
+      [rowHover]="false"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+      [globalFilterFields]="[
+        'analystName',
+        'analystId',
+        'pocName',
+        'pocEmailId'
+      ]"
+    >
+      <ng-template pTemplate="header">
+        <tr class="tableHeader">
+          <th>Sr. No</th>
+          <th>Analyst Name</th>
+          <th>Analyst ID</th>
+          <th>POC Name</th>
+          <th>POC Email ID</th>
+          <th>Created on</th>
+          <!-- <th>Modified on</th> -->
+          <!-- <th>Reporting Currency</th>
+            <th>Reporting Unit</th> -->
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-analyst && let-i="rowIndex">
+        <tr (click)="editAnalyst(analyst)">
+          <td>{{ i + 1 }}</td>
+          <td>{{ analyst.analystName }}</td>
+          <td>{{ analyst.analystId }}</td>
+          <td>{{ analyst.pocName }}</td>
+          <td>{{ analyst.pocEmailId }}</td>
+          <td>{{ analyst.createdOn| date: "EEE, dd-MMM yyyy" }}</td>
+          <!-- <td></td>
+            <td></td> -->
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div *ngIf="AnalystForm">
+    <label class="headerLabel1">
+      <i class="pi pi-chevron-left" (click)="onClickBack()"></i>&nbsp;
+      <span>{{
+        editAnalystDetails ? "Edit Analyst Details" : "Create New Analyst"
+      }}</span>
+    </label>
+
+    <p-card styleClass="AnalystDetailsCard">
+      <div class="main">
+        <form [formGroup]="AnalystDetailsForm" autocomplete="off">
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="analystname">Analyst Name</label>&nbsp; &nbsp;
+              <span>
+              <input
+                id="analystname"
+                type="text"
+                class="inputBox"
+                pInputText
+                formControlName="analystName"
+                required="true"
+              />       
+                  <small
+                    *ngIf="!AnalystDetailsForm.get('analystName')?.valid && AnalystDetailsForm.get('analystName')?.touched"
+                  >
+                    <span style="color: red;margin-left: 140px;">Mandetory Field</span>
+                  </small>
+             </span>
+            </div>
+            <div class="field col">
+              <label for="pocname">POC Name</label>&nbsp; &nbsp;
+              <input
+                id="pocname"
+                type="text"
+                class="inputBox"
+                pInputText
+                formControlName="pocName"
+              />
+             
+    <small
+      *ngIf="!AnalystDetailsForm.get('pocName')?.valid && AnalystDetailsForm.get('pocName')?.touched"
+    >
+    <span style="color: red;margin-left: 140px;">Mandetory Field</span>
+  </small>
+
+            </div>
+            <div class="field col">
+              <label for="poceamil">POC Email ID</label>&nbsp; &nbsp;
+              <input
+                id="poceamil"
+                type="email"
+                class="inputBox"
+                pInputText
+                formControlName="pocEmailId"
+              />
+             
+    <small
+      *ngIf="!AnalystDetailsForm.get('pocEmailId')?.valid && AnalystDetailsForm.get('pocEmailId')?.touched"
+    >
+    <span style="color: red;margin-left: 140px;">Mandetory Field</span>
+  </small>
+            </div>
+          </div>
+        </form>
+      </div>
+    </p-card>
+    <div
+      style="text-align: right; margin-top: 10px"
+      *ngIf="!editAnalystDetails"
+    >
+      <button
+      [disabled]="!AnalystDetailsForm.valid"
+        class="p-button-sm saveButton"
+        pButton
+        label="Save"
+        (click)="onClickSave()"
+      ></button>
+    </div>
+    <div style="text-align: right; margin-top: 20px" *ngIf="editAnalystDetails">
+      <!-- <button class="p-button-sm saveButton" pButton label="Update" (click)="onClickUpdate()"></button> -->
+      <div style="float: right">
+        <button
+          pButton
+          label="Delete"
+          (click)="onClickDelete(analystData.analystId)"
+          class="p-button-sm p-button-outlined deleteButton"
+        ></button>
+        &nbsp;
+        <button
+          pButton
+          icon="pi pi-save"
+          label="Update"
+          class="p-button-sm updateButton"
+          (click)="onClickUpdate()"
+        ></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification msg's -->
+  <p-toast></p-toast>
+  <p-confirmDialog
+    header="Confirmation"
+    icon="pi pi-exclamation-triangle"
+  ></p-confirmDialog>
+</div>

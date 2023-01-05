@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="cardData">
+    <div class="flex card-container">
+      <div class="flex-none flex justify-content-center">
+        <!-- <i
+            class="pi pi-bars"
+            style="float: left; padding: 1rem; font-size: 2rem; cursor: pointer"
+            (click)="sideBar()"
+          ></i> -->
+          <span class="logo1">pwc</span>
+      </div>
+      <div class="flex-grow-1 flex align-items-left justify-content-left m-2">
+        <span style="margin-top: 10px !important; margin-left: 25px;" class="title1"
+          >Investor Relations Platform
+        </span>
+      </div>
+      <div
+        style="margin-top: 10px !important"
+        class="flex-none flex align-items-center justify-content-center m-2 px-3"
+      >
+        <img
+          src="assets/Images/notification_icon.png"
+          class="pi pi-angle-double-right"
+          alt=""
+        />
+        &nbsp;
+        &nbsp;
+        <span
+          class="profile"
+          >AS</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Left Panel -->
+ <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
+    <div class="logo-container">
+      <span *ngIf="!collapsed" class="toggleIcon" (click)="toggleCollapse()">
+        <img
+          src="assets/Images/collapse_out.png"
+          class="pi pi-angle-double-right"
+          alt=""
+        />
+      </span>
+
+      <span *ngIf="collapsed" class="toggleIcon" (click)="toggleCollapse()">
+        <img
+          src="assets/Images/collapse_in.png"
+          class="pi pi-angle-double-left"
+          alt=""
+        />
+        &nbsp; Collapse
+      </span>
+      <div class="logo-text" *ngIf="collapsed"></div>
+    </div>
+    <ul class="sidenav-nav">
+      <li class="sidenav-nav-item" *ngFor="let data of navData">
+        <a
+          class="sidenav-nav-link"
+          [routerLink]="[data.routeLink]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="toggleCollapse1()"
+        >
+          <img class="sidenav-link-icon" [src]="[data.image]" alt="" />
+
+          <span class="sidenav-link-text" *ngIf="collapsed">
+            {{ data.label }}
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+ 
+  <div class="pages">
+    <div class="bradcrumb">
+      <xng-breadcrumb [separator]="iconTemplate"></xng-breadcrumb>
+      <ng-template #iconTemplate>
+        <i class="pi pi-chevron-right" styleClass="bradcrumb"></i>
+      </ng-template>
+    </div>
+    <router-outlet></router-outlet>
+    <p-card styleClass="pcard"></p-card>
+
+  </div>
+
+</div>

@@ -1,0 +1,187 @@
+<div class="upperBody" *ngIf="lineItemsTable">
+  <span class="p-input-icon-left searchbar" style="margin-bottom: 10px">
+    <i class="pi pi-search"></i>
+    <input
+      type="text"
+      class="searchInputBox"
+      pInputText
+      placeholder="Search"
+      (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+    />
+  </span>
+  <button
+    pButton
+    class="p-button-sm button button1"
+    label="Add Line Items"
+    icon="pi pi-plus-circle"
+    (click)="addLneItem()"
+  ></button>
+
+  <div style="margin: 0%; padding: 0%">
+   
+    <p-table
+      #dt1
+      styleClass="p-datatable-sm balancesheettable"
+      responsiveLayout="scroll"
+      scrollHeight="100vh"
+      [value]="lineItems"
+      [globalFilterFields]="['lineItem', 'alternativeName', 'type']"
+    >
+      <ng-template pTemplate="header">
+        <tr class="tableHeader">
+          <th>Sr. No</th>
+          <th>Line Item</th>
+          <th>Alternative Name</th>
+          <th>Type</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product && let-i="rowIndex">
+        <tr class="tablerow">
+          <td>
+            {{ i + 1 }}
+          </td>
+
+          <td>
+            {{ product.lineItem }}
+          </td>
+          <td>
+            {{ product.alternativeName }}
+          </td>
+          <td>
+            {{ product.type }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+
+
+<div *ngIf="topButtons">
+  <label class="label">
+    <i class="pi pi-chevron-left" (click)="onClickCancel()" ></i> Balance Sheet Line Items
+  </label>
+  <button style="float: right;"
+    type="button"
+    pButton
+    type="button"
+    icon="pi pi-plus-circle"
+    class="p-button-sm button"
+    label="Add"
+    (click)="addRow()"
+  ></button>
+  <br />
+  <br />
+  <div class="balanceSheetForm">
+    <form [formGroup]="balanceSheetForm" (ngSubmit)="onClickSaveAll()" novalidate >
+      <div formArrayName="balanceSheetRow">
+        <p-table
+          #dt
+          [value]="balanceSheet.controls"
+          styleClass="p-datatable balancesheettable"
+          responsiveLayout="scroll"
+          scrollHeight="100vh"
+        >
+          <ng-template pTemplate="header">
+            <tr class="tableHeader">
+              <th style="width: 7rem">Sr no</th>
+              <th>Line Item</th>
+              <th>Alternative name</th>
+              <th style="width: 15rem">Type</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-balanceSheet form.controls.balanceSheetRow.controls && let-i="rowIndex">
+            <tr class="tablerow" [formGroupName]="i">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <span>
+                <input 
+                  style="width: 100%"
+                  pInputText
+                  type="text"
+                  placeholder="Enter"  
+                  formControlName="lineItem"
+                  [required]="true" 
+                />
+                <div
+                *ngIf="!balanceSheet.controls.lineItem?.valid && (balanceSheet.controls.lineItem?.dirty
+                ||balanceSheet.controls.lineItem?.touched)">
+                  <span style="color: red;font-size: 15px;">Line Item is required</span>
+              </div>
+              </span>
+              </td>
+              <td>
+                <span>
+                <input
+                  style="width: 100%"
+                  pInputText
+                  type="text"
+                  formControlName="alternativeName"
+                  required
+                  [required]="true" 
+                  placeholder="Enter"  
+                />
+                <div
+                *ngIf="!balanceSheet.controls.alternativeName?.valid && (balanceSheet.controls.alternativeName?.dirty
+                ||balanceSheet.controls.alternativeName?.touched)">
+                  <span style="color: red;font-size: 15px;">AlternativeName is required</span>
+              </div>
+              </span> 
+              </td>
+              <td>
+                <span>
+                <p-dropdown
+                  styleClass="dropdownbalance"
+                  [options]="lineItemTypes"
+                  optionLabel="type"
+                  optionValue="type"
+                  placeholder="Select"
+                  appendTo="body"
+                  [required]="true"
+                  formControlName="type"
+                
+
+                ></p-dropdown>
+                <div
+                *ngIf="!balanceSheet.controls.type?.valid && (balanceSheet.controls.type?.dirty
+                ||balanceSheet.controls.type?.touched)">
+                  <span style="color: red;font-size: 15px;">Type is required</span>
+              </div>
+              </span>
+              </td>
+              <td>
+                <span *ngIf="i>0">
+                <button
+                class="p-button-sm button"
+                  pButton
+                  icon="pi pi-times"
+                  (click)="removeRow(i)"
+                ></button>
+              </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <br /><br />
+      <button
+        class="p-button-sm button"
+        pButton
+        label="Save"
+        (click)="onClickSaveAll()"
+        style="float: right;"
+        [disabled]="!balanceSheetForm.valid"
+      ></button>
+    </form>
+  </div>
+</div>
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<br /><br />

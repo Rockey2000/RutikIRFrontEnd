@@ -1,0 +1,48 @@
+/* ::ng-deep .tabmenu{
+    color: #7D7D7D;
+    background-color: black;
+  }
+  .tabmenu::ng-deep *{
+    background-color: black !important;
+    color: #26776d !important;
+    font-size: 20px;
+    font-family: Helvetica;
+    
+  }
+  .tabmenu::ng-deep:hover {
+    color: #26776d !important;  
+  }
+  
+  ::ng-deep activeItem{
+    color: #26776d !important;
+  }
+   */
+
+:host::ng-deep .tabmenu *{
+    background-color: #191919 !important;
+    color: #7d7d7d !important;
+    font-size: large;
+   }
+
+/* .p-tabMenu-state-active {
+  color: red;
+} */
+/* ::ng-deep.tabmenu::selection {
+  color: #26776d !important;
+} */
+
+::ng-deep .tabmenu.active {
+  background-color: #26776d !important;
+}
+
+h2 {
+  font-family: Helvetica;
+  margin-bottom: 0px;
+}
+
+/* ::ng-deep .menuClass{
+  display: none;
+}
+::ng-deep .menuclass1{
+  display: contents;
+} */

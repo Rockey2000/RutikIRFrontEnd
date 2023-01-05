@@ -1,0 +1,565 @@
+<!-- <span style="width: 100%; height: 7vh; background-color: orange;"> Role Management</span> -->
+<!-- <h4 class="heading">Role Management</h4> -->
+
+<!-- To add New Role Details -->
+
+<!-- <p style="color: white;">Akshay</p> -->
+
+<form [formGroup]="roleForm" autocomplete="off">
+  <div *ngIf="addRoleDialogBox">
+    <label class="headerLabel2">
+      <i
+        class="pi pi-chevron-left"
+        style="width: 16px; height: 10px; cursor: pointer"
+        (click)="onClickBack()"
+      ></i>
+      <span>{{editRoleForm?'Edit Role':'Create New Role'}}</span>
+    </label>
+
+    <p-card styleClass="accessCard">
+      <div class="grid p-fluid">
+        <div class="field col-12 md:col-3">
+          <label for="firstname3">Role Name</label>
+          <input
+            type="text"
+            id="roleName"
+            formControlName="roleName"
+            pInputText
+            [pattern]="roleNamePattern"
+            placeholder="Enter"
+            class="p-pInputText-sm"
+          />
+          <br />
+          <small
+            *ngIf="
+              !roleForm.get('roleName')?.valid &&
+              roleForm.get('roleName')?.touched
+            "
+          >
+            <span style="color: red"> Invalid Role Name. </span>
+          </small>
+          <small
+            *ngIf="
+              roleForm.get('roleName')?.errors &&
+              roleForm.get('roleName')?.touched
+            "
+          >
+            <span style="color: red">
+              Role name should have only Alphabates
+            </span>
+            <br />
+            <span style="color: red">
+              Role name should have minimum 3 characters and maximum 15
+              characters
+            </span>
+          </small>
+        </div>
+        <span *ngIf="editRoleForm">
+        <div class="field col-12 md:col-12" >
+          <label for="">Number of Users</label>
+          
+          <span class="p-input-icon-right">
+            <i (click)="onClickRow(roleData)" class="pi pi-eye"></i>
+            <input
+              type="text"
+              id="roleName"
+              [value]="userCountPerUser"
+              pInputText
+              readonly
+              class="p-pInputText-sm editAdditionBox"
+            />
+          </span>
+         
+        </div>
+         </span>
+        <div class="field col-12 md:col-5">
+          <label>Description</label>
+
+          <textarea
+            type="text"
+            id="description"
+            formControlName="description"
+            pInputTextarea
+            required
+            placeholder="Enter"
+        
+            class="textArea"
+          ></textarea>
+          <small
+            *ngIf="
+              !roleForm.get('description')?.valid &&
+              roleForm.get('description')?.touched
+            "
+          >
+            <span style="color: red"> Invalid Description. </span>
+          </small>
+          <small
+            *ngIf="
+              roleForm.get('description')?.touched &&
+              roleForm.get('description')?.errors
+            "
+          >
+            <span style="color: red">
+              Description should have min 3 character and maximum 255 characters
+            </span>
+            <br />
+            <span style="color: red">
+              Description should not have special characters
+            </span>
+          </small>
+        </div>
+      </div>
+      <div class="grid p-fluid">
+        <div class="field col-12 md:col-3">
+          <label>Status</label> <br />
+          <p-inputSwitch
+          [required]="true"
+            styleClass="inputswitch"
+            [(ngModel)]="checked"
+            (onChange)="handleChange($event)"
+           formControlName="status"
+          ></p-inputSwitch>
+          &nbsp;
+          <span style="font-size: large" *ngIf="checked">Active</span>
+          <span style="font-size: large" *ngIf="!checked">In-Active</span>
+        </div>
+        <span *ngIf="editRoleForm">
+          <div class="field col-12 md:col-12" >
+            <label for="">Access Items</label>
+            <span class="p-input-icon-right">
+              <input
+                type="text"
+                id="roleName"
+                [value]="this.roleData1.dashboardAccess.length"
+                pInputText
+                readonly
+                class="p-pInputText-sm editAdditionBox"
+              />
+            </span>
+          </div>
+           </span>
+      </div>
+    </p-card>
+
+    <!-- <hr style="width: 100%" /> -->
+
+    <h2 class="headerLabel3">Access Management</h2>
+    <div class="p-fluid grid">
+      <div class="field col-3">
+        <label class="accessLabel">
+          <img src="assets/Images/bar-chart.png" /> &nbsp; Dashboard
+        </label>
+
+        <p-multiSelect
+          [required]="true"
+          styleClass="multiSelectDropdown"
+          [options]="access1"
+          formControlName="dashboardAccess"
+          defaultLabel="Select"
+          optionLabel="accessLabel"
+          optionValue="accessLabel"
+          placeholder="Select"
+          selectedItemsLabel="{0} items selected"
+        ></p-multiSelect>
+        <small
+          *ngIf="
+            !roleForm.get('dashboardAccess')?.valid &&
+            roleForm.get('dashboardAccess')?.touched
+          "
+        >
+          <span style="color: red"> Field is madnatory. </span>
+        </small>
+      </div>
+    </div>
+
+  <div>
+  <span *ngIf="editRoleForm">
+  <hr style="width: 50%; float: left" color="#26776d" />
+  <br />
+  <br />
+  <div style="float: left; color: #7d7d7d">
+   
+    <div class="p-fluid grid">
+      <div class="field col-12 md:col-6">
+        Created: Akshay <br />
+        {{ roleData.createdOn | date: "EEE, dd-MMM yyyy, h:mm:ss aa" }}
+      </div>
+      <div class="field col-12 md:col-6">
+        Last Edited: Akshay <br />
+        {{ roleData.lastEdit | date: "EEE, dd-MMM yyyy, h:mm:ss aa" }}
+      </div>
+    </div>
+    </div>
+    </span>
+  </div>          
+    <div style="text-align: right">
+      &nbsp;
+      <span *ngIf="!editRoleForm">
+      <button
+        [disabled]="!roleForm.valid"
+        pButton
+        label="Save"
+        class="p-button-sm saveButton"
+        (click)="onClickSave()"
+      ></button>
+      </span>
+     <span *ngIf="editRoleForm">
+      <button
+        pButton
+        label="Update"
+        class="p-button-sm updateButton"
+        [disabled]="!roleForm.valid"
+        (click)="onClickUpdate()"
+      ></button>
+      </span>
+    </div>
+ 
+  </div>
+</form>
+<!-- <p-card *ngIf="addRoleDialogBox" styleClass="pcard"></p-card> -->
+
+<!-- edit Role -->
+
+<div *ngIf="editRoleDialog">
+  <label class="headerLabel1">
+    <i
+      class="pi pi-chevron-left"
+      style="width: 16px; height: 10px; cursor: pointer"
+      (click)="onClickBack()"
+    ></i>
+    Edit Role
+  </label>
+
+  <p-card styleClass="accessCard1">
+    <div class="grid p-fluid">
+      <div class="field col-12 md:col-3">
+        <label for="roleName">Role Name</label>
+        <input
+          type="text"
+          id="roleName"
+          [(ngModel)]="roleData.roleName"
+          pInputText
+          [pattern]="roleNamePattern"
+          #roleName="ngModel"
+          required
+          class="p-pInputText-sm"
+        />
+        <br />
+
+        <small *ngIf="!roleName?.valid && roleName?.touched">
+          <span style="color: red"> Invalid Role Name </span>
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-2">
+        <label for="roleName">Number Of Users</label>
+
+        <span class="p-input-icon-right">
+          <i (click)="onClickRow(roleData)" class="pi pi-eye"></i>
+          <input
+            type="text"
+            id="roleName"
+            [value]="userCountPerUser"
+            pInputText
+            readonly
+            class="p-pInputText-sm editAdditionBox"
+          />
+        </span>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label>Description</label>
+
+        <textarea
+          type="description"
+          id="description"
+          [(ngModel)]="roleData.description"
+          pInputText
+          [pattern]="desciptionPattern"
+          #description="ngModel"
+          required
+         
+        ></textarea>
+        <small *ngIf="!description?.valid && description?.touched">
+          <span style="color: red"> Invalid description </span>
+        </small>
+      </div>
+    </div>
+    <div class="grid p-fluid">
+      <div class="field col-12 md:col-3">
+        <label for="status">Status</label> <br />
+        <p-inputSwitch
+          styleClass="inputswitch"
+          placeholder="Enter"
+          [(ngModel)]="checked"
+          formControlName="status"
+          (onChange)="handleChange($event)"
+        ></p-inputSwitch>
+        &nbsp;
+        <span style="font-size: large" *ngIf="checked">{{ checked }}</span>
+        <span style="font-size: large" *ngIf="!checked">{{ checked }}</span>
+      </div>
+
+      <div class="field col-12 md:col-2">
+        <label for="roleName">Access Items</label>
+
+        <span class="p-input-icon-right">
+          <input
+            type="text"
+            id="roleName"
+            [value]="this.roleData1.dashboardAccess.length"
+            pInputText
+            readonly
+            class="p-pInputText-sm editAdditionBox"
+          />
+        </span>
+      </div>
+    </div>
+  </p-card>
+
+  <!-- <hr style="width: 100%" /> -->
+
+  <h2 class="headerLabel2">Access Management</h2>
+  <div class="p-fluid grid">
+    <div class="field col-3">
+      <label class="accessLabel">
+        <img src="assets/Images/bar-chart.png" /> &nbsp; Dashboard
+      </label>
+
+      <p-multiSelect
+        [required]="true"
+        styleClass="multiSelectDropdown"
+        [options]="access1"
+        [(ngModel)]="roleData.dashboardAccess"
+        defaultLabel="Select"
+        optionLabel="accessLabel"
+        optionValue="accessLabel"
+        placeholder="Select"
+        #dashboardAccess="ngModel"
+        selectedItemsLabel="{0} items selected"
+        [ngModelOptions]="{ standalone: true }"
+      ></p-multiSelect>
+      <br />
+      <small *ngIf="!dashboardAccess?.valid && dashboardAccess?.touched">
+        <span style="color: red"> Field is mandatory.</span>
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <hr style="width: 50%; float: left" color="#26776d" />
+    <br />
+    <br />
+    <div style="float: left; color: #7d7d7d">
+      <div class="p-fluid grid">
+        <div class="field col-12 md:col-6">
+          Created: Akshay <br />
+          {{ roleData.createdOn | date: "EEE, dd-MMM yyyy, h:mm:ss aa" }}
+        </div>
+        <div class="field col-12 md:col-6">
+          Last Edited: Akshay <br />
+          {{ roleData.lastEdit | date: "EEE, dd-MMM yyyy, h:mm:ss aa" }}
+        </div>
+      </div>
+    </div>
+    <div style="float: right">
+      <!-- <button
+        pButton
+        label="Delete"
+        (click)="onClickDelete(roleData.id)"
+        class="p-button-sm p-button-outlined deleteButton"
+      ></button> -->
+
+      &nbsp;
+      <button
+        pButton
+        label="Update"
+        class="p-button-sm updateButton"
+        (click)="onClickUpdate()"
+      ></button>
+    </div>
+  </div>
+</div>
+
+<!-- <p-card *ngIf="editRoleDialog" styleClass="pcard"></p-card> -->
+
+<!-- to view all Users -->
+<div *ngIf="!addRoleDialogBox && !editRoleDialog && viewRoles">
+  <span class="p-input-icon-left search-box">
+    <i class="pi pi-search"></i>
+    <input
+      type="text"
+      pInputText
+      class="p-inputtext-sm searchInputBox"
+      placeholder="Search"
+      (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+    />
+  </span>
+  &nbsp;
+  <button
+    pButton
+    label="Create New Role"
+    icon="pi pi-plus-circle"
+    class="p-button-sm newRoleButton"
+    (click)="onClickAddRole()"
+  ></button>
+
+  <!-- <p-card> -->
+  <p-table
+    styleClass="p-datatable-sm roleTable"
+    #dt
+    [value]="allRoles"
+    [rows]="7"
+    [paginator]="false"
+    responsiveLayout="scroll"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    sortMode="multiple"
+    [globalFilterFields]="[
+      'roleName',
+      'numOfUser',
+      'description',
+      'accessItem',
+      'createdOn',
+      'status',
+      'lastEdit'
+    ]"
+  >
+    <ng-template pTemplate="header">
+      <tr class="tableHeader">
+        <!-- <th></th> -->
+        <th pSortableColumn="roleName" class="roleHeader">
+          <label>
+            Role <p-sortIcon styleClass="sortIcon" field="name" ></p-sortIcon
+          ></label>
+        </th>
+        <th>Description</th>
+        <th>No.of Users</th>
+        <th>Access Items</th>
+        <th>Status</th>
+        <th>Last Edit</th>
+        <th>Creation Date</th>
+        <!-- <th></th> -->
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-role>
+      <tr (click)="editRole(role)" class="tablerow">
+        <td>{{ role.roleName }}</td>
+        <td>{{ role.description }}</td>
+        <td>{{role.noOfUser}}</td>
+        <td>{{role.accessItem}}</td>
+        <td>{{ role.status }}</td>
+        <td>{{ role.lastEdit | date: "EEE, dd-MMM yyyy" }}</td>
+        <td>{{ role.createdOn | date: "EEE, dd-MMM yyyy" }}</td>
+        <!-- <td>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-sm editButton"
+              (click)="editRole(role)"
+              title="edit"
+            ></button>
+          </td> -->
+      </tr>
+    </ng-template>
+  </p-table>
+  <!-- </p-card> -->
+</div>
+
+<!-- rolewise users -->
+
+<div *ngIf="usersByRole" >
+  <h2 style="color: white">
+    <i
+      class="pi pi-chevron-left"
+      (click)="onClickBack()"
+      style="cursor: pointer"
+    ></i>
+    {{ ViewRoleName }}
+  </h2>
+
+  <div>
+    <!-- <p-dropdown
+        placeholder="Analyst admin 2"
+        styleClass="dropdown filter"
+      ></p-dropdown>
+      &nbsp;
+      <p-dropdown placeholder="sort" styleClass="dropdown filter"></p-dropdown>
+      &nbsp; -->
+    <span class="p-input-icon-left search-box">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        pInputText
+        class="p-inputtext-sm searchInputBox"
+        placeholder="Search"
+        (input)="dt.filterGlobal($any($event.target).value,'contains')"
+      />
+    </span>
+  </div>
+
+  <p-table
+    styleClass="p-datatable-sm roleTable "
+    #dt
+    [value]="userByRoles"
+    [rows]="7"
+    [paginator]="false"
+    responsiveLayout="scroll"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    [globalFilterFields]="[
+      'firstName',
+      'lastName',
+      'email',
+      'status',
+      'editedOn',
+      'createdOn'
+
+]"
+  >
+    <ng-template pTemplate="header">
+      <tr class="tableHeader">
+        <th pSortableColumn="firstName" class="roleHeader">
+          <label>
+            First Name
+            <p-sortIcon field="firstName"></p-sortIcon
+          ></label>
+        </th>
+        <th>Last Name</th>
+        <th>Email ID</th>
+        <th>Status</th>
+        <th>Last Edit</th>
+        <th>Creation Date</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr class="tablerow1">
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td [ngClass]="user.status === 'Active' ? 'green' : 'red'">
+          {{ user.status }}
+        </td>
+        <td>{{ user.editedOn | date: "EEE, dd-MMM yyyy, h:mm:ss aa" }}</td>
+        <td>{{ user.createdOn | date: "EEE, dd-MMM yyyy, h:mm:ss aa" }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<br /><br />
+
+
+

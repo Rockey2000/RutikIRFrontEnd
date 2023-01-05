@@ -1,0 +1,75 @@
+::ng-deep .searchInputBox{
+    background-color: #191919 !important;
+    color: white !important;
+    font-size: medium !important;
+    border-color: #50AD95 !important;
+}
+
+::ng-deep .addAnalystButton{
+    background-color: #D04A02 !important;
+    color: white !important;
+    border: none !important;
+    float: right;
+  }
+
+  ::ng-deep .lineItemsMapTable{
+    margin-top: 20px !important;
+    border-radius: 10px;
+    border: 2px solid #3b3b3b !important;
+    overflow: hidden !important;
+  }
+
+  .tableHeader::ng-deep * {
+    background-color: #191919 !important;
+    color: white !important;
+    padding: 10px !important;
+  }
+
+  tr:nth-child(even) {
+    background-color: #3b3b3b !important;
+    color: white;
+  }
+  tr:nth-child(odd) {
+    background-color: #2d2d2d !important;
+    color: white;
+  }
+
+  /* analyst Details Form  */
+  ::ng-deep .headerLabel1{
+  font-size: x-large;
+  }
+
+  ::ng-deep .AnalystDetailsCard {
+    margin-top: 100px !important;
+    background-color: #2D2D2D !important;
+    color: white !important;
+    font-family: Helvetica !important;
+    height: 150px;
+  }
+.main{
+    flex-wrap: wrap;
+}
+
+::ng-deep .inputBox  {
+    background-color: #2d2d2d !important;
+    color: white;
+   
+  }
+::ng-deep .saveButton {
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: none !important;
+    width: 7% !important;
+
+  }
+
+  ::ng-deep .updateButton {
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: none !important;
+  }
+  
+  ::ng-deep .deleteButton {
+    color: #d04a02 !important;
+  }
+ 

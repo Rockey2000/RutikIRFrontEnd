@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Outline-v2" transform="translate(24) rotate(90)">
+    <g id="Upload" transform="translate(0 0)">
+      <path id="Combined-Shape" d="M27.25,19.5h0v1.81l-3.917,3.923a.75.75,0,0,1-1.06-1.06L28,18.44l5.733,5.733a.752.752,0,0,1-1.067,1.06L28.75,21.31V30h-1.5Zm0,10.5H17.5V15h21V30H28.75v1.5H40V15a1.5,1.5,0,0,0-1.5-1.5h-21A1.5,1.5,0,0,0,16,15V31.5H28.75V30Zm0,7.5h1.5v-6h-1.5Z" transform="translate(40 37.5) rotate(180)" fill="#7d7d7d"/>
+    </g>
+  </g>
+</svg>

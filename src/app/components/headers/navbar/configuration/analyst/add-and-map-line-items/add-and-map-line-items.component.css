@@ -1,0 +1,10 @@
+:host::ng-deep .tabmenu * {
+  background-color: #191919 !important;
+  color: #7d7d7d !important;
+  font-size: large;
+}
+
+::ng-deep .headerLabel1 {
+    font-size: x-large;
+    font-weight: bold;
+}

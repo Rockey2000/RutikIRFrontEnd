@@ -1,0 +1,198 @@
+::ng-deep .headerLabel1 {
+  color: white !important;
+  font-size: larger !important;
+  font-weight: bold;
+  font-family: helvetica;
+}
+
+::ng-deep .headerLabel2 {
+  color: white !important;
+  font-size: larger;
+}
+::ng-deep .headerLabel3 {
+  color: white !important;
+  font-size: larger;
+}
+
+::ng-deep .accessCard {
+  margin-top: 10px !important;
+  /* margin-bottom: -10px !important; */
+  background-color: #2d2d2d;
+  color: white;
+  border-left: 10px solid #62719a;
+}
+::ng-deep .accessCard1 {
+  margin-top: 20px !important;
+  background-color: #2d2d2d;
+  color: white;
+  border-left: 10px solid #d04a02;
+}
+
+::ng-deep .text-color {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep textarea,input {
+  width: 100% !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+
+/* ::ng-deep .feild {
+  margin-bottom: 30px !important;
+} */
+
+::ng-deep .label,
+.status {
+  font-weight: bold;
+}
+
+::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: #26776d;
+}
+
+::ng-deep .accessLabel {
+  margin-top: 10px;
+  background-color: #26776d !important;
+  color: white !important;
+  padding: 10px !important;
+  width: 100% !important;
+  font-size: larger;
+}
+
+:host::ng-deep .multiSelectDropdown * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+::ng-deep .multiSelectDropdown{
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .saveButton {
+  background-color: #d04a02 !important;
+  border: #d04a02 !important;
+  width: 173px !important;
+}
+
+::ng-deep .searchInputBox {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-size: medium !important;
+  border: 1px solid #26776d !important;
+}
+
+::ng-deep .newRoleButton {
+  background-color: #d04a02 !important;
+  color: white !important;
+  float: right !important;
+  border: none !important;
+  border-radius: 4px !important ;
+}
+
+::ng-deep .topButtons {
+  margin-bottom: 20px !important;
+}
+
+::ng-deep .roleTable {
+  margin-top: 20px !important;
+  border-radius: 07px;
+  overflow: hidden !important;
+  border: 1px solid #2d2d2d;
+}
+
+.tableHeader::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+  border-bottom: none !important;
+  padding: 7px !important;
+}
+
+::ng-deep .tableCard {
+  background-color: #2d2d2d !important;
+  margin: 0% !important;
+  padding: 0% !important;
+}
+
+:host::ng-deep .roleHeader * {
+  background-color: #2d2d2d !important;
+  padding: 8px !important;
+  border-radius: 5px !important;
+  margin: 5px !important;
+  cursor: pointer;
+}
+::ng-deep .sortIcon * {
+  color: #26776d !important;
+  /* width: 100px; */
+}
+
+.tablerow::ng-deep * {
+  color: white !important;
+  border-bottom: none !important;
+}
+
+.tablerow1::ng-deep * {
+  color: white !important;
+  border-bottom: none !important;
+}
+
+tr:nth-child(even) {
+  background-color: #3b3b3b !important;
+}
+tr:nth-child(odd) {
+  background-color: #2d2d2d !important;
+}
+
+::ng-deep .editButton {
+  background-color: #d04a02;
+  color: white !important;
+  border: none !important;
+}
+
+.tablerow:hover {
+  background-color: #415385 !important;
+  cursor: pointer;
+  padding: 10px !important;
+  border-radius: 5px !important;
+}
+
+.editButton:hover {
+  background-color: #d04a02;
+  color: white !important;
+  border: none !important;
+}
+
+::ng-deep .updateButton {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  font-size: medium;
+}
+
+::ng-deep .deleteButton {
+  color: #d04a02 !important;
+  font-size: large;
+}
+
+::ng-deep tr {
+  border-radius: 5px !important;
+}
+
+/* ::ng-deep .pcard{
+    background-color: #191919 !important;
+  } */
+::ng-deep .pi-eye {
+  cursor: pointer;
+  color: #26776d !important;
+}
+
+::ng-deep .red {
+  color: red !important;
+}
+
+::ng-deep .green {
+  color: green !important;
+}
+

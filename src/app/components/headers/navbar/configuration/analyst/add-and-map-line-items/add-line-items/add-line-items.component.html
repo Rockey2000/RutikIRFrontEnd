@@ -1,0 +1,285 @@
+<div>
+  <div style="text-align: right; margin-bottom: 20px; margin-top: 20px">
+    <button
+      pButton
+      type="button"
+      icon="pi pi-plus-circle"
+      class="p-button-sm addButton"
+      label="Add"
+      (click)="addRow()"
+    ></button>
+  </div>
+  <form [formGroup]="analystLineItemForm">
+    <div formArrayName="analystLineItemRow">
+      <p-table
+        #dt
+        [value]="analystLineItem.controls"
+        styleClass="p-datatable lineItemsMapTable"
+        responsiveLayout="scroll"
+        scrollHeight="100vh"
+    
+      >
+      <ng-template pTemplate="header">
+        <tr class="tableHeader">
+          <th>Sr. No</th>
+          <th>Analyst Name</th>
+          <th>Master Table Source</th>
+          <th>Analyst Line Item Name</th>
+          <th>Analyst Table Header</th>
+        </tr>
+      </ng-template>
+        <ng-template pTemplate="body" let-analystLineItem && let-i="rowIndex">
+          <tr class="tablerow" [formGroupName]="i">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <p-dropdown
+                styleClass="Analystdropdown"
+                [options]="analystDetails"
+                optionLabel="analystName"
+                optionValue="analystName"
+                placeholder="Select"
+                appendTo="body"
+                formControlName="analystName"
+                [required]="true"
+              ></p-dropdown>
+              <div
+                *ngIf="!analystLineItem.controls.analystName?.valid && (analystLineItem.controls.analystName?.dirty
+                ||analystLineItem.controls.analystName?.touched)">
+                  <span style="color: red;font-size: 15px;">Analyst Name is required</span>
+              </div>
+            </td>
+            <td>
+              <p-dropdown
+                styleClass="Masterdropdown"
+                [options]="value"
+                optionValue="tableContent"
+                optionLabel="tableContent"
+                placeholder="Select"
+                appendTo="body"
+                formControlName="masterTableSource"
+                [required]="true"
+              ></p-dropdown>
+              <div
+                *ngIf="!analystLineItem.controls.masterTableSource?.valid && (analystLineItem.controls.masterTableSource?.dirty
+                ||analystLineItem.controls.masterTableSource?.touched)">
+                  <span style="color: red;font-size: 15px;">Master Table Source is required</span>
+              </div>
+            </td>
+            <td>
+              <input
+                class="inputBox"
+                type="text"
+                pInputText
+                placeholder="Enter"
+                formControlName="analystLineItemName"
+           
+                required
+              />
+              <div
+                *ngIf="!analystLineItem.controls.analystLineItemName?.valid && (analystLineItem.controls.analystLineItemName?.dirty
+                ||analystLineItem.controls.analystLineItemName?.touched)">
+                  <span style="color: red;font-size: 15px;">Analyst Line Item Name is required</span>
+              </div>
+            </td>
+            <td>
+              <input
+                class="inputBox"
+                type="text"
+                pInputText
+                placeholder="Enter"
+                formControlName="analystTableHeaderName"
+            
+                required
+              />
+              <div
+                *ngIf="!analystLineItem.controls.analystTableHeaderName?.valid && (analystLineItem.controls.analystTableHeaderName?.dirty
+                ||analystLineItem.controls.analystTableHeaderName?.touched)">
+                  <span style="color: red;font-size: 15px;">Analyst Table Header Name is required</span>
+              </div>
+            </td>
+            <td>
+              <span *ngIf="i>0">
+              <button
+              class="p-button-sm button"
+                pButton
+                icon="pi pi-times"
+                (click)="removeRow(i)"
+              ></button>
+            </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <br /><br />
+    <button
+      class="p-button-sm button"
+      pButton
+      label="Save"
+      (click)="onClickSaveAll()"
+      style="float: right;"
+      [disabled]="!analystLineItemForm.valid"
+    ></button>
+  </form>
+</div>
+
+  <!-- Notification msg's -->
+  <p-toast></p-toast>
+  <p-confirmDialog
+    header="Confirmation"
+    icon="pi pi-exclamation-triangle"
+  ></p-confirmDialog>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div>
+<form [formGroup]="analystLineItemForm">
+    <div style="text-align: right; margin-bottom: 20px; margin-top: 20px">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-plus-circle"
+        class="p-button-sm addButton"
+        label="Add"
+        appNewrow
+        [table]="dt"
+        [newRow]="newRow()"
+      ></button>
+    </div>
+
+    <p-table
+      #dt
+      dataKey="id"
+      editMode="row"
+      styleClass="p-datatable lineItemsMapTable"
+      responsiveLayout="scroll"
+      scrollHeight="100vh"
+      [value]="passengerForm"
+    >
+      <ng-template pTemplate="header">
+        <tr class="tableHeader">
+          <th>Sr. No</th>
+          <th>Analyst Name</th>
+          <th>Master Table Source</th>
+          <th>Analyst Line Item Name</th>
+          <th>Analyst Table Header</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product && let-i="rowIndex">
+        <tr class="tablerow">
+          <td style="text-align: center">{{ i + 1 }}.</td>
+          <td>
+            <p-dropdown
+              styleClass="Analystdropdown"
+              [options]="analystDetails"
+              optionLabel="analystName"
+              optionValue="analystName"
+              placeholder="Select"
+              appendTo="body"
+              formControlName="analystName"
+              [required]="true"
+            ></p-dropdown>
+            <br />
+            <small
+              *ngIf="
+                !analystLineItemForm.get('analystName')?.valid &&
+                analystLineItemForm.get('analystName')?.touched
+              "
+            >
+              <span style="color: red">Field Is Mandetory</span>
+            </small>
+          </td>
+
+          <td>
+            <p-dropdown
+              styleClass="Masterdropdown"
+              [options]="value"
+              optionValue="tableContent"
+              optionLabel="tableContent"
+              placeholder="Select"
+              appendTo="body"
+              formControlName="masterTableSource"
+              [required]="true"
+            ></p-dropdown>
+            <br />
+            <small
+              *ngIf="
+                !analystLineItemForm.get('masterTableSource')?.valid &&
+                analystLineItemForm.get('masterTableSource')?.touched
+              "
+            >
+              <span style="color: red">Field Is Mandetory </span>
+            </small>
+          </td>
+          <td>
+            <input
+              class="inputBox"
+              type="text"
+              pInputText
+              placeholder="Enter"
+              formControlName="analystLineItemName"
+              [pattern]="analystLineItemNamePattern"
+              required
+            />
+            <br />
+            <small
+              *ngIf="
+                !analystLineItemForm.get('analystLineItemName')?.valid &&
+                analystLineItemForm.get('analystLineItemName')?.touched
+              "
+            >
+              <span style="color: red"
+                >Enter Valid Analyst Line Item Name</span
+              >
+            </small>
+          </td>
+          <td>
+            <input
+              class="inputBox"
+              type="text"
+              pInputText
+              placeholder="Enter"
+              formControlName="analystTableHeaderName"
+              [pattern]="analystTableHeaderNamePattern"
+              required
+            />
+            <br />
+            <small
+              *ngIf="
+                !analystLineItemForm.get('analystTableHeaderName')?.valid &&
+                analystLineItemForm.get('analystTableHeaderName')?.touched
+              "
+            >
+              <span style="color: red"
+                >Enter Valid Analyst Table Header</span
+              >
+            </small>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </form>
+  <div style="text-align: right; margin-top: 20px; margin-bottom: 50px">
+    <button
+    [disabled]="!analystLineItemForm.valid"
+      pButton
+      label="Save"
+      class="saveButton"
+      icon="pi pi-save"
+      (click)="saveLineItems()"
+    ></button>
+  </div>
+</div>
+<p-toast></p-toast> -->
+
+
+

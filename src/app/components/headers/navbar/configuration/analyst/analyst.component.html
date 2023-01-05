@@ -1,0 +1,14 @@
+<span *ngIf="tabmenus"><p-dropdown
+
+  styleClass="AnalystOptionDropdown"
+  [options]="analystSetupOptions"
+  [(ngModel)]="SelectedOption"
+  placeholder="Select"
+  optionLabel="name"
+  optionValue="name"
+  (onChange)="onSelectOption()"
+></p-dropdown>
+</span>
+<div>
+  <router-outlet></router-outlet>
+</div>

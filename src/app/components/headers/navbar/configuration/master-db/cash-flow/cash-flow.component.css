@@ -1,0 +1,115 @@
+::ng-deep .dropdowncash {
+    background-color: #2d2d2d !important;
+    color: white !important;
+    width: 100%;
+  }
+  
+  ::ng-deep input,
+  .content {
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }
+  
+  :host::ng-deep .dropdowncash * {
+    background-color: #2d2d2d !important;
+    color: white;
+  }
+  
+  /* new css */
+  
+  table {
+    counter-reset: section;
+  }
+  
+  .count:before {
+    counter-increment: section;
+    content: counter(section);
+  }
+  
+  ::ng-deep .tableList {
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }
+  
+  .tableHeader::ng-deep * {
+    background-color: #191919 !important;
+    color: white !important;
+    padding: 10px !important;
+    border-bottom: none !important;
+
+  }
+  
+  .tablerow,
+  .table::ng-deep * {
+    /* background-color: #191919 !important; */
+    color: white !important;
+  }
+  
+  ::ng-deep .button {
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: 1px solid #d04a02 !important;
+    border-radius: 7%;
+  }
+  
+  ::ng-deep .uploadButton {
+    color: #d04a02 !important;
+    border: 1px solid #d04a02 !important;
+  }
+  
+  ::ng-deep tr {
+    font-family: Helvetica;
+    font-size: 18px;
+  }
+
+  ::ng-deep td{
+    border: none !important;
+  }
+  
+  ::ng-deep .searchbar{
+    border-color: #50AD95 !important;
+    text-align: left;
+    margin-top: 20px;
+    font-size: medium;
+  }
+  
+  ::ng-deep .button1{
+    float: right;
+    border-radius: 0%;
+    font-family: Helvetica;
+    font-size: 18px;
+    margin-top: 25px;
+    border-radius: 3px !important;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #3b3b3b !important;
+  }
+  tr:nth-child(odd) {
+    background-color: #2D2D2D !important;
+  }
+  
+  
+  ::ng-deep .balancesheettable {
+    margin-top: 20px !important;
+    border-radius: 10px;
+    border: 2px solid #3b3b3b !important;
+    overflow: hidden !important;
+  }
+  
+  ::ng-deep .balancesheettable tr:last-child td {
+    border-bottom: 0 solid;
+  }
+  
+  ::ng-deep .searchInputBox {
+    border: 1px solid #50ad95 !important;
+  }   
+
+  ::ng-deep .label {
+    cursor: pointer !important;
+    font-size: larger !important;
+  }
+  ::ng-deep .card{
+    background-color: #191919;
+    margin-top: 5vh;
+  }

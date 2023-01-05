@@ -1,0 +1,58 @@
+<div>
+  <div *ngIf="lineItemTable">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        class="p-inputtext-sm searchInputBox"
+        pInputText
+        placeholder="Search"
+      />
+    </span>
+    <button
+      pButton
+      label="Add & Map Line Item"
+      icon="pi pi-plus-circle"
+      class="p-button-sm addMappingButton"
+      (click)="onClickAdd()"
+    ></button>
+    <br />
+    <br />
+
+    <p-table
+      #dt
+      [value]="addLineItem"
+      styleClass="p-datatable-sm lineItemsMapTable"
+    >
+      <ng-template pTemplate="header">
+        <tr class="tableHeader">
+          <th>Sr. No</th>
+          <th>Line Item Source</th>
+          <th>Line Item Name</th>
+          <th>Analyst Name</th>
+          <th>Analyst Table Header</th>
+          <th>Analyst Line Item Name</th>
+          <!-- <th>Reporting Currency</th>
+          <th>Reporting Unit</th> -->
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product && let-i="rowIndex">
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ product.masterTableSource }}</td>
+          <td>{{ product.lineItemName }}</td>
+          <td>{{product.analystName }}</td>
+          <td>{{ product.analystTableHeaderName }}</td>
+          <td>{{ product.analystLineItemName }}</td>
+          <!-- <td></td>
+          <td></td> -->
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div *ngIf="lineItemForm">
+    <!-- table to add analyst nomenclature -->
+    <!-- <app-add-line-items></app-add-line-items> -->
+  </div>
+</div>

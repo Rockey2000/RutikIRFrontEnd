@@ -1,0 +1,98 @@
+<label class="headerLabel1">
+  <i class="pi pi-chevron-left" (click)="onClickBack()"></i>
+  Back
+</label>
+
+<div>
+    
+    <form [formGroup]="dataForm" >  
+  <p-table
+    [value]="getDataByTableId"
+    styleClass="p-datatable-sm usersTable"
+    [rows]="10"
+    [paginator]="false"
+    responsiveLayout="scroll"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="header">
+      <tr class="tableHeader">
+        <th></th>
+        <th></th>
+        
+        <th *ngFor="let key of tabKay" class="userHeader" >
+          <p-dropdown
+            styleClass="tableDP1"
+            [options]="year"
+            placeholder="Year"
+            defaultLabel="year"
+            optionLabel="year"
+            optionValue="year"
+            name="selectedYear"
+            selectedItemsLabel="{0} items selected"
+            formControlName="selectedYear"
+             [required]="false"
+             appendTo="body"
+          >
+          </p-dropdown><br><br>
+          <p-dropdown
+            styleClass="tableDP2"
+            [options]="quarter"
+            placeholder="Quarter"
+            defaultLabel="quarter"
+            optionLabel="quarter"
+            optionValue="quarter"
+           name="selectedQuarter"
+            selectedItemsLabel="{0} items selected"
+           formControlName="selectedQuarter"
+            [required]="false"
+            appendTo="body"
+          >
+          </p-dropdown><br><br>
+          <p-dropdown
+            styleClass="tableDP3"
+            [options]="estimated"
+            placeholder="Type"
+            defaultLabel="estimated"
+            optionLabel="estimated"
+            optionValue="estimated"
+            name="selectEstimate"
+            selectedItemsLabel="{0} items selected"
+           formControlName="selectedType"
+            [required]="false"
+            appendTo="body"
+            >
+          </p-dropdown><br><br>
+          {{ key }}
+        </th>
+        
+      </tr>
+ 
+      <tr *ngFor="let tab of tabValue" class="tablerow">
+       
+      <td style="height: 50px;"><p-checkbox name="groupname" value="val1"></p-checkbox></td>
+      <td></td>
+        <td *ngFor="let val of tab" >
+         <input type="text" value=" {{ val }}" style="height: 30px;border: none;">
+        </td>
+      </tr>
+      
+    </ng-template>
+    <!-- <ng-template pTemplate="caption">
+    
+    </ng-template> -->
+</p-table>
+<button 
+class="p-button-sm "
+pButton
+label="Save"
+(click)="onClickSaveAll()"
+style="float: right;margin-top: 10px;"
+
+></button>
+</form>
+<br>
+<br>
+</div>

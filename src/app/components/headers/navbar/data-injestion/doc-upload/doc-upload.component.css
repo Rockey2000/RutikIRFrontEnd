@@ -1,0 +1,107 @@
+::ng-deep .outerDiv{
+  flex-wrap: wrap;
+}
+
+::ng-deep .searchBox{
+  float: right;
+  margin: 10px;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: none;
+}
+
+.searchInputBox{
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-size: medium !important;
+border: none;
+ border: 1px solid #26776d !important;
+}
+::ng-deep .uploadButton{
+  float: right;
+  margin: 10px;
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none;
+}
+
+
+:host::ng-deep .dropdown *{
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: none;
+}
+
+::ng-deep .dropdown {
+  margin: 10px;
+  width: 30%;
+  background-color: #2d2d2d !important;
+  color: white !important;
+ 
+ 
+
+}
+/* 
+#listButton {
+  background-color: #2d2d2d !important;
+  color: #706f6f !important;
+  border: 1px solid #2d2d2d !important;
+  margin: 10px;
+
+}
+
+#gridButton {
+  background-color: #2d2d2d !important;
+  color: #706f6f !important;
+  border: 1px solid #2d2d2d !important;
+  margin: 10px;
+  }
+
+#calenderButton {
+  background-color: #2d2d2d !important;
+  color: #706f6f !important;
+  border: 1px solid #2d2d2d !important;
+  margin: 10px;
+}
+
+.filterBtn{
+  background-color: #2d2d2d !important;
+  color: #26776d !important;
+  border: 1px solid #26776d !important;
+  margin: 10px;
+} */
+
+
+
+::ng-deep .uplodedDataTable {
+  margin-top: 40px;
+  border-radius: 07px;
+  overflow: hidden !important;
+  border: 1px solid #2d2d2d;
+}
+
+.tableHeader::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+  border-bottom: none !important;
+}
+
+
+
+.tablerow::ng-deep * {
+  color: white !important;
+  border-bottom: none !important;
+}
+
+.tablerow:hover {
+  color: white !important;
+  background-color: #415385 !important;
+  border-bottom: none !important;
+}
+
+tr:nth-child(even) {
+  background-color: #3b3b3b !important;
+}
+tr:nth-child(odd) {
+  background-color: #2d2d2d !important;
+}
