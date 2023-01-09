@@ -14,6 +14,20 @@ interface Quarter{
 interface Type{
   estimated: string;
 }
+// interface TableHeader{
+//   year : Number,
+//   quarter: string,
+//   type: string,
+// }
+interface dataInjection{
+  fieldId: Number,
+  lineItemName: string,
+  value: string,
+  // header: TableHeader[]
+  year: Number,
+  quarter:string,
+  type:string
+}
 @Component({
   selector: 'app-table-data',
   templateUrl: './table-data.component.html',
@@ -25,14 +39,19 @@ export class TableDataComponent implements OnInit {
   tabKay:any = [];
   tabValue:any = [];
   year!: Year[];
-  selectedYear='';
+  selectedYear=[];
   quarter!:Quarter[];
-  selectedQuarter='';
+  selectedQuarter=[];
   estimated!:Type[];
-  selectedType='';
+  selectedType=[];
   dataForm!:FormGroup;
   required!: boolean
-  parent: any;
+  parent=[];
+  dropDowns:any=[];
+  selectedRowIndex:any=[];
+  // header!: TableHeader;
+  injectionData: dataInjection= {} as dataInjection;
+  injectionList: dataInjection[]=[];
   constructor( private service: IRServiceService,
     private router: Router,
     private route:ActivatedRoute,
@@ -66,9 +85,10 @@ export class TableDataComponent implements OnInit {
 
   ngOnInit(): void {
      this.dataForm = new FormGroup({
-      selectedYear: new FormControl(''),
-      selectedQuarter: new FormControl(''),
-      selectedType: new FormControl('')
+      year: new FormControl(''),
+      quarter: new FormControl(''),
+      type: new FormControl(''),
+      groupname:new FormControl('')
      })
 
 
@@ -87,6 +107,12 @@ export class TableDataComponent implements OnInit {
           console.log(element,"element value");
           
         });
+
+        for (let index=0; index< this.tabKay.length; index++) {
+            this.dropDowns.push({year:'', quarter:'', type:'', index:index})
+        }
+
+      
         console.log('get data by table ID',this.getDataByTableId.length);
         
         console.log(this.getDataByTableId, 'data is avalible for fetch');
@@ -98,22 +124,61 @@ export class TableDataComponent implements OnInit {
     );
   }
 
+  setDropValue(value: any, index: any, fieldName:any){
+      this.dropDowns[index][fieldName] = value.value;
+  }
+
+  selectedItems(event: any, index: any){
+ 
+    if(event.checked[0]){
+      this.selectedRowIndex.push(index)
+    }
+    else{
+      this.selectedRowIndex.splice(index, 1);
+    }
+
+  }
+
   onClickBack() {
     this.router.navigate(['/document/nav/dataInjestion/uploadDoc'])
   }
 
   onClickSaveAll(){
-    console.log(this.getDataByTableId, 'after table updation data');
-    this.service.updateValuesFromDataIngestion(this.getDataByTableId).subscribe(
-      (data: any) => {
-        console.log('Table Values edited successfully');
-        console.log('Table Values Updated' + data);
-        console.log(data);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error);
-        console.log('something went wrong');
+
+    this.dropDowns = this.dropDowns.filter((ele:any)=> {
+      if(ele.year !='' && ele.quarter !='' && ele.type !=''){
+        return ele;
       }
-    );
+    }); 
+       this.selectedRowIndex.forEach((item:any)=> {
+        this.dropDowns.forEach((option:any)=>{
+
+          let selectedRow = this.tabValue[item];
+          this.injectionData.fieldId= selectedRow[0];
+          this.injectionData.lineItemName= selectedRow[1];
+          this.injectionData.value = selectedRow[option.index];
+          delete option.index;
+          this.injectionData.year = option.year;
+          this.injectionData.quarter=option.quarter;
+          this.injectionData.type=option.type;
+           console.log(option,"option value");
+             
+          this.injectionList.push(this.injectionData)
+        });
+        
+    });
+
+      console.log("data is here", this.injectionList)
+    
+      this.service.dataIngestionMappingtable(this.injectionList).subscribe(
+        (data:any)=>{
+          console.log('data is passing');
+          alert('data is passing to database')
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error, 'Rutik Data Getting');
+          alert('error');
+        }
+      )
    }
 }

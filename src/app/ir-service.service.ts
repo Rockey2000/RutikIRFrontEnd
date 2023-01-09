@@ -289,4 +289,10 @@ getTableId(){
 updateValuesFromDataIngestion(data:any){
   return this.http.patch(`${environment.url1}/investor/dataIngestion/update/{tableId}`,data)
 }
+
+dataIngestionMappingtable(data:any){
+  console.log(JSON.stringify(data),"hello data is here");
+  
+  return this.http.post(`${environment.url1}/investor/dataIngestion/addDataIngestionMappingTableDetails`, data)
+}
 }

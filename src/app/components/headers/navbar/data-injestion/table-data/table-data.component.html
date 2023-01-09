@@ -5,7 +5,7 @@
 
 <div>
     
-    <form [formGroup]="dataForm" >  
+  <form [formGroup]="dataForm" >  
   <p-table
     [value]="getDataByTableId"
     styleClass="p-datatable-sm usersTable"
@@ -22,7 +22,7 @@
         <th></th>
         <th></th>
         
-        <th *ngFor="let key of tabKay" class="userHeader" >
+        <th *ngFor="let key of tabKay; let i = index" class="userHeader" >
           <p-dropdown
             styleClass="tableDP1"
             [options]="year"
@@ -30,9 +30,9 @@
             defaultLabel="year"
             optionLabel="year"
             optionValue="year"
-            name="selectedYear"
+            name="year"
             selectedItemsLabel="{0} items selected"
-            formControlName="selectedYear"
+            (onChange)="setDropValue($event, i, 'year')"
              [required]="false"
              appendTo="body"
           >
@@ -44,9 +44,9 @@
             defaultLabel="quarter"
             optionLabel="quarter"
             optionValue="quarter"
-           name="selectedQuarter"
-            selectedItemsLabel="{0} items selected"
-           formControlName="selectedQuarter"
+           name="quarter"
+          selectedItemsLabel="{0} items selected"
+           (onChange)="setDropValue($event, i, 'quarter')"  
             [required]="false"
             appendTo="body"
           >
@@ -60,7 +60,7 @@
             optionValue="estimated"
             name="selectEstimate"
             selectedItemsLabel="{0} items selected"
-           formControlName="selectedType"
+            (onChange)="setDropValue($event, i, 'type')"
             [required]="false"
             appendTo="body"
             >
@@ -70,9 +70,9 @@
         
       </tr>
  
-      <tr *ngFor="let tab of tabValue" class="tablerow">
+      <tr *ngFor="let tab of tabValue; let i = index" class="tablerow">
        
-      <td style="height: 50px;"><p-checkbox name="groupname" value="val1"></p-checkbox></td>
+      <td style="height: 50px;"><p-checkbox name="groupname" (onChange)="selectedItems($event, i)" value="{{i}}"></p-checkbox></td>
       <td></td>
         <td *ngFor="let val of tab" >
          <input type="text" value=" {{ val }}" style="height: 30px;border: none;">
