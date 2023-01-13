@@ -138,14 +138,14 @@
                   [(ngModel)]="selectedLineItem"
                   [ngModelOptions]="{ standalone: true }"
                   (onChange)="onClickLineItem(selectedLineItem)"
-                  [required]="true"
+                 
                   #selectedAttribute="ngModel"
                 >
               </p-dropdown>
               <br>
-              <small *ngIf="!selectedAttribute?.valid && selectedAttribute?.touched">
-                <span style="color: red"> Field Is Mandatory</span>
-              </small>
+              <!-- <small *ngIf="!selectedAttribute?.valid && selectedAttribute?.touched">
+                <span style="color: red;font-size: 15px;"> Field Is Mandatory</span>
+              </small> -->
               </ng-template>
             </p-card>
           </div>
@@ -166,12 +166,13 @@
                   [(ngModel)]="selectedSymbol"
                   [ngModelOptions]="{ standalone: true }"
                   (onChange)="onClickSymbol(selectedSymbol)"
-
+                 
+                  #selectedSym="ngModel"
                 >
                </p-dropdown>
-               <!-- <br>
-               <small *ngIf="!selectedSymbol?.valid && selectedSymbol?.touched">
-                 <span style="color: red;">Mandatory Field</span>
+               <br>
+               <!-- <small *ngIf="!selectedSym?.valid && selectedSym?.touched">
+                 <span style="color: red; font-size: 15px;">Mandatory is Field</span>
                </small> -->
               </ng-template>
             </p-card>
@@ -217,3 +218,11 @@
     <!-- <p-card styleClass="card"></p-card> -->
   </form>
 </div>
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<br /><br />

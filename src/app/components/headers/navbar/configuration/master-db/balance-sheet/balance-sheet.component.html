@@ -74,7 +74,7 @@
   <br />
   <br />
   <div class="balanceSheetForm">
-    <form [formGroup]="balanceSheetForm" (ngSubmit)="onClickSaveAll()" novalidate >
+    <form [formGroup]="balanceSheetForm"  novalidate >
       <div formArrayName="balanceSheetRow">
         <p-table
           #dt
@@ -92,7 +92,7 @@
               <th></th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-balanceSheet form.controls.balanceSheetRow.controls && let-i="rowIndex">
+          <ng-template pTemplate="body" let-balanceSheet && let-i="rowIndex">
             <tr class="tablerow" [formGroupName]="i">
               <td>{{ i + 1 }}</td>
               <td>
@@ -103,7 +103,7 @@
                   type="text"
                   placeholder="Enter"  
                   formControlName="lineItem"
-                  [required]="true" 
+                  required
                 />
                 <div
                 *ngIf="!balanceSheet.controls.lineItem?.valid && (balanceSheet.controls.lineItem?.dirty
@@ -126,7 +126,7 @@
                 <div
                 *ngIf="!balanceSheet.controls.alternativeName?.valid && (balanceSheet.controls.alternativeName?.dirty
                 ||balanceSheet.controls.alternativeName?.touched)">
-                  <span style="color: red;font-size: 15px;">AlternativeName is required</span>
+                  <span style="color: red;font-size: 15px;">Alternative Name is required</span>
               </div>
               </span> 
               </td>

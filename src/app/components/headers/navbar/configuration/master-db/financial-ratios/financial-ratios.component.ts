@@ -165,7 +165,7 @@ export class FinancialRatiosComponent implements OnInit {
     if (value) {
       this.formula.push({ item: value });
     }
-    console.log(value);
+    // console.log(value);
 
     console.log(this.formula);
 
@@ -183,6 +183,7 @@ export class FinancialRatiosComponent implements OnInit {
       this.formula.push({ item: value });
     }
     console.log(this.formula);
+     this.selectedLineItem ='';
 
 
   }
@@ -208,12 +209,29 @@ export class FinancialRatiosComponent implements OnInit {
         this.newFormula='';
         this.financialRatioForm.reset();
         this.selectedLineItem='';
+        this.lineItemsTable = true;
         this.selectedSymbol='';
         this.ngOnInit();
-        this.lineItemsTable = true;
+        this.messageService.add({
+          severity:'success',
+          summary:'success',
+          detail:'Added..!!',
+        });
       },
       (error: HttpErrorResponse) => {
-        alert(error)
+        if(error.status===406){
+          this.messageService.add({
+            severity:'warn',
+            summary:'warning',
+            detail:'Duplicate values Not Allowed..!!'
+          });
+        }else{
+          this.messageService.add({
+            severity:'Error',
+            summary:'Error',
+            detail: 'Something went wrong while adding Financial ratios..!!',
+          });
+        }
         this.ngOnInit();
         this.lineItemsTable = true;
       }
@@ -239,6 +257,9 @@ export class FinancialRatiosComponent implements OnInit {
 
     this.formula.pop();
     console.log(this.formula);
+     this.selectedLineItem ='';
+    this.selectedSymbol ='';
   }
+ 
 
 }

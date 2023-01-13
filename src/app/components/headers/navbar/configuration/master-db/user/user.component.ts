@@ -59,7 +59,7 @@ export class UserComponent implements OnInit {
   firstNamePattern = '^[a-zA-Z ]{3,15}$';
   lastNamePattern = '^[a-zA-Z ]{3,15}$';
   emailPattern = "^[A-Za-z0-9._%+-]+[@]{1}[A-Za-z0-9.-]+\[.]{1}[A-Za-z]{2,4}$";
-  mobnumPattern = '^((\\+91-?)|0)?[6-9]{1}[0-9]{9}$';
+  mobnumPattern = '^((\\+91-?)|0)?[0-9]{1}[0-9]{9}$';
   domainPattern = '^[a-zA-Z. ]{3,15}$';
   assignedNamePattern = '^[a-zA-Z ]{3,15}$';
   userId!: string;

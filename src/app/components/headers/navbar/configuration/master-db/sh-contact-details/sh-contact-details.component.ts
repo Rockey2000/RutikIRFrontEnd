@@ -55,7 +55,7 @@ export class ShContactDetailsComponent implements OnInit {
   namePattern = "^[a-zA-Z ]{3,15}$";
   addressPattern = "^[a-zA-Z0-9._%+-/:, ]{3,50}$";
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-  contactPattern = "^((\\+91-?)|0)?[6,7,8,9]{1}[0-9]{9}$"; 
+  contactPattern = "^((\\+91-?)|0)?[0-9]{1}[0-9]{9}$"; 
   pocPattern = "^[a-zA-Z ]{3,15}$";
 
 

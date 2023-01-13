@@ -173,19 +173,27 @@ export class DocUploadComponent implements OnInit {
     
     console.log(this.selectFile);
   }
-  editTableValue(fileId:any){
+  editTableValue(data:any){
     // this.router.navigate(["/document/nav/dataInjestion/uploadDoc"])
+    let docData = {
+      clientName:data.client,
+      documentType:data.documentType,
+      analystName:data.analystName
 
-    console.log(fileId.id);
+     }
+
+     this.service.DocValues=docData;
+
+    console.log(data.fileId,".../././...../../.");
+    this.service.setTableId(data.fileId) 
 
 
-  this.service.getDataByFileId(fileId).subscribe(
-    (data: any)=>{
+  this.service.getDataByFileId(data.fileId).subscribe(
+    (data: any) => {
     this.getDataByFileId=data;
       console.log("get data by file ID");
       
       console.log(this.getDataByFileId,"data is avalible for fetch") 
-      this.service.setTableId(fileId) 
       this.router.navigate(["/document/nav/dataInjestion/uploadDoc"])
     },
   (error: HttpErrorResponse) => {

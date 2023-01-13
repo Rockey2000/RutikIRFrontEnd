@@ -71,7 +71,7 @@ export class AnalystDetailsComponent implements OnInit {
    this.analystDetailsTable=true;
    this.editAnalystDetails=false;
  }
-
+  this.ngOnInit();
   }
   editAnalyst(analyst: any){
     this.editAnalystDetails=true;

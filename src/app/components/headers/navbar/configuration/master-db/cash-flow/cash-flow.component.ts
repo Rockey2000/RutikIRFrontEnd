@@ -87,6 +87,15 @@ export class CashFlowComponent implements OnInit {
     this.addLineItem = false;
     this.topButtons = true;
     this.lineItemsTable = false;
+    this.cashFlowForm.reset();
+
+    for (
+      let i = 1;
+      i < this.cashFlowForm.value.cashFlowRow.length;
+      i++
+    ) {
+      this.removeRow(i=0);
+    }
   }
 
   selectedTableName!: string;
@@ -106,6 +115,11 @@ export class CashFlowComponent implements OnInit {
             this.cashFlowForm.reset();
             this.lineItemsTable = true;
             this.ngOnInit();
+             this.messageService.add({
+              severity: 'success',
+              summary: 'success',
+              detail: 'Added..!!',
+            });
           },
           (error: HttpErrorResponse) => {
              if(error.status===406){
@@ -125,7 +139,7 @@ export class CashFlowComponent implements OnInit {
             this.ngOnInit();
           }
         );
-        this.removeRow(i);
+        // this.removeRow(i);
 
     }
   }

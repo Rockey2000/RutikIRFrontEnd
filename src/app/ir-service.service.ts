@@ -8,6 +8,9 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class IRServiceService {
+  
+DocValues: any;
+
 
   analystNomenclature = new Subject();
   public dialogFormDataSubscriber$ = this.analystNomenclature.asObservable();
@@ -278,6 +281,7 @@ getTableValueFromDataIngestion(){
 }
 
 setTableId(data:any){
+  // alert(data);
   this.tableId=data;
   
 }
@@ -287,6 +291,8 @@ getTableId(){
 }
 
 updateValuesFromDataIngestion(data:any){
+  console.log(JSON.stringify(data),"when data is passing updated");
+  
   return this.http.patch(`${environment.url1}/investor/dataIngestion/update/{tableId}`,data)
 }
 

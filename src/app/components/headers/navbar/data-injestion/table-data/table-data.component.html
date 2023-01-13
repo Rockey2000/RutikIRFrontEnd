@@ -4,95 +4,131 @@
 </label>
 
 <div>
-    
-  <form [formGroup]="dataForm" >  
-  <p-table
-    [value]="getDataByTableId"
-    styleClass="p-datatable-sm usersTable"
-    [rows]="10"
-    [paginator]="false"
-    responsiveLayout="scroll"
-    [rowHover]="true"
-    dataKey="id"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [showCurrentPageReport]="true"
-  >
-    <ng-template pTemplate="header">
-      <tr class="tableHeader">
-        <th></th>
-        <th></th>
-        
-        <th *ngFor="let key of tabKay; let i = index" class="userHeader" >
-          <p-dropdown
-            styleClass="tableDP1"
-            [options]="year"
-            placeholder="Year"
-            defaultLabel="year"
-            optionLabel="year"
-            optionValue="year"
-            name="year"
-            selectedItemsLabel="{0} items selected"
-            (onChange)="setDropValue($event, i, 'year')"
-             [required]="false"
-             appendTo="body"
-          >
-          </p-dropdown><br><br>
-          <p-dropdown
-            styleClass="tableDP2"
-            [options]="quarter"
-            placeholder="Quarter"
-            defaultLabel="quarter"
-            optionLabel="quarter"
-            optionValue="quarter"
-           name="quarter"
-          selectedItemsLabel="{0} items selected"
-           (onChange)="setDropValue($event, i, 'quarter')"  
-            [required]="false"
-            appendTo="body"
-          >
-          </p-dropdown><br><br>
-          <p-dropdown
-            styleClass="tableDP3"
-            [options]="estimated"
-            placeholder="Type"
-            defaultLabel="estimated"
-            optionLabel="estimated"
-            optionValue="estimated"
-            name="selectEstimate"
-            selectedItemsLabel="{0} items selected"
-            (onChange)="setDropValue($event, i, 'type')"
-            [required]="false"
-            appendTo="body"
-            >
-          </p-dropdown><br><br>
-          {{ key }}
-        </th>
-        
-      </tr>
- 
-      <tr *ngFor="let tab of tabValue; let i = index" class="tablerow">
-       
-      <td style="height: 50px;"><p-checkbox name="groupname" (onChange)="selectedItems($event, i)" value="{{i}}"></p-checkbox></td>
-      <td></td>
-        <td *ngFor="let val of tab" >
-         <input type="text" value=" {{ val }}" style="height: 30px;border: none;">
-        </td>
-      </tr>
+  <form [formGroup]="dataForm">
+    <p-table
+      [value]="getDataByTableId"
+      styleClass="p-datatable-sm usersTable"
+      [rows]="10"
+      [paginator]="false"
+      responsiveLayout="scroll"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="header">
+        <tr class="tableHeader">
+          <th></th>
+          <th></th>
       
-    </ng-template>
-    <!-- <ng-template pTemplate="caption">
+
+          <th *ngFor="let keys of tabKay; let i = index" >
+            <!-- {{tabKay|json}} -->
+            <p-dropdown
+              styleClass="tableDP1"
+              [options]="year"
+              placeholder="Year"
+              defaultLabel="year"
+              optionLabel="year"
+              optionValue="year"
+              name="year"
+              [hidden]="i == 0 || i == 1"
+              selectedItemsLabel="{0} items selected"
+              (onChange)="setDropValue($event, i, 'year')"
+              [required]="true"
+              appendTo="body"
+            >
+            </p-dropdown
+            ><br /><br />
+            <p-dropdown
+              styleClass="tableDP2"
+              [options]="quarter"
+              placeholder="Quarter"
+              defaultLabel="quarter"
+              optionLabel="quarter"
+              optionValue="quarter"
+              name="quarter"
+              [hidden]="i == 0 || i == 1"
+              selectedItemsLabel="{0} items selected"
+              (onChange)="setDropValue($event, i, 'quarter')"
+              [required]="true"
+              appendTo="body"
+            >
+            </p-dropdown
+            ><br /><br />
+            <p-dropdown
+              styleClass="tableDP3"
+              [options]="estimated"
+              placeholder="Type"
+              defaultLabel="estimated"
+              optionLabel="estimated"
+              optionValue="estimated"
+              name="selectEstimate"
+              [hidden]="i == 0 || i == 1"
+              selectedItemsLabel="{0} items selected"
+              (onChange)="setDropValue($event, i, 'type')"
+              [required]="true"
+              appendTo="body"
+            >
+            </p-dropdown
+            ><br>
+
+             <span class="userHeader">{{keys}}</span>
+            
+          
+          </th>
+        </tr>
+
+        <tr *ngFor="let tab of tabValue; let i = index" class="tablerow">
+          <td style="height: 50px;margin-top: 100px;">
+            <p-checkbox
+              name="groupname"
+              (onChange)="selectedItems($event, i)"
+              value="{{ i }}"
+            ></p-checkbox>
+          </td>
+          <td></td>
+          <td *ngFor="let val of tab; let ind =index">
+            <input
+              type="text"
+              value=" {{ val }}"
+              (change)="setValue($event, i ,ind)"
+              style="height: 30px; border: none"
+              [readOnly]="ind == 0 || ind == 1"
+            />
+          </td>
+        </tr>
+      </ng-template>
+      <!-- <ng-template pTemplate="caption">
     
     </ng-template> -->
-</p-table>
-<button 
-class="p-button-sm "
-pButton
-label="Save"
-(click)="onClickSaveAll()"
-style="float: right;margin-top: 10px;"
-
-></button>
-</form>
-<br>
-<br>
+    </p-table>
+    <div style="text-align: right" >
+      <!-- <button
+        class="p-button-sm p-button-outlined cancelButton"
+        pButton
+        label="Update Table Values"
+        (click)="onClickUpdate()"
+        style="margin-top: 10px"
+      ></button> -->
+      &nbsp;
+      <button
+     
+      class="p-button-sm"
+      pButton
+      label="Save"
+      (click)="onClickSaveAll()"
+      style="float: right; margin-top: 10px"
+    ></button>
+    </div>
+    
+  </form>
+  <br />
+  <br />
 </div>
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

@@ -53,7 +53,7 @@ export class BalanceSheetComponent implements OnInit {
     ];
 
     this.balanceSheetForm = this.fb.group({
-      balanceSheetRow: this.fb.array([this.newRow()]),
+      balanceSheetRow: this.fb.array([]),
     });
   }
 
@@ -78,12 +78,23 @@ export class BalanceSheetComponent implements OnInit {
         console.log(error);
       }
     );
+    this.balanceSheet.push(this.newRow());
+    
   }
 
   addLneItem() {
     this.addLineItem = false;
     this.topButtons = true;
     this.lineItemsTable = false;
+    this.balanceSheetForm.reset();
+
+    for (
+      let i = 1;
+      i < this.balanceSheetForm.value.balanceSheetRow.length;
+      i++
+    ) {
+      this.removeRow(i=0);
+    }
   }
 
   selectedTableName!: string;
@@ -127,6 +138,7 @@ export class BalanceSheetComponent implements OnInit {
 
 
 
+
   onClickSaveAll() {
     console.log(this.balanceSheetForm, 'ramram');
     for (
@@ -135,45 +147,47 @@ export class BalanceSheetComponent implements OnInit {
       i++
     ) {
       this.service
-        .addTable(this.balanceSheetForm.value.balanceSheetRow[i])
+        . addTable(this.balanceSheetForm.value.balanceSheetRow[i])
         .subscribe(
           (data: any) => {
-            // console.log(data,"statusss");
             console.log(data);
             this.balanceSheetForm.reset();
             this.lineItemsTable = true;
-            this.ngOnInit();
-            this.messageService.add({
+            this.removeRow(i);
+             this.ngOnInit();
+
+             this.messageService.add({
               severity: 'success',
               summary: 'success',
               detail: 'Added..!!',
             });
+          
           },
           (error: HttpErrorResponse) => {
-            if (error.status===406) {
+            if(error.status===406){
               this.messageService.add({
                 severity: 'warn',
-                summary: 'warning',
+                summary: 'Error',
                 detail: 'Duplicate Balance Sheet Values Not Allowed..!!',
               });
-            } else {
-              this.messageService.add({
-                severity: 'Error',
-                summary: 'Error',
-                detail: 'Something went wrong while adding user..!!',
-              });
-            }
-        
+            }else{
+            this.messageService.add({
+              severity: 'Error',
+              summary: 'Error',
+              detail: 'Something went wrong while adding Balance Sheet Line Items..!!',
+            });
+          }
+     
             this.ngOnInit();
           }
         );
-        this.removeRow(i);
-       
-    }
+        // this.removeRow(i);
 
-    // this.balanceSheetForm.value.balanceSheetRow = null;
+    } 
   }
 
+
+  
   onClickCancel() {
     this.addLineItem = true;
     this.lineItemsTable = true;
@@ -198,10 +212,12 @@ export class BalanceSheetComponent implements OnInit {
       alternativeName: '',
       type: '',
     });
+    
   }
 
   addRow() {
     this.balanceSheet.push(this.newRow());
+
   }
 
   removeRow(i: number) {

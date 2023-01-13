@@ -96,7 +96,13 @@ export class IncomeStatementComponent implements OnInit {
     this.addLineItem = false;
     this.topButtons = true;
     this.lineItemsTable = false;
-    
+    for (
+      let i = 1;
+      i < this.incomeStatementForm.value.incomeStatementRow.length;
+      i++
+    ) {
+      this.removeRow(i=0);
+      }
   }
   selectedTableName!: string;
   onClickSaveAll() {
@@ -110,11 +116,16 @@ export class IncomeStatementComponent implements OnInit {
         . addIncomeStatementTable(this.incomeStatementForm.value.incomeStatementRow[i])
         .subscribe(
           (data: any) => {
-            console.log(data);
-            this.incomeStatementForm.reset();
-            this.lineItemsTable = true;
-            this.removeRow(i);
-            this.ngOnInit();
+             console.log(data);
+             this.incomeStatementForm.reset();
+             this.lineItemsTable = true;
+             this.removeRow(i);
+             this.ngOnInit();
+             this.messageService.add({
+              severity: 'success',
+              summary: 'success',
+              detail: 'Added..!!',
+            });
           },
           (error: HttpErrorResponse) => {
             if(error.status===406){
@@ -134,7 +145,7 @@ export class IncomeStatementComponent implements OnInit {
             this.ngOnInit();
           }
         );
-        this.removeRow(i=0);
+        // this.removeRow(i);
 
     } 
   }
@@ -168,7 +179,6 @@ export class IncomeStatementComponent implements OnInit {
   }
   addRow() {
    this.incomeStatement.push(this.newRow());
-    
   }
  
   

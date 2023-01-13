@@ -161,8 +161,18 @@ export class NewDocUploadComponent implements OnInit {
   }
 
   onClickUpload() {
-    console.log('file uploded');
-    console.log(this.document.value, ' Document Data....!!!');
+
+   let docData = {
+    clientName:this.document.value.client,
+    documentType:this.document.value.documentType,
+    analystName:this.document.value.analystName
+   }
+
+   this.service.DocValues=docData;
+   
+
+    console.log('file uploded',this.service.DocValues);
+    console.log(this.document.value, 'Document Data....!!!');
 
     console.log(this.selectedFiles);
     // this.selectFile(FileList)= this.onClickUpload();
