@@ -1,97 +1,312 @@
+::ng-deep .dataDiv {
+  margin-top: -50px;
+}
+.mappedHeader {
+  margin-right: 150px;
+  float: right;
+  margin-top: -45px;
+  font-weight: bold;
+}
 ::ng-deep .headerLabel1 {
-    color: white !important;
-    font-size: larger !important;
-    font-weight: bold;
-  }
-  ::ng-deep .headerLabel1 * {
-    padding-top: 5rem !important;
-  }
+  color: white !important;
+  font-size: larger !important;
+  font-weight: bold;
+}
+::ng-deep .headerLabel1 * {
+  padding-top: 5rem !important;
+}
 
-  ::ng-deep .dataValueTable{
-    margin-top: 30px;
-  }
-  ::ng-deep .usersTable {
-    margin: auto;
-    margin-top: 40px;
-    border-radius: 07px;
-    /* overflow: hidden !important; */
-    border: 1px solid #2d2d2d;
-  }
+::ng-deep .dataValueTable {
+  margin-top: 30px;
+}
+::ng-deep .usersTable {
+  margin: auto;
+  margin-top: 40px;
+  border-radius: 15px;
+  /* overflow: hidden !important; */
+  border: 5px ridge gray;
+  background-color: #2d2d2d;
+}
 
-  .tablerow::ng-deep * {
-    color: white !important;
-    border-bottom: none !important;
-    background-color: #2d2d2d !important;
-  }
-  
-  .tablerow:hover {
-    color: white !important;
-    background-color: #415385 !important;
-    border-bottom: none !important;
-  }
-  
-  tr:nth-child(even) {
+::ng-deep .tablerow * {
+  color: white !important;
+  border-bottom: none !important;
+  background-color: #2d2d2d !important;
+}
+
+.tablerow:hover {
+  color: white !important;
+  background-color: #2d2d2d !important;
+  border-bottom: #2d2d2d none !important;
+}
+
+/* td:nth-child(even) {
     background-color: #3b3b3b !important;
   }
-  tr:nth-child(odd) {
+  td:nth-child(odd) {
     background-color: #2d2d2d !important;
-  }
-  
-.tableHeader::ng-deep * {
-
-    background-color: #191919 !important;
-    color: white !important;
-    border-bottom: none !important;
-  }
-
-  :host::ng-deep .tableDP1 *{
-    background-color: #2d2d2d !important;
-    color: white !important;
-    border: none;
-  }
-  
-  ::ng-deep .tableDP1{
-  width: 10rem !important;
-  background-color: #2d2d2d !important;
-  color: white !important;
- 
-  }
-  :host::ng-deep .tableDP2 *{
-    background-color: #2d2d2d !important;
-    color: white !important;
-    border: none;
-  }
-  
-  ::ng-deep .tableDP2{
-  width: 10rem !important;
-  background-color: #2d2d2d !important;
-  color: white !important;
-
-  }
-  :host::ng-deep .tableDP3 *{
-    background-color: #2d2d2d !important;
-    color: white !important;
-    border: none;
-  }
-  
-  ::ng-deep .tableDP3{
-  width: 10rem !important;
-  background-color: #2d2d2d !important;
-  color: white !important;
-
+  } */
+tr:nth-child(even) {
+  background-color: #3b3b3b !important;
 }
-::ng-deep .checkbox{
-    background-color: aquamarine;
-  }
+tr:nth-child(odd) {
+  background-color: #2d2d2d !important;
+}
 
-::ng-dep .userHeader{
+.tableHeader::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+  border-bottom: none !important;
+}
+
+:host::ng-deep .tableDP1 * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: none;
+}
+
+::ng-deep .tableDP1 {
+  width: 10rem !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: 1px solid #26776d !important;
+}
+:host::ng-deep .tableDP2 * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: none;
+}
+
+::ng-deep .tableDP2 {
+  width: 10rem !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: 1px solid #26776d !important;
+}
+:host::ng-deep .tableDP3 * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: none;
+}
+
+::ng-deep .tableDP3 {
+  width: 10rem !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: 1px solid #26776d !important;
+}
+::ng-deep .checkbox {
+  background-color: aquamarine;
+}
+
+::ng-dep .userHeader {
   margin: auto !important;
   color: red;
   object-fit: contain !important;
-
 }
 
-.keyClass{
+.keyClass {
   margin-top: 10px !important;
   height: 10rem !important;
+}
+
+.uploadBtn {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none;
+}
+
+.downloadBtn {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none;
+}
+
+.splitBtn {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none;
+  margin-right: 10px;
+}
+.leftBtn {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none;
+}
+
+.rightBtn {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none;
+}
+
+.saveBtn {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none;
+}
+.deleteBtn {
+  color: #d04a02 !important;
+}
+
+:host::ng-deep .mergeDropdown * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .mergeDropdown {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: 1px solid #26776d !important;
+}
+
+.mergeBtn {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none;
+}
+
+::ng-deep .uploadDialog * {
+  background-color: #3b3b3b !important;
+  color: white;
+}
+
+::ng-deep .UploadcancelBtn * {
+  color: white !important;
+  background-color: #d04a02 !important;
+  border-color: #d04a02;
+}
+::ng-deep .UploadDialogSaveBtn * {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border-color: #d04a02;
+}
+.dialogSaveBtn {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border-color: #d04a02;
+}
+
+:host ::ng-deep .upload * {
+  border: none !important;
+
+  border: 1px solid #26776d !important;
+}
+
+::ng-deep .existingDataCardOverride {
+  margin-top: 250px !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-family: Helvetica !important;
+  width: 100% auto !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+::ng-deep .overrideCard {
+  /* background-color: rgba(188, 170, 170, 0.2); */
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  justify-content: center;
+}
+.spinner {
+  /* backdrop-filter: blur(2px); */
+  background-color: rgba(188, 170, 170, 0.2);
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 99%;
+  width: 100%;
+  position: absolute;
+}
+app-spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableName {
+  margin-top: 20px;
+  color: white !important;
+  font-size: larger !important;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+::ng-deep .uplodedDataTable {
+  margin-top: 40px;
+  border-radius: 07px;
+  overflow: hidden !important;
+  border: 1px solid #2d2d2d;
+}
+
+.previewTableHeader::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+  border-bottom: none !important;
+}
+
+::ng-deep .tablerow3 {
+  color: white;
+  border-bottom: none !important;
+}
+
+tr:nth-child(even) {
+  background-color: #3b3b3b !important;
+}
+
+tr:nth-child(odd) {
+  background-color: #2d2d2d !important;
+}
+
+::ng-deep .customPaginator .p-paginator {
+  background-color: #191919 !important;
+}
+
+.customPaginator .p-paginator .ui-paginator-page {
+  color: white;
+}
+:host ::ng-deep .previewDialog * {
+  background-color: #2d2d2d !important;
+  color: white;
+}
+
+::ng-deep .previewcancelBtn * {
+  color: #d04a02 !important;
+  border-color: #d04a02 !important;
+}
+::ng-deep .PreviewDialogSaveBtn * {
+  background-color: #d04a02 !important;
+  color: #d04a02 !important;
+  border-color: #d04a02 !important;
+}
+::ng-deep .previewcancelBtn {
+  color: #d04a02 !important;
+  border-color: #d04a02 !important;
+}
+::ng-deep .PreviewDialogSaveBtn {
+  background-color: #d04a02 !important;
+  color: #d04a02 !important;
+  border-color: #d04a02 !important;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+  background-color: #2d2d2d !important;
+  color: white;
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+  background-color: #2d2d2d !important;
+  color: white;
+}
+
+::ng-deep .p-dialog .p-dialog-footer {
+  background-color: #2d2d2d !important;
+  color: white;
 }

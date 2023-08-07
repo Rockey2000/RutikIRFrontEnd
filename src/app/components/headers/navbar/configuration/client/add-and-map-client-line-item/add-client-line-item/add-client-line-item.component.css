@@ -1,0 +1,165 @@
+::ng-deep .clientLineItemsMapTable{
+    margin-top: 20px !important;
+    border-radius: 10px;
+    border: 2px solid #3b3b3b !important;
+    overflow: hidden !important;
+  }
+
+  .tableHeader::ng-deep * {
+    background-color: #191919 !important;
+    color: white !important;
+    padding: 10px !important;
+    border-bottom: none !important;
+  }
+
+  tr:nth-child(even) {
+    background-color: #3b3b3b !important;
+    color: white;
+  }
+  tr:nth-child(odd) {
+    background-color: #2d2d2d !important;
+    color: white;
+  }
+
+  :host::ng-deep .Clientdropdown * {
+    background-color: #2d2d2d !important;
+    color: white;
+
+  }
+::ng-deep .Clientdropdown  {
+    background-color: #2d2d2d !important;
+    color: white;
+
+  }
+
+  :host::ng-deep .clientMasterdropdown * {
+    background-color: #2d2d2d !important;
+    color: white;
+
+   
+  }
+::ng-deep .clientMasterdropdown{
+    background-color: #2d2d2d !important;
+    color: white;
+
+  }
+
+::ng-deep .ClientinputBox  {
+    background-color: #2d2d2d !important;
+    color: white;
+   
+  }
+
+  ::ng-deep .saveButton{
+    background-color: #D04A02 !important;
+    color: white !important;
+    border: none !important;
+  }
+  ::ng-deep .Addbutton {
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: 1px solid #d04a02 !important;
+    border-radius: 7%;
+  }
+
+
+  .uploadBtn{
+    margin-right: 10px;
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: 1px solid #d04a02 !important;
+    border-radius: 7%;
+  }
+  .downloadBtn{
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: 1px solid #d04a02 !important;
+    border-radius: 7%;
+  }
+  ::ng-deep .uploadDialogClientLineItem *{
+    background-color: #2d2d2d !important;
+    color: white;
+  }
+  ::ng-deep .cancelBtn1 *{
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: 1px solid #d04a02 !important;
+    }
+    ::ng-deep .dialogSaveBtn1 *{
+      background-color: #d04a02 !important;
+      color: white !important;
+      border: 1px solid #d04a02 !important;
+    }
+    :host ::ng-deep .upload *{
+    
+      
+      border: none !important;
+    
+      border: 1px solid #26776d !important;
+    }
+
+    ::ng-deep .dropdown12  {
+      background-color: #2d2d2d !important;
+      border-color: #26776d !important;
+    }
+
+    /* :host::ng-deep .dropdown12 * {
+      background-color: #2d2d2d !important;
+  color: white;
+      border-color: #26776d !important;
+    
+    } */
+
+    .spinner {
+      /* backdrop-filter: blur(2px); */
+      background-color: rgba(188, 170, 170, 0.2);
+      content: " ";
+      top: 0;
+      left: 0;
+      height: 99%;
+      width: 100%;
+      position: absolute;
+    
+    }
+    app-spinner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* dialog of exitinng */
+  
+::ng-deep .existingDataCardOverride{
+  /* color: white !important;
+  font-family: Helvetica !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  background-color: #2d2d2d !important;
+  width: 50%;
+  justify-content: center;
+  border: 1px solid white;
+}
+::ng-deep .p-dialog .p-dialog-content {
+  background-color: #2d2d2d !important;
+  color: white;
+
+}
+::ng-deep .p-dialog .p-dialog-header {
+  background-color: #2d2d2d !important;
+  color: white;
+
+}
+
+.cancel-icon:hover{
+font-weight: bold;
+cursor: pointer
+}
+.cardButtons{
+  width: 100%;
+  display: flex;
+  margin-top:2%;
+  justify-content: center;
+}

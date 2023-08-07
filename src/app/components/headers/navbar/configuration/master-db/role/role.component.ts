@@ -4,8 +4,8 @@ import { Component, OnInit, ViewChildren, ElementRef, QueryList } from '@angular
 import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { IRServiceService } from 'src/app/ir-service.service';
+import { LoadingSpinnerService } from 'src/app/loading-spinner.service';
 import { Access, Role } from './model/role';
-
 
 
 @Component({
@@ -30,7 +30,7 @@ export class RoleComponent implements OnInit {
   roles: Role[] = [];
   users: number = 5;
   value!: string;
-
+  spinner: boolean = false;
   selectedFiles?: FileList;
   selectedRole!: string;
   selectedAccess1: string[] = [];
@@ -39,22 +39,24 @@ export class RoleComponent implements OnInit {
 
   usersByRole: boolean = false;
 
-  roleNamePattern = '^[a-zA-Z ]{3,15}$';
+  roleNamePattern = '^[a-zA-Z0-9 ]{3,50}$';
   desciptionPattern = '^[a-zA-Z0-9@!#$%&*-_ ]{3,255}$';
   editRoleForm: boolean = false;
   access1: Access[] = [];
   roleId!: string;
 
-
+  selectedTypeRole!:string;
 
 
 
 
   constructor(
+    private lodSpinner : LoadingSpinnerService,
     private location: Location,
     private irService: IRServiceService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
+ 
   ) {
     this.access1 = [
       { accessLabel: 'Configuration' },
@@ -70,10 +72,18 @@ export class RoleComponent implements OnInit {
       { accessLabel: 'ARNM' },
     ];
   }
-
+  isLoading: boolean = false;
   vendorData: string[] = [];
   ngOnInit(): void {
+localStorage.removeItem('tableName');
+    this.lodSpinner.isLoading.subscribe((val) => {
+      this.isLoading = val;
+    });
 
+    this.lodSpinner.isLoading.next(true);
+
+
+    this.spinner = true;
     this.allRoles = [];
     this.viewRoles = true;
     this.roleForm = new FormGroup({
@@ -95,6 +105,10 @@ export class RoleComponent implements OnInit {
       (data: any) => {
         this.allRoles = data;
         console.log(data);
+        console.log(this.allRoles,"this is roles");
+        
+        this.lodSpinner.isLoading.next(false);
+        this.spinner = false;
       },
       (error: HttpErrorResponse) => {
         alert('something went wrong');
@@ -131,6 +145,7 @@ export class RoleComponent implements OnInit {
   }
 
   onClickSave() {
+    this.lodSpinner.isLoading.next(true);
     // this.roleForm.value.dashboardAccess = this.selectedAccess1;
     // this.roleForm.value.status = this.checked;
     if (this.checked === true) {
@@ -148,10 +163,11 @@ export class RoleComponent implements OnInit {
 
         this.messageService.add({
           severity: 'success',
-          summary: 'Successfull',
-          detail: 'Role addedd successfully',
+          summary: 'Successful',
+          detail: 'Role added successfully',
         });
-        this.ngOnInit();
+        this.lodSpinner.isLoading.next(false);
+         this.ngOnInit();
       },
       (error: HttpErrorResponse) => {
         if (error.status === 406) {
@@ -162,14 +178,14 @@ export class RoleComponent implements OnInit {
           });
         } else {
           this.messageService.add({
-            severity: 'Error',
+            severity: 'error',
             summary: 'Error',
             detail: 'Something went wrong while adding user..!!',
           });
         }
         this.addRoleDialogBox = false;
         this.selectedAccess1 = [];
-        this.ngOnInit();
+        // this.ngOnInit();
       }
     );
   }
@@ -180,7 +196,7 @@ export class RoleComponent implements OnInit {
     } else {
       this.roleForm.value.status = "In-active"
     }
-
+    this.lodSpinner.isLoading.next(true);
     console.log('alert');
     this.confirmationService.confirm({
       message: 'Are you sure that you want to edit this Role?',
@@ -189,15 +205,19 @@ export class RoleComponent implements OnInit {
           (data: any) => {
             console.log('role updated succesfully');
             console.log('Role Updated' + data);
+
+
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
               detail: 'role updated Successfully',
             });
-
+            this.lodSpinner.isLoading.next(false);
             this.addRoleDialogBox = false;
+            setTimeout(() => {
             this.ngOnInit();
-          },
+          }, 1300)
+        },
           (error: HttpErrorResponse) => {
             this.messageService.add({
               severity: 'error',

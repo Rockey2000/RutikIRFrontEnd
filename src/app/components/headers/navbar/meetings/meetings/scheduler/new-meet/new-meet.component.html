@@ -1,0 +1,616 @@
+<div style="margin-top: 20px">
+  <label class="label">
+    <i class="pi pi-chevron-left" (click)="onClickBack()"></i>
+    <span>{{ editMeetForm ? "Edit Existing Meet" : "Create New Meet" }}</span>
+  </label>
+</div>
+
+<form [formGroup]="newMeetForm" autocomplete="off">
+  <p-card
+    styleClass="ScheduleMeetingCard"
+    [style]="{ width: '80%', margin: '0px 40px 40px 40px' }"
+  >
+    <ng-template pTemplate="content">
+      <div>
+        <div class="grid p-fluid">
+          <div class="col-6">
+            <label for="firstname4" class="col-12 mb-2 md:col-2 md:mb-0"
+              >Title</label
+            >
+            <div>
+              <input
+                class="p-pInputText-sm inputbox"
+                type="text"
+                id="title"
+                pInputText
+                [pattern]="titlepattern"
+                required
+                placeholder="Enter"
+                formControlName="title"
+              />
+              <small
+                *ngIf="
+                  newMeetForm.get('title')?.invalid &&
+                  newMeetForm.get('title')?.touched
+                "
+              >
+                <span
+                  *ngIf="newMeetForm.get('title')?.errors?.['required']"
+                  style="color: red"
+                  >Title is required.</span
+                >
+                <span
+                  *ngIf="newMeetForm.get('title')?.errors?.['minlength']"
+                  style="color: red"
+                  >Title must be at least 3 characters long.</span
+                >
+                <span
+                  *ngIf="newMeetForm.get('title')?.errors?.['maxlength']"
+                  style="color: red"
+                  >Title must be at least 3 to 255 characters long.</span
+                >
+              </small>
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="firstname4" class="col-12 mb-2 md:col-2 md:mb-0"
+              >Date</label
+            >
+            <div>
+              <p-calendar
+                class="styleInputbox"
+                placeholder="Select Date"
+                dateFormat="dd/mm/yy"
+                [minDate]="today"
+                (onSelect)="onDateSelect($event)"
+                appendTo="body"
+                formControlName="meetingDate"
+              ></p-calendar>
+              <small
+                *ngIf="
+                  !newMeetForm.get('meetingDate')?.valid &&
+                  newMeetForm.get('meetingDate')?.touched
+                "
+              >
+                <span style="color: red"> Date Is Mandatory.</span>
+              </small>
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="firstname4" class="col-12 mb-2 md:col-2 md:mb-0"
+              >Agenda</label
+            >
+            <div>
+              <input
+                type="text"
+                id="agenda"
+                pInputText
+                [pattern]="agendapattern"
+                required
+                placeholder="Enter"
+                formControlName="agenda"
+                class="inputbox"
+              />
+              <small
+                *ngIf="
+                  newMeetForm.get('agenda')?.invalid &&
+                  newMeetForm.get('agenda')?.touched
+                "
+              >
+                <span
+                  *ngIf="newMeetForm.get('agenda')?.errors?.['required']"
+                  style="color: red"
+                  >Agenda is required.</span
+                >
+                <span
+                  *ngIf="newMeetForm.get('agenda')?.errors?.['minlength']"
+                  style="color: red"
+                  >Agenda must be at least 3 characters long.</span
+                >
+                <span
+                  *ngIf="newMeetForm.get('agenda')?.errors?.['maxlength']"
+                  style="color: red"
+                  >Agenda must be at least 3 to 255 characters long.</span
+                >
+              </small>
+            </div>
+          </div>
+          <div class="col-3">
+            <label for="firstname4" class="col-12 mb-2 md:col-2 md:mb-0"
+              >From</label
+            >
+            <div>
+              <p-calendar
+                [timeOnly]="true"
+                inputId="timeonly"
+                hourFormat="24"
+                formControlName="startTime"
+                placeholder="Start Time"
+                (onSelect)="onselectStartTime($event)"
+                class="styleInputbox"
+                [readonlyInput]="true"
+              ></p-calendar>
+              <br />
+              <small
+                *ngIf="
+                  !newMeetForm.get('startTime')?.valid &&
+                  newMeetForm.get('startTime')?.touched
+                "
+                class="error-message"
+              >
+                <span style="color: red">Start Time Is Mandatory.</span>
+              </small>
+            </div>
+          </div>
+          <div class="col-3">
+            <label for="firstname4" class="col-12 mb-2 md:col-2 md:mb-0"
+              >To</label
+            >
+            <div>
+              <p-calendar
+                [timeOnly]="true"
+                inputId="timeonly"
+                hourFormat="24"
+                formControlName="endTime"
+                placeholder="End Time"
+                (onSelect)="onselectEndTime($event)"
+                class="styleInputbox"
+                [readonlyInput]="true"
+              ></p-calendar>
+
+              <br />
+              <small
+                *ngIf="
+                  !newMeetForm.get('endTime')?.valid &&
+                  newMeetForm.get('endTime')?.touched
+                "
+              >
+                <span style="color: red"> End Time Is Mandatory.</span>
+              </small>
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="firstname4" class="col-12 mb-2 md:col-2 md:mb-0"
+              >Meeting type</label
+            >
+            <div>
+              <p-dropdown
+                styleClass="MeetingType"
+                [options]="meetingTypes"
+                optionLabel="meetingType"
+                optionValue="meetingType"
+                placeholder="select"
+                placeholder="Enter"
+                formControlName="meetingType"
+                [required]="true"
+                (onChange)="meetingType($event)"
+              ></p-dropdown>
+              <small
+                *ngIf="
+                  !newMeetForm.get('meetingType')?.valid &&
+                  newMeetForm.get('meetingType')?.touched
+                "
+              >
+                <span style="color: red">Field Is Mandatory </span>
+              </small>
+            </div>
+          </div>
+          <div class="col-5">
+            <label for="firstname4" class="col-12 mb-3 md:col-2 md:mb-0"
+              >Add participant</label
+            >
+            <div>
+              <p-multiSelect
+                styleClass="dropdownEmails1"
+                [options]="emailOfUsers"
+                placeholder="Select Emails"
+                formControlName="participant"
+                optionLabel="email"
+                optionValue="email"
+                [showClear]="true"
+              ></p-multiSelect>
+              <small
+                *ngIf="
+                  !newMeetForm.get('participant')?.valid &&
+                  newMeetForm.get('participant')?.touched
+                "
+              >
+                <span style="color: red">Mandatory Field</span>
+              </small>
+            </div>
+          </div>
+          <div class="col-1">
+            <label
+              for="firstname4"
+              class="col-12 mb-2 md:col-2 md:mb-0"
+            ></label>
+            <div>
+              <button
+                pButton
+                type="button"
+                icon="pi pi-plus"
+                iconPos="left"
+                class="addEmailBtn"
+                (click)="onClickAddEmail()"
+              ></button>
+            </div>
+          </div>
+          <div *ngIf="meetingRecording" class="col-6">
+            <label for="firstname4" class="col-12 mb-2 md:col-2 md:mb-0"
+              >Record Meeting</label
+            >
+            <div>
+              <p-inputSwitch
+                placeholder="Enter"
+                styleClass="recordSwitch"
+                formControlName="recordAutomatically"
+                (onChange)="handleChange($event)"
+              ></p-inputSwitch>
+              &nbsp;
+              <span style="font-size: large" *ngIf="checked"></span>
+              <span style="font-size: large" *ngIf="!checked"></span>
+            </div>
+          </div>
+          <div class="col-6" *ngIf="editMeetForm">
+            <label for="firstname4" class="col-12 mb-2 md:col-2 md:mb-0"
+              >External Email Id's</label
+            >
+            <div>
+              <input
+                class="p-pInputText-sm inputbox"
+                type="text"
+                id="title"
+                placeholder="No External Email Found"
+                pInputText
+                [value]="differentValuesAsString"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br />
+    </ng-template>
+  </p-card>
+</form>
+
+<div style="text-align: right; margin-right: 17%">
+  <span *ngIf="!editMeetForm">
+    <button
+      class="p-button-sm p-button-outlined deleteButton"
+      pButton
+      label="Cancel"
+      (click)="onClickBack()"
+    ></button>
+  </span>
+  <span *ngIf="editMeetForm">
+    <button
+      class="p-button-sm p-button-outlined deleteButton"
+      pButton
+      label="Delete"
+      (click)="onClickDelete()"
+    ></button>
+  </span>
+  &nbsp;
+
+  <span *ngIf="!editMeetForm">
+    <button
+      [disabled]="!newMeetForm.valid"
+      class="p-button-sm sendButton"
+      pButton
+      label="Send"
+      (click)="onClickSave()"
+    ></button>
+  </span>
+  <span *ngIf="editMeetForm">
+    <button
+      pButton
+      label="Update"
+      class="p-button-sm updateButton"
+      [disabled]="!newMeetForm.valid"
+      (click)="onClickUpdate()"
+    ></button>
+  </span>
+</div>
+<form [formGroup]="addEmail" autocomplete="off">
+  <div>
+    <p-dialog
+      header="Enter Email :"
+      [(visible)]="flagAdding"
+      [style]="{ width: '30%', margin: '0px 20px' }"
+      (onHide)="onClickCancle1()"
+      styleClass="emailDialog"
+    >
+      <div class="p-fluid grid">
+        <div class="field col-12 md:col-12">
+          <span>
+            <input
+              type="text"
+              id="email"
+              formControlName="email"
+              pInputText
+              placeholder="Enter"
+              required
+              class="p-pInputText-sm emailBoxname"
+            />
+
+            <small
+              *ngIf="
+                addEmail.get('email')?.invalid && addEmail.get('email')?.touched
+              "
+            >
+              <span
+                *ngIf="addEmail.get('email')?.errors?.['required']"
+                style="color: red"
+                >Valid Email required.</span
+              >
+              <span
+                *ngIf="addEmail.get('email')?.errors?.['pattern']"
+                style="color: red"
+                >Example:- abc@gmail.com</span
+              >
+            </small>
+          </span>
+        </div>
+      </div>
+      <div class="footer">
+        <button
+          [disabled]="!addEmail.valid"
+          pButton
+          label="Save"
+          class="p-button-sm saveEmailBtn"
+          icon="pi pi-check-circle"
+          (click)="onClickSaveEmail()"
+        ></button>
+      </div>
+    </p-dialog>
+  </div>
+</form>
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<ng-container *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</ng-container>
+
+<!-- <form [formGroup]="newMeetForm" autocomplete="off">
+  <p-card
+    styleClass="ScheduleMeetingCard"
+    [style]="{ width: '80%', margin: '0px 40px 40px 40px' }"
+  >
+    <ng-template pTemplate="content">
+      <div class="grid fluid">
+        <label
+          for="clientId"
+          style="margin-top: 10px; width: 70px; font-weight: bold"
+          >Title</label
+        >
+        <div class="field col-12 md:col-3" style="margin-left: 20px">
+          <input
+            class="p-pInputText-sm titleBoxname"
+            type="text"
+            id="title"
+            pInputText
+            [pattern]="titlepattern"
+            required
+            placeholder="Enter"
+            formControlName="title"
+          />
+           <small *ngIf="newMeetForm.get('title')?.invalid && newMeetForm.get('title')?.touched">
+            <span *ngIf="newMeetForm.get('title')?.errors?.['required']" style="color: red">Title is required.</span>
+            <span *ngIf="newMeetForm.get('title')?.errors?.['minlength']" style="color: red">Title must be at least 3 characters long.</span>
+            <span *ngIf="newMeetForm.get('title')?.errors?.['maxlength']" style="color: red">Title must be at least 3 to 255 characters long.</span>
+          </small>
+        </div>
+
+        <label
+          for="shareholderName"
+          style="
+            margin-left: 40px;
+            margin-top: 15px;
+            width: 80px;
+            font-weight: bold;
+          "
+          >Date</label
+        >
+        <div
+          class="field col-12 md:col-6"
+          style="margin-top: -9px; margin-left: 15px; width: 472px"
+        >
+          <p-calendar
+            class="inputMeetingDate"
+            placeholder="Select Date"
+            dateFormat="dd/mm/yy"
+            [minDate]="today"
+            (onSelect)="onDateSelect($event)"
+            appendTo="body"
+            formControlName="meetingDate"
+          ></p-calendar>
+          <small
+          *ngIf="
+            !newMeetForm.get('meetingDate')?.valid &&
+            newMeetForm.get('meetingDate')?.touched
+          "
+        >
+          <span style="color: red"> Date Is Mandatory.</span>
+        </small>
+        </div>
+      </div>
+      <div class="grid fluid">
+        <label
+          for="PortfolioID"
+          style="margin-top: 10px; width: 75px; font-weight: bold"
+          >Agenda</label
+        >
+        <div class="field col-12 md:col-3" style="margin-left: 20px">
+          <textarea
+            class="inputBoxAgenda"
+            type="text"
+            id="agenda"
+            pInputTextarea
+            [pattern]="agendapattern"
+            required
+            placeholder="Enter"
+            formControlName="agenda"
+          ></textarea>
+          <small *ngIf="newMeetForm.get('agenda')?.invalid && newMeetForm.get('agenda')?.touched">
+            <span *ngIf="newMeetForm.get('agenda')?.errors?.['required']" style="color: red">Agenda is required.</span>
+            <span *ngIf="newMeetForm.get('agenda')?.errors?.['minlength']" style="color: red">Agenda must be at least 3 characters long.</span>
+            <span *ngIf="newMeetForm.get('agenda')?.errors?.['maxlength']" style="color: red">Agenda must be at least 3 to 255 characters long.</span>
+          </small>
+        </div>
+        <label
+          for="holdingValue"
+          style="
+            margin-left: 40px;
+            margin-top: 15px;
+            width: 70px;
+            font-weight: bold;
+            margin-bottom: 10px;
+          "
+          >Time</label
+        >
+        <div class="field col-12 md:col-3" style="margin-left: 5px">
+          <p-calendar
+            [timeOnly]="true"
+            inputId="timeonly"
+            class="startTime"
+            hourFormat="24"
+            formControlName="startTime"
+            placeholder="Start Time"
+            (onSelect)="onselectStartTime($event)" 
+          ></p-calendar>
+          <br>
+          <small
+          *ngIf="
+            !newMeetForm.get('startTime')?.valid &&
+            newMeetForm.get('startTime')?.touched
+          "
+        >
+          <span style="color: red"> Start Time Is Mandatory.</span>
+        </small>
+        </div>
+        <h4 style="margin-left: -120px">To</h4>
+        <div class="field col-12 md:col-3">
+          <p-calendar
+            [timeOnly]="true"
+            inputId="timeonly"
+            class="EndTime"
+            hourFormat="24"
+            formControlName="endTime"
+            placeholder="End Time"
+            (onSelect)="onselectEndTime($event)" 
+          ></p-calendar>
+          <br>
+          <small
+          *ngIf="
+            !newMeetForm.get('endTime')?.valid &&
+            newMeetForm.get('endTime')?.touched
+          "
+        >
+          <span style="color: red"> End Time Is Mandatory.</span>
+        </small>
+        </div>
+      </div>
+
+      <div class="grid p-fluid">
+        <label
+          for="folio"
+          style="margin-top: 10px; width: 75px; font-weight: bold"
+          >Meeting Type</label
+        >
+        <div class="field col-12 md:col-3">
+          <p-dropdown
+            [options]="meetingTypes"
+            optionLabel="meetingType"
+            optionValue="meetingType"
+            placeholder="select"
+            styleClass="dropdownMeetingType"
+            placeholder="Enter"
+            formControlName="meetingType"
+            [required]="true"
+            (onChange)="meetingType($event)"
+          ></p-dropdown>
+          <small
+            *ngIf="
+              !newMeetForm.get('meetingType')?.valid && newMeetForm.get('meetingType')?.touched
+            "
+          >
+            <span style="color: red">Field Is Mandatory </span>
+          </small>
+        </div>
+        <label
+          for="folio"
+          style="
+            margin-left: 40px;
+            margin-top: 10px;
+            width: 75px;
+            font-weight: bold;
+          "
+          >Add Participants</label
+        >
+        <div
+          class="field col-12 md:col-3"
+          style="margin-left: 15px; margin-top: -1px; width: 472px"
+        >
+          <p-multiSelect
+            [options]="emailOfUsers"
+            placeholder="Select Emails"
+            formControlName="participant"
+            styleClass="dropdownEmails"
+            optionLabel="email"
+            optionValue="email"
+            [showClear]="true"
+          ></p-multiSelect>
+          <small
+          *ngIf="
+            !newMeetForm.get('participant')?.valid && newMeetForm.get('participant')?.touched
+          "
+        >
+          <span style="color: red">Mandatory Field</span>
+        </small>
+        </div>
+        <div class="field col-12 md:col-3">
+          <button
+            pButton
+            type="button"
+            icon="pi pi-plus"
+            iconPos="left"
+            class="addEmailBtn"
+            (click)="onClickAddEmail()"
+          ></button>
+
+        
+        </div>
+      </div>
+      <br />
+      <div class="grid p-fluid" *ngIf="meetingRecording">
+        <label
+          for="minorcode"
+          style="margin-top: 10px; width: 75px; font-weight: bold"
+          >Record Meeting</label
+        >
+        <div class="field col-12 md:col-3">
+          <p-inputSwitch
+            [required]="true"
+            styleClass="recordSwitch"
+            placeholder="Enter"
+            [(ngModel)]="checked"
+            formControlName="recordAutomatically"
+            (onChange)="handleChange($event)"
+          ></p-inputSwitch>
+          &nbsp;
+          <span style="font-size: large" *ngIf="checked"></span>
+          <span style="font-size: large" *ngIf="!checked"></span>
+        </div>
+        <br />
+      </div>
+    </ng-template>
+  </p-card>
+</form> -->

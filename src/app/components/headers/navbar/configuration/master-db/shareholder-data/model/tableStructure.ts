@@ -12,7 +12,7 @@ export interface tableStructure{
 
 export interface LineItem{
     id?:string,
-    clientId?:string,
+    clientName?:string,
     portfolioId?:string,
     folio?:string,
     shareholderName?:string;

@@ -1,0 +1,456 @@
+<!-- <app-client-setup-dropdown></app-client-setup-dropdown> -->
+
+<div class="firstDiv" *ngIf="clientDetailsForm">
+  <form [formGroup]="newClientForm" autocomplete="off">
+    <div style="margin-top: 1.5%">
+      <label class="editclientlable">
+        <i
+          class="pi pi-chevron-left"
+          style="width: 16px; height: 10px"
+          (click)="onClickBack()"
+        ></i>
+        <span>{{ editClientForm ? "Edit Client" : "Create New User" }}</span>
+      </label>
+    </div>
+    <!-- <label class="headerLabel1">
+    <i
+    class="pi pi-chevron-left"
+    style="width: 16px; height: 10px; cursor: pointer"
+    (click)="onClickBack()"
+    ></i>
+  </label> -->
+
+    <p-card styleClass="formCard">
+      <div
+        style="
+          width: 100%;
+          display: inline-flex;
+          flex-wrap: wrap;
+          padding-top: 2px;
+        "
+      >
+        <label for="folio" style="margin-left: 5%; margin-top: 0.8%"
+          >Project Code</label
+        >
+        <input
+          class="p-pInputText-sm inputBoxProjectCode"
+          type="text"
+          id="title"
+          pInputText
+          required
+          placeholder="Enter"
+          [readOnly]="IsEditmode"
+          formControlName="projectCode"
+        />
+
+        <label for="folio" style="margin-left: 5%; margin-top: 0.8%"
+          >Task Code</label
+        >
+        <input
+          class="p-pInputText-sm inputBoxTaskCode"
+          type="text"
+          id="title"
+          pInputText
+          required
+          placeholder="Enter"
+          [readOnly]="IsEditmode"
+          formControlName="taskCode"
+        />
+
+        <button
+          pButton
+          label="Verify"
+          [disabled]="!verifyButtonDisabled"
+          class="p-button verify"
+          (click)="VerifyData1()"
+        ></button>
+      </div>
+      <div *ngIf="clientdetailsformAdd">
+        <p-card styleClass="clientDetailsCard">
+          <ng-template pTemplate="content">
+            <div style="width: 100%; display: flex; flex-wrap: wrap">
+              <div class="field col-12 md:col-4" style="width: 33.33%">
+                <div style="display: flex; margin-top: -5%">
+                  <label
+                    for="folio"
+                    style="float: left; margin-top: 3%; width: 30%"
+                    >Client Name</label
+                  >
+                  <input
+                    class="p-pInputText-sm inputBoxClientName"
+                    type="text"
+                    style="width: 65%"
+                    id="title"
+                    pInputText
+                    [readOnly]="true"
+                    required
+                    placeholder="Enter"
+                    formControlName="clientName"
+                  />
+                </div>
+                <small
+                  *ngIf="
+                    newClientForm?.get('clientName')?.errors?.['required'] &&
+                    newClientForm?.get('clientName')?.touched
+                  "
+                >
+                  <span class="p-error">Client Name is required.</span>
+                </small>
+                <small
+                  *ngIf="
+                    newClientForm?.get('clientName')?.errors?.['pattern'] &&
+                    newClientForm?.get('clientName')?.touched
+                  "
+                >
+                  <span class="p-error"
+                    >Client Name should only contain letters and numbers.</span
+                  >
+                </small>
+
+                <div style="display: flex; margin-top: 5%">
+                  <label for="folio" style="float: left; width: 30%"
+                    >Client Address</label
+                  >
+                  <textarea
+                    pInputTextarea
+                    [rows]="5"
+                    [cols]="8"
+                    style="width: 65%"
+                    type="text"
+                    formControlName="clientAddress"
+                    required
+                    [required]="true"
+                    placeholder="Enter"
+                    class="p-pInputText-sm inputBoxEmailDomain"
+                  ></textarea>
+                </div>
+                <div
+                  style="color: red"
+                  *ngIf="
+                    newClientForm?.get('clientAddress')?.invalid &&
+                    newClientForm?.get('clientAddress')?.touched
+                  "
+                >
+                  <small class="p-error">Client Address is required.</small>
+                </div>
+                <hr style="width: 310%; margin-top: 5%" color="#7d7d7d" />
+
+                <div style="display: flex; margin-top: 3%">
+                  <label
+                    for="folio"
+                    style="float: left; width: 30%; margin-top: 5%"
+                    >Assign AA</label
+                  >
+                  <p-multiSelect
+                    [options]="analystnameClientArr"
+                    placeholder="Select"
+                    styleClass="dropdownAssignAnalyst"
+                    optionLabel="name"
+                    formControlName="assignAA"
+                    optionValue="name"
+                    [showClear]="true"
+                    class="custom-dropdown"
+                  ></p-multiSelect>
+                </div>
+                <div
+                  *ngIf="
+                    newClientForm?.get('assignAA')?.invalid &&
+                    newClientForm?.get('assignAA')?.touched
+                  "
+                >
+                  <small class="p-error" style="color: red"
+                    >Assign AA is required.</small
+                  >
+                </div>
+              </div>
+              <div
+                class="field col-12 md:col-4"
+                style="width: 33.33%; margin-left: 2%"
+              >
+                <div style="margin-top: -5%">
+                  <label
+                    for="folio"
+                    style="float: left; width: 30%; margin-top: 3%"
+                    >Email Domain</label
+                  >
+                  <input
+                    class="p-pInputText-sm inputBoxClientName"
+                    type="text"
+                    style="width: 65%"
+                    id="title"
+                    pInputText
+                    required
+                    placeholder="Enter"
+                    formControlName="emailDomain"
+                  />
+                  <small
+                    *ngIf="
+                      newClientForm.get('emailDomain')?.invalid &&
+                      newClientForm.get('emailDomain')?.touched
+                    "
+                  >
+                    <span
+                      *ngIf="newClientForm.get('emailDomain')?.errors?.['required']"
+                      style="color: red; margin-left: 30%"
+                      >Email Domain is required.</span
+                    >
+                    <span
+                      *ngIf="newClientForm.get('emailDomain')?.errors?.['minlength']"
+                      style="color: red; margin-left: 30%"
+                      >Email Domain must be at least 3 characters long.</span
+                    >
+
+                    <span
+                      *ngIf="newClientForm.get('emailDomain')?.errors?.['maxlength']"
+                      style="color: red; margin-left: 30%"
+                      >Email Domain cannot be more than 155 characters
+                      long.</span
+                    >
+                    <span
+                      *ngIf="newClientForm.get('emailDomain')?.errors?.['pattern']"
+                      style="color: red; margin-left: 30%"
+                      >Email Domain cannot allowed special character
+                    </span>
+                  </small>
+                </div>
+
+                <div style="display: flex; margin-top: 5%">
+                  <label
+                    for="folio"
+                    style="float: left; width: 30%; margin-top: 3%"
+                    >Email IDs</label
+                  >
+                  <p-multiSelect
+                    [options]="allFinalMailIds"
+                    placeholder="Select Emails"
+                    formControlName="emailId"
+                    styleClass="EmailIDdropdown"
+                    optionLabel="email"
+                    optionValue="email"
+                    [showClear]="true"
+                    class="custom-dropdown"
+                  ></p-multiSelect>
+                </div>
+                <div
+                  style="color: darkred"
+                  *ngIf="
+                    newClientForm?.get('emailId')?.invalid &&
+                    newClientForm?.get('emailId')?.touched
+                  "
+                >
+                  <small class="p-error" style="color: red"
+                    >Email Id is required.</small
+                  >
+                </div>
+              </div>
+              <div class="field col-12 md:col-3" style="width: 28%">
+                <div style="display: flex; width: 100%; margin-top: -6%">
+                  <label
+                    for="folio"
+                    style="float: left; width: 30%; margin-top: 3%"
+                    >Industry</label
+                  >
+                  <p-dropdown
+                    [options]="IndustryTypes"
+                    optionLabel="industryType"
+                    optionValue="industryType"
+                    placeholder="Select"
+                    styleClass="dropdownIndustryType"
+                    placeholder="Enter"
+                    formControlName="industry"
+                    [required]="true"
+                    class="custom-dropdown"
+                    (onChange)="onIndustryChange()"
+                    [readonly]="ReadonlyIndustry"
+                  ></p-dropdown>
+                </div>
+                <div style="display: flex; margin-top: 5%">
+                  <label for="folio" style="float: left; width: 30%"
+                    >Suggested Peers</label
+                  >
+                  <p-multiSelect
+                    [options]="selectedpeer"
+                    placeholder="Select Peers"
+                    formControlName="suggestedPeers"
+                    styleClass="dropdownPeers"
+                    optionLabel="clientName"
+                    optionValue="clientName"
+                    [showClear]="true"
+                    class="custom-dropdown"
+                  ></p-multiSelect>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+      <div
+        *ngIf="!editClientForm"
+        style="
+          text-align: right;
+          margin-right: 130px;
+          margin-top: 15px;
+          margin-right: 10%;
+        "
+      >
+        <button
+          class="p-button-sm p-button-outlined skipButton"
+          pButton
+          label="Back"
+          (click)="onClickCancel()"
+        ></button>
+        &nbsp;
+        <button
+          [disabled]="!newClientForm.valid"
+          class="p-button-sm sendButton"
+          pButton
+          label="Save & Create"
+          (click)="onClickSave()"
+        ></button>
+      </div>
+    </p-card>
+  </form>
+</div>
+
+<div style="margin-top: 20px">
+  <div>
+    <div *ngIf="ClientDetailsTable">
+      <div>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search" style="color: white"></i>
+          <input
+            type="text"
+            class="p-inputtext-sm searchInputBoxClient"
+            pInputText
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Search"
+          />
+        </span>
+
+        <p-dropdown
+          styleClass="analystdropdown1"
+          [options]="DataForDropdown"
+          [(ngModel)]="selectedType1"
+          defaultLabel="Analyst"
+          optionLabel="clientName"
+          optionValue="clientName"
+          placeholder="Filter By Client Name"
+          selectedItemsLabel="{0} items selected"
+          dropdownIcon="pi pi-filter"
+          (onChange)="dt.filterGlobal($any(selectedType1), 'equals')"
+          [showClear]="true"
+          [filter]="true"
+          filterBy="clientName"
+        ></p-dropdown>
+
+        <button
+          pButton
+          label="Add New Client"
+          icon="pi pi-plus-circle"
+          class="p-button-sm addMappingButton"
+          (click)="onClickAddClient()"
+        ></button>
+      </div>
+      <br />
+
+      <p-table
+        #dt
+        [value]="clientDetails"
+        styleClass="p-datatable-sm lineItemsMapTable customPaginator"
+        [paginator]="true"
+        [rows]="10"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+        [globalFilterFields]="[
+          'clientName',
+          'clientAddress',
+          'emailDomain',
+          'emailIDs',
+          'peerGroup',
+          'assignedAdmin',
+          'status'
+        ]"
+      >
+        <ng-template pTemplate="header">
+          <tr class="tableHeader">
+            <th>Sr. No</th>
+            <th pSortableColumn="masterTableSource" class="tableHeader">
+              Client Name
+            </th>
+            <th>
+              Client Address <p-sortIcon field="masterTableSource"></p-sortIcon>
+            </th>
+            <th>Email Domain</th>
+            <th>Email IDs</th>
+            <th>Peer Groups</th>
+            <th>Assigned AA</th>
+            <!-- <th>Status</th> -->
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-client && let-i="rowIndex">
+          <tr (click)="editClient(client.clientId)">
+            <td>{{ i + 1 }}</td>
+            <td>{{ client.clientName }}</td>
+            <td>{{ client.clientAddress }}</td>
+            <td>{{ client.emailDomain }}</td>
+            <td>{{ client.emailId[0] }}</td>
+            <td>
+              <span *ngIf="client.suggestedPeers !== undefined">
+                {{ client.suggestedPeers }}
+              </span>
+            </td>
+            <td>{{ client.assignAA }}</td>
+            <!-- <td>{{ client.status }}</td> -->
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="grid" *ngIf="editClientForm">
+      <div class="col-12">
+        <button
+          pButton
+          icon="pi pi-save"
+          label="Update"
+          class="p-button-sm updateButton"
+          (click)="ClientDetailsUpdate()"
+        ></button>
+
+        <button
+          pButton
+          icon="pi pi-cancel"
+          label="Delete"
+          class="p-button-sm cancelButton"
+          (click)="onClickDeleteData(clientid)"
+        ></button>
+      </div>
+    </div>
+    <!-- <div *ngIf="editClientForm">
+      <button
+        pButton
+        icon="pi pi-save"
+        label="Update"
+        class="p-button-sm updateButton"
+        (click)="ClientDetailsUpdate()"
+      ></button>
+
+      <button
+        pButton
+        icon="pi pi-cancel"
+        label="Delete"
+        class="p-button-sm cancelButton"
+        (click)="onClickDeleteData(clientid)"
+      ></button>
+    </div> -->
+  </div>
+</div>
+<!-- Spinner -->
+<div *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</div>
+<!-- Notification Message -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

@@ -1,6 +1,7 @@
 ::ng-deep .dropdown {
     background-color: #2d2d2d !important;
     color: white !important;
+    border-color: #50AD95 !important;
   }
   
   ::ng-deep input,
@@ -12,6 +13,7 @@
   :host::ng-deep .dropdown * {
     background-color: #2d2d2d !important;
     color: white;
+    border-color: #50AD95 !important;
   }
   
   /* new css */
@@ -99,7 +101,7 @@
     border-bottom: 0 solid;
   }
   
-  ::ng-deep .searchInputBox {
+  ::ng-deep .searchInputBoxContact {
     border: 1px solid #50ad95 !important;
   }   
 
@@ -110,27 +112,50 @@
     font-family: Helvetica !important;
   }
 
-  ::ng-deep .inputBox{
+  ::ng-deep .inputBoxname{
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    width: 100%;
+  }
+  ::ng-deep .inputBoxadd{
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    width: 100%;
+  }
+  ::ng-deep .inputBoxpoc{
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    width: 100%;
+  }
+  ::ng-deep .inputBoxcontact{
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    width: 100%;
+  }
+  ::ng-deep .inputBoxemail{
     margin-top: 1vh;
     margin-bottom: 3vh;
     width: 100%;
   }
 
-  ::ng-deep .cancelButton {
+  ::ng-deep .cancelButton3 {
     color: #d04a02 !important;
-    width: 7% !important;
+    /* width: 7% !important; */
+    width: 80px;
   }
   
-  ::ng-deep .saveButton {
+  ::ng-deep .saveButton3 {
     background-color: #d04a02 !important;
     color: white !important;
     border: none !important;
-    width: 7% !important;
+    width: 80px;
+    /* width: 7% !important; */
   }
 
   ::ng-deep .label{
     cursor: pointer !important;
     font-size: larger !important;
+    color: white;
   
   }
 
@@ -147,4 +172,34 @@
 
   .field {
     margin: -5px 0px;
+  }
+
+  .spinner {
+    /* backdrop-filter: blur(2px); */
+    background-color: rgba(188, 170, 170, 0.2);
+    content: " ";
+    top: 0;
+    left: 0;
+    height: 99%;
+    width: 100%;
+    position: absolute;
+  
+  }
+  app-spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  ::ng-deep .customPaginator .p-paginator {
+    background-color:#191919 !important;
+  }
+  
+  .customPaginator .p-paginator .ui-paginator-page {
+    color: white;
+  }
+
+  ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    border: none !important;
   }

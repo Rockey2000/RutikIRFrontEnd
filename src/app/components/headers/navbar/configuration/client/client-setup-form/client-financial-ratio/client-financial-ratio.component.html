@@ -1,0 +1,332 @@
+<div *ngIf="clientRatioForm">
+  <!-- create Finantial ratio form -->
+ <div style="margin-top: 1%;">
+
+   <label class="editclientlable">
+     <i
+     class="pi pi-chevron-left"
+     (click)="onClickBack()"
+     ></i>
+     <span>Create New Financial Ratio</span>
+    </label>
+  </div>
+
+
+  <form [formGroup]="financialRatioForm" autocomplete="off">
+  <div style=" margin-top: 5vh;">
+  
+      
+    <div class="formgrid grid">
+      <div class="field col-2">
+              <label class="input2lable1">Client Name</label>
+              <p-cascadeSelect
+              styleClass="ClientDropdown"
+              [showClear]="true"
+              formControlName="clientName"
+              [options]="allData"
+              optionLabel="name"
+              optionValue="name"
+              optionGroupLabel="name"
+              [optionGroupChildren]="['states', 'cities']"
+              placeholder="Select"
+              appendTo="body"
+            ></p-cascadeSelect>
+          </div>
+          <div class="field col-2">
+              <label class="input2lable1">Formula Name</label>
+              <input
+              type="text"
+              class="p-inputtext FormulaName"
+              formControlName="formulaName"
+              pInputText
+              required
+              placeholder="Enter"
+              [(ngModel)]="lineItem"
+            />
+            <br />
+            <small
+              *ngIf="
+                financialRatioForm.get('formulaName')?.invalid &&
+                financialRatioForm.get('formulaName')?.touched
+              "
+            >
+              <span
+                *ngIf="financialRatioForm.get('formulaName')?.errors?.['required']"
+                style="color: red"
+                >Enter Valid Formula Name.</span
+              >
+              <span
+                *ngIf="financialRatioForm.get('formulaName')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Formula Name contains Alphabets only.</span
+              >
+              <span
+                *ngIf="financialRatioForm.get('formulaName')?.errors?.['minlength']"
+                style="color: red"
+                >&nbsp;Formula Name must be at least 3 characters long.</span
+              >
+              <span
+                *ngIf="financialRatioForm.get('formulaName')?.errors?.['maxlength']"
+                style="color: red"
+                >&nbsp;Formula Name cannot be more than 15 characters long.</span>
+            </small>
+          </div>
+          <div class="field col-2">
+              <label class="input2lable1">Line Item Source</label>
+              <p-dropdown
+            [options]="dataTypes"
+            optionValue="type"
+            [showClear]="true"
+            optionLabel="type"
+            placeholder="Select Line Item Source"
+            styleClass="LineItemSource"
+            [(ngModel)]="selectedValue"
+            (onChange)="onSelectLineItemSource()"
+            formControlName="lineItemSource"
+          >
+          </p-dropdown>
+          </div>
+        </div>
+
+         
+             <p-card styleClass="externalCard" [style]="{ width: '98.9%' }">
+            <h4>Ratio Builder</h4>
+
+          <ng-template pTemplate="content">
+          <div class="p-fluid grid">
+          <div class="p-fluid col-3">
+            <p-card styleClass="accesscard">
+              <ng-template pTemplate="title">
+                <p>Line Item Name</p>
+                <p-dropdown
+                  [filter]="true"
+                  filterBy="lineItem"
+                  styleClass="dropdown4"
+                  [options]="balanceSheetLineItem"
+                  optionLabel="lineItem"
+                  optionValue="lineItem"
+                  placeholder="Attribute"
+                  [style]="{ width: '100%' }"
+                  [(ngModel)]="selectedLineItem"
+                  [ngModelOptions]="{ standalone: true }"
+                  (onChange)="onClickLineItem(selectedLineItem)"
+                  #selectedAttribute="ngModel"
+                  *ngIf="balanceSheetTableValues"
+                >
+                </p-dropdown>
+                <p-dropdown
+                  [filter]="true"
+                  filterBy="lineItem"
+                  styleClass="dropdown4"
+                  [options]="cashFlowLineItem"
+                  optionLabel="lineItem"
+                  optionValue="lineItem"
+                  placeholder="Attribute"
+                  [style]="{ width: '100%' }"
+                  [(ngModel)]="selectedLineItem"
+                  [ngModelOptions]="{ standalone: true }"
+                  (onChange)="onClickLineItem(selectedLineItem)"
+                  #selectedAttribute="ngModel"
+                  *ngIf="CashFlowTableValues"
+                >
+                </p-dropdown>
+
+                <p-dropdown
+                  [filter]="true"
+                  filterBy="lineItem"
+                  styleClass="dropdown4"
+                  [options]="incomeStatementLineItem"
+                  optionLabel="lineItem"
+                  optionValue="lineItem"
+                  placeholder="Attribute"
+                  [style]="{ width: '100%' }"
+                  [(ngModel)]="selectedLineItem"
+                  [ngModelOptions]="{ standalone: true }"
+                  (onChange)="onClickLineItem(selectedLineItem)"
+                  #selectedAttribute="ngModel"
+                  *ngIf="incomeStatmentTableValues"
+                >
+                </p-dropdown>
+                <br />
+                <!-- <small *ngIf="!selectedAttribute?.valid && selectedAttribute?.touched">
+              <span style="color: red;font-size: 15px;"> Field Is Mandatory</span>
+            </small> -->
+              </ng-template>
+            </p-card>
+          </div>
+
+          <div class="field col-12 md:col-3">
+            <p-card styleClass="accesscard">
+              <ng-template pTemplate="title">
+                <p>Operations</p>
+                <p-dropdown
+                  [filter]="true"
+                  filterBy="symbol"
+                  styleClass="dropdown3"
+                  [options]="operations"
+                  optionLabel="symbol"
+                  optionValue="symbol"
+                  placeholder="Operations"
+                  [style]="{ width: '100%' }"
+                  [(ngModel)]="selectedSymbol"
+                  [ngModelOptions]="{ standalone: true }"
+                  (onChange)="onClickSymbol(selectedSymbol)"
+                  #selectedSym="ngModel"
+                  *ngIf="operationDrop"
+                >
+                </p-dropdown>
+                <br />
+                <!-- <small *ngIf="!selectedSym?.valid && selectedSym?.touched">
+               <span style="color: red; font-size: 15px;">Mandatory is Field</span>
+             </small> -->
+              </ng-template>
+            </p-card>
+          </div>
+          <div class="field col-12 md:col-6">
+            <h4 style="margin-top: -42px">Ratio Editor</h4>
+            <p-card styleClass="formulaCard">
+              <h3 style="color: white">{{ lineItem }} :</h3>
+              <br />
+              <table>
+                <tr
+                  style="display: inline-block"
+                  class="displayFlex"
+                  *ngFor="let item of formula; let i = index"
+                >
+                  <td>{{ item.item }}</td>
+                </tr>
+              </table>
+              <!-- <div class="displayFlex" *ngFor="let item of formula;let i = index">
+              {{item.item}}
+            
+           </div> -->
+            </p-card>
+            <div class="footer">
+              <button
+                style="width: 60px; height: 25px"
+                class="p-button-sm button"
+                pButton
+                (click)="onclear()"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+
+
+  </form>
+    <div style="text-align: right; margin-top: 2%">
+      <button
+        class="p-button-sm p-button-outlined cancelButton1"
+        pButton
+        label="Back"
+        (click)="onClickBack()"
+      ></button>
+      &nbsp;
+      <button
+        [disabled]="
+          !financialRatioForm.valid || !(selectedSymbol && selectedLineItem)
+        "
+        class="p-button-sm button saveButton1"
+        pButton
+        label="Save and Create"
+        (click)="onClickSave()"
+      ></button>
+    </div>
+    <!-- <p-card styleClass="card"></p-card> -->
+  
+</div>
+<div *ngIf="ClientRatioTable">
+  <span class="p-input-icon-left searchbar" style="margin-bottom: 10px">
+    <i class="pi pi-search"></i>
+    <input
+      style="border: 1px solid #50ad95"
+      type="text"
+      styleClass="searchInputBox"
+      pInputText
+      placeholder="Search"
+      (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+    />
+  </span>
+  <button
+    pButton
+    class="p-button-sm button button1"
+    label="Add Ratio"
+    icon="pi pi-plus-circle"
+    (click)="addClientRatio()"
+  ></button>
+
+  <p-table
+    #dt
+    dataKey="id"
+    styleClass="p-datatable-sm financialRatioTable"
+    responsiveLayout="scroll"
+    scrollHeight="100vh"
+    [value]="ratios"
+    [globalFilterFields]="['id', 'lineItem', 'formula', 'formulaType']"
+  >
+    <ng-template pTemplate="header">
+      <tr class="tableHeader">
+        <th>Sr. No</th>
+        <th>Ratio Name</th>
+        <th>Client Name</th>
+        <th>Formula</th>
+        <th>Action</th>
+        <!-- <th>Type</th> -->
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product && let-i="rowIndex">
+      <tr class="tablerow">
+        <td>
+          {{ i + 1 }}
+        </td>
+
+        <td>
+          {{ product.formulaName }}
+        </td>
+        <td>
+          {{ product.clientName }}
+        </td>
+        <td>
+          {{ product.formula }}
+        </td>
+        <td>
+          <!-- <button
+            pButton
+            label="Delete"
+            class="p-button-sm p-button-outlined deleteButton"
+            (click)="DeleteRatio(product.financialid)"
+          ></button> -->
+
+          <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-danger mr-2 buttonColor2"
+          (click)="DeleteRatio(product.financialid)"
+          pTooltip="Delete"
+          tooltipPosition="top"
+        ></button>
+        </td>
+        <!-- <td>
+          {{ product.formulaType }}
+        </td> -->
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<!-- Spinner -->
+<div *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</div>
+<!-- Notification Message -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

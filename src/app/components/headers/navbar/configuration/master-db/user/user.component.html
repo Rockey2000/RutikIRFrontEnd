@@ -1,4 +1,6 @@
 <!-- To add New User Details -->
+<br>
+<br>
 <form [formGroup]="userForm" autocomplete="off">
   <div *ngIf="addUserDialogBox">
     <label class="headerLabel1">
@@ -7,7 +9,7 @@
         style="width: 16px; height: 10px; cursor: pointer"
         (click)="onClickBack()"
       ></i>
-     <span>{{editUserForm? 'Edit User' : 'Create New User' }}</span>
+     <span>{{editUserForm?'Edit User':'Create New User'}}</span>
     </label>
     <p-card styleClass="accessCard">
       <div class="grid p-fluid">
@@ -23,27 +25,13 @@
             class="p-pInputText-sm"
           />
           <br />
-          <small
-            *ngIf="
-              !userForm.get('firstName')?.valid &&
-              userForm.get('firstName')?.touched
-            "
-          >
-            <span style="color: red">Invalid First Name</span> <br />
+          <small *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched">
+            <span *ngIf="userForm.get('firstName')?.errors?.['required']" style="color: red">First Name is required.</span>
+            <span *ngIf="userForm.get('firstName')?.errors?.['pattern']" style="color: red">First Name can only contain alphabets.</span>
+            <span *ngIf="userForm.get('firstName')?.errors?.['minlength']" style="color: red">First Name must be at least 3 characters long.</span>
+            <span *ngIf="userForm.get('firstName')?.errors?.['maxlength']" style="color: red">First Name cannot be more than 15 characters long.</span>
           </small>
-          <small
-            *ngIf="
-              userForm.get('firstName')?.errors &&
-              userForm.get('firstName')?.touched
-            "
-          >
-            <span style="color: red">First Name contains Alphabets only</span>
-            <br />
-            <span style="color: red"
-              >First Name contains minimum 3 character and maximum 15 character
-            </span>
-          </small>
-        </div>
+        </div>    
 
         <div class="field col-12 md:col-3">
           <label>Last Name</label>
@@ -57,25 +45,11 @@
             class="p-pInputText-sm"
           />
           <br />
-          <small
-            *ngIf="
-              !userForm.get('lastName')?.valid &&
-              userForm.get('lastName')?.touched
-            "
-          >
-            <span style="color: red">Invalid LastName</span> <br />
-          </small>
-          <small
-            *ngIf="
-              userForm.get('firstName')?.errors &&
-              userForm.get('lastName')?.touched
-            "
-          >
-            <span style="color: red">Last Name contains Alphabets only</span>
-            <br />
-            <span style="color: red"
-              >Last Name contains minimum 3 character and maximum 15 character
-            </span>
+          <small *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched">
+            <span *ngIf="userForm.get('lastName')?.errors?.['required']" style="color: red">Last Name is required.</span>
+            <span *ngIf="userForm.get('lastName')?.errors?.['pattern']" style="color: red">Last Name can only contain alphabets.</span>
+            <span *ngIf="userForm.get('lastName')?.errors?.['minlength']" style="color: red">Last Name must be at least 3 characters long.</span>
+            <span *ngIf="userForm.get('lastName')?.errors?.['maxlength']" style="color: red">Last Name cannot be more than 15 characters long.</span>
           </small>
         </div>
 
@@ -91,24 +65,11 @@
             class="p-pInputText-sm"
           />
           <br />
-          <small
-            *ngIf="
-              !userForm.get('domain')?.valid && userForm.get('domain')?.touched
-            "
-          >
-            <span style="color: red">Enter Valid Domain</span> <br />
-          </small>
-          <small
-            *ngIf="
-              userForm.get('firstName')?.errors &&
-              userForm.get('domain')?.touched
-            "
-          >
-            <span style="color: red">Domain Name contains Alphabets only</span>
-            <br />
-            <span style="color: red"
-              >Domain Name contains minimum 3 character and maximum 15 character
-            </span>
+          <small *ngIf="userForm.get('domain')?.invalid && userForm.get('domain')?.touched">
+            <span *ngIf="userForm.get('domain')?.errors?.['required']" style="color: red">Domain Name is required.</span>
+            <span *ngIf="userForm.get('domain')?.errors?.['pattern']" style="color: red">Domain can only contain alphabets.</span>
+            <span *ngIf="userForm.get('domain')?.errors?.['minlength']" style="color: red">Domain must be at least 3 characters long.</span>
+            <span *ngIf="userForm.get('domain')?.errors?.['maxlength']" style="color: red">Domain cannot be more than 15 characters long.</span>
           </small>
         </div>
 
@@ -129,7 +90,7 @@
               !userForm.get('email')?.valid && userForm.get('email')?.touched
             "
           >
-            <span style="color: red">Invalid Email</span>
+            <span style="color: red">Invalid Email.</span>
           </small>
         </div>
       </div>
@@ -145,23 +106,9 @@
             class="p-pInputText-sm"
           />
           <br />
-          <small
-            *ngIf="
-              !userForm.get('mobileNumber')?.valid &&
-              userForm.get('mobileNumber')?.touched
-            "
-          >
-            <span style="color: red">Invalid Mobile Number</span> <br />
-          </small>
-          <small
-            *ngIf="
-              userForm.get('mobileNumber')?.errors &&
-              userForm.get('mobileNumber')?.touched
-            "
-          >
-            <!-- <span style="color: red"
-              >Mobile Number should start with 6/7/8/9</span
-            > -->
+          <small *ngIf="userForm.get('mobileNumber')?.invalid && userForm.get('mobileNumber')?.touched">
+            <span *ngIf="userForm.get('mobileNumber')?.errors?.['required']" style="color: red">Invalid Mobile Number.</span>
+            <span *ngIf="userForm.get('mobileNumber')?.errors?.['pattern']" style="color: red">Mobile Number should start with 6/7/8/9</span>
           </small>
         </div>
 
@@ -174,16 +121,16 @@
             formControlName="roleName"
             optionLabel="roleName"
             optionValue="roleName"
-            placeholder="select Role"
+            placeholder="Select Role"
             (onChange)="onSelectRole()"
           ></p-dropdown>
-          <br />
+         
           <small
             *ngIf="
-              !userForm.get('role')?.valid && userForm.get('role')?.touched
+              !userForm.get('roleName')?.valid && userForm.get('roleName')?.touched
             "
           >
-            <span style="color: red">mandatory Field</span>
+            <span style="color: red">Mandatory Field</span>
           </small>
         </div>
 
@@ -199,41 +146,24 @@
             class="p-pInputText-sm"
           />
           <br />
-          <small
-            *ngIf="
-              !userForm.get('assignedName')?.valid &&
-              userForm.get('assignedName')?.touched
-            "
-          >
-            <span style="color: red">Enter Valid Assigned Name</span> <br />
-          </small>
-          <small
-            *ngIf="
-              userForm.get('assignedName')?.errors &&
-              userForm.get('assignedName')?.touched
-            "
-          >
-            <span style="color: red"
-              >Assigned name contains Alphabets only</span
-            >
-            <br />
-            <span style="color: red"
-              >Assigned name contains minimum 3 character and maximum 15
-              character</span
-            >
+          <small *ngIf="userForm.get('assignedName')?.invalid && userForm.get('assignedName')?.touched">
+            <span *ngIf="userForm.get('assignedName')?.errors?.['required']" style="color: red">Enter Valid Assigned Name.</span>
+            <span *ngIf="userForm.get('assignedName')?.errors?.['pattern']" style="color: red">Assigned name contains Alphabets only.</span>
+            <span *ngIf="userForm.get('assignedName')?.errors?.['minlength']" style="color: red">Assigned name must be at least 3 characters long.</span>
+            <span *ngIf="userForm.get('assignedName')?.errors?.['maxlength']" style="color: red">Assigned name cannot be more than 15 characters long.</span>
           </small>
         </div>
       </div>
 
       <div class="grid p-fluid">
         <div class="field col-12 md:col-3">
-          <label>Status</label> <br />
+          <label>User Status</label> <br />
           <p-inputSwitch
             [required]="true"
             styleClass="inputSwitch"
             placeholder="Enter"
             [(ngModel)]="checked"
-            formControlName="status"
+            formControlName="userStatus"
             (onChange)="handleChange($event)"
           ></p-inputSwitch>
           &nbsp;
@@ -249,7 +179,7 @@
       [disabled]="!userForm.valid"
       pButton
       label="Save"
-      class="p-button-sm saveButton"
+      class="p-button-sm saveButton1"
       (click)="onClickSave()"
     ></button>
 </span>
@@ -277,7 +207,7 @@
   <!-- <p-card *ngIf="addUserDialogBox" styleClass="pcard"></p-card> -->
 </form>
 
-<!-- edit user -->
+<!--     user -->
 <div *ngIf="editUserDialog">
   <label class="headerLabel1">
     <i
@@ -427,7 +357,7 @@
 
     <div class="grid p-fluid">
       <div class="field col-12 md:col-3">
-        <label>Status</label> <br />
+        <label>User Status</label> <br />
         <p-inputSwitch
           styleClass="inputBox"
           trueValue="Active"
@@ -465,7 +395,7 @@
 
 <!-- to view all Users -->
 
-<div *ngIf="viewUsers">
+<div *ngIf="viewUsers" class="tableDiv">
   <!-- <p-dropdown
         styleClass="dropdown"
         [options]="allUsers"
@@ -487,38 +417,40 @@
         placeholder="select role"
         (onChange)="dt.filter($event.value, 'role', 'startsWith')"
       ></p-dropdown> -->
+    <div style=" margin-top: 2%;">
 
-  <span class="p-input-icon-left">
-    <i class="pi pi-search"></i>
-    <input
-      pInputText
-      class="p-inputtext-sm searchInputBox"
-      type="text"
-      (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-      placeholder="Search..."
-    />
-  </span>
-  &nbsp;
-  <button
-    pButton
-    label="Create New User"
-    icon="pi pi-plus-circle"
-    class="p-button-sm addUserButton"
-    (click)="onClickAddUser()"
-  ></button>
+      <div class="p-input-icon-left">
+        <i class="pi pi-search" ></i>
+        <input
+        pInputText
+        class="p-inputtext-sm searchInputBoxUser"
+        type="text"
+        (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+        placeholder="Search..."
+        />
+      </div>
+      &nbsp;
+      <button
+      pButton
+      label="Create New User"
+      icon="pi pi-plus-circle"
+      class="p-button-sm addUserButton"
+      (click)="onClickAddUser()"
+      ></button>
+    </div>
 
   <br /><br />
   <p-table
-    styleClass="p-datatable-sm usersTable"
+    styleClass="p-datatable-sm usersTable customPaginator"
     #dt
-    [value]="allUsers"
-    [rows]="7"
-    [paginator]="false"
+    [value]="allUsers.slice().reverse()"
+    [paginator]="true"
+      [rows]="10"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
     responsiveLayout="scroll"
     [rowHover]="true"
     dataKey="id"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [showCurrentPageReport]="true"
     [globalFilterFields]="[
       'firstName',
       'lastName',
@@ -529,7 +461,7 @@
       'Assigned AA',
       'Assigned CU',
       'Date',
-      'status',
+      'userStatus',
       'assignedName'
     ]"
   >
@@ -545,8 +477,8 @@
         <th pSortableColumn="email">Email ID</th>
         <th pSortableColumn="mobileNumber">Mobile Number</th>
         <th pSortableColumn="Assigned CU">Assigned Name</th>
-        <th>Date</th>
-        <th pSortableColumn="status">Status</th>
+        <th>Date </th>
+        <th pSortableColumn="userStatus">Status</th>
         <!-- <th></th> -->
       </tr>
     </ng-template>
@@ -559,8 +491,8 @@
         <td>{{ user.email }}</td>
         <td>{{ user.mobileNumber }}</td>
         <td>{{ user.assignedName }}</td>
-        <td>{{ user.createdOn | date: "EEE, dd-MMM yyyy" }}</td>
-        <td>{{ user.status }}</td>
+        <td>{{ user.createdOn | date: "EEE, dd-MMM yyyy, HH:MM:SS" }}</td>
+        <td>{{ user.userStatus }}</td>
         <!-- <td>
             <button
               pButton
@@ -574,10 +506,16 @@
     </ng-template>
   </p-table>
 </div>
-
-<!-- Notification msg's -->
+<!-- Spinner -->
+<ng-container *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</ng-container> 
+  <!-- Notification msg's -->
 <p-toast></p-toast>
 <p-confirmDialog
   header="Confirmation"
   icon="pi pi-exclamation-triangle"
 ></p-confirmDialog>
+
+

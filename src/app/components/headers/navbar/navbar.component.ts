@@ -5,11 +5,18 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { navbarData } from './menus';
-import { BreadcrumbService } from "xng-breadcrumb";
-
-
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import {
+  AdminNavbarData,
+  analystNavbarData,
+  NavbarData,
+  userNavbarData,
+} from './menus';
+import { BreadcrumbService } from 'xng-breadcrumb';
+import { AppModuleConstants } from 'src/app/app-constants';
+import { IRServiceService } from 'src/app/ir-service.service';
+import { BreadcrumbItemDirective } from 'xng-breadcrumb';
+import { filter } from 'rxjs';
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
@@ -21,6 +28,7 @@ interface SideNavToggle {
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+
   sidebar: boolean = false;
   user!: string;
   logUser: boolean = false;
@@ -30,15 +38,42 @@ export class NavbarComponent implements OnInit {
   isActive2: boolean = false;
   isActive3: boolean = false;
   isActive4: boolean = false;
-  constructor(private breadcrumbService: BreadcrumbService,private router: Router) {}
+  constructor(
+    private breadcrumbService: BreadcrumbService,
+    private router: Router,
+    private service: IRServiceService,
+    private route: ActivatedRoute,
 
+  ) {}
+  userRole: any;
+  userName: any;
+  navData: any;
+  logoUrl:any;
   ngOnInit(): void {
+    // this.service.emitDialogFormData('done');
+  this.logoUrl=sessionStorage.getItem(AppModuleConstants.LogoUrl)!;
+  console.log(this.logoUrl,"logoUrl");
+    localStorage.removeItem('tableName');
+    this.userRole = sessionStorage.getItem(AppModuleConstants.ROLE)!;
+    this.userName = sessionStorage.getItem(AppModuleConstants.USER)!;
+    if (this.userRole === '1') {
+      this.navData = AdminNavbarData;
+    } else if (this.userRole === '2') {
+      this.navData = analystNavbarData;
+    } else if (this.userRole === '3') {
+      this.navData = userNavbarData;
+    }
+
+    console.log(this.userRole, ' ', this.userName);
     console.log(this.breadcrumbService);
-    
+
     this.screenWidth = window.innerWidth;
     this.breadcrumbService.set('@ChildOne', 'Child One');
     this.user = JSON.stringify(localStorage.getItem('user'));
+
+
   }
+
 
   sideBar() {
     if (this.sidebar == false) {
@@ -49,8 +84,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('user');
-    this.router.navigate(['/']);
+    sessionStorage.clear();
+    this.router.navigate(['']);
   }
 
   dropdownValue() {
@@ -73,13 +108,16 @@ export class NavbarComponent implements OnInit {
   onClickReport() {}
 
   onClickMeetings() {}
+
   onClickConfiguration() {
     if (this.sidebar == false) {
       this.sidebar = true;
+      localStorage.removeItem('tableName');
     } else {
       this.sidebar = false;
     }
     this.router.navigate(['/document/nav/role']);
+    localStorage.removeItem('tableName');
   }
 
   config: boolean = false;
@@ -103,26 +141,13 @@ export class NavbarComponent implements OnInit {
     this.isActive4 = false;
   }
 
-  //  dropdown = document.getElementsByClassName("dropdown-btn");
-  //  i!:string;
-
-  // for (i = 0; i < dropdown.length; i++) {
-  //   dropdown[i].addEventListener("click", function() {
-  //     this.classList.toggle("active");
-  //     var dropdownContent = this.nextElementSibling;
-  //     if (dropdownContent.style.display === "block") {
-  //       dropdownContent.style.display = "none";
-  //     } else {
-  //       dropdownContent.style.display = "block";
-  //     }
-  //   });
-  //}
-
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
   collapsed = false;
   screenWidth = 0;
-  navData = navbarData;
 
+  // navData = navbarData;
+
+  // navbar =nav;
   isSideNavCollapsed = false;
 
   @HostListener('window:resize', ['$event'])
@@ -149,11 +174,16 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  toggleCollapse1(): void {
+  toggleCollapse1(status: any): void {
     if (this.collapsed === true) {
       this.collapsed = false;
     } else {
       this.collapsed = false;
+    }
+    console.log(status);
+
+    if (!status) {
+      alert('This Option is not in Service');
     }
   }
 
@@ -163,5 +193,14 @@ export class NavbarComponent implements OnInit {
       collapsed: this.collapsed,
       screenWidth: this.screenWidth,
     });
+  }
+
+  onClickLogout() {
+    sessionStorage.clear();
+    localStorage.removeItem('user');
+    localStorage.clear();
+
+    this.router.navigate(['/login']);
+    //  window.location.href = 'https://login-stg.pwc.com/openam/UI/Logout';
   }
 }

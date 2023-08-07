@@ -1,13 +1,18 @@
 :host::ng-deep .AnalystOptionDropdown *{
     background-color: #191919 !important;
     color: white;
+    border-color: #50AD95 !important;
+
   }
+  
 
 ::ng-deep .AnalystOptionDropdown {
-    width: 20% !important;
+    width: 23% !important;
     /* height: 7.4vh !important; */
-    margin-top: 5px !important;
+    margin-top: 30px !important;
     margin-bottom: 5vh !important;
     background-color: #191919 !important;
     color: white !important;
+    border-color: #50AD95 !important;
+    
   }

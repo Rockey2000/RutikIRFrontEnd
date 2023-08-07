@@ -1,0 +1,14 @@
+:host::ng-deep .tabmenu *{
+    background-color: #191919 !important;
+    color: #7d7d7d !important;
+    font-size: large;
+   }
+
+   ::ng-deep .tabmenu.active {
+    background-color: #26776d !important;
+  }
+  
+  h2 {
+    font-family: Helvetica;
+    margin-bottom: 0px;
+  }

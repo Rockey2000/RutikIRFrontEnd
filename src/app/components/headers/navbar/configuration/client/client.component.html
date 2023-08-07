@@ -1,0 +1,230 @@
+<div>
+  <div *ngIf="lineItemTable">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        class="p-inputtext-sm searchBoxClientNomen"
+        pInputText
+        (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+        placeholder="Search"
+      />
+    </span>
+    <!-- <button
+          pButton
+          style="margin-left: 20px;"
+          label="Add New Client"
+      icon="pi pi-plus-circle"
+      class="p-button-sm addMappingButton"
+      (click)="onClickAddClient()"
+      ></button> -->
+    &nbsp;&nbsp;
+    <button
+      pButton
+      label="Add & Map Client Line Item"
+      icon="pi pi-plus-circle"
+      class="p-button-sm addMappingButton"
+      (click)="onClickAdd()"
+    ></button>
+    <br />
+    <br />
+
+    <p-table
+      #dt
+      [value]="addLineItem"
+      styleClass="p-datatable-sm lineItemsMapTable customPaginator"
+      [paginator]="true"
+      [rows]="10"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+      [globalFilterFields]="[
+        'masterTableSource',
+        'lineItemName',
+        'clientName',
+        'clientTableHeaderName',
+        'clientLineItemName'
+      ]"
+    >
+      <ng-template pTemplate="header">
+        <tr class="tableHeader">
+          <th>Sr. No</th>
+          <th pSortableColumn="masterTableSource" class="tableHeader">
+            Line Item Source<p-sortIcon field="masterTableSource"></p-sortIcon>
+          </th>
+          <th>Line Item Name</th>
+          <th>Client Name</th>
+          <th>Client Table Header</th>
+          <th>Client Line Item Name</th>
+          <!-- <th>Action</th> -->
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product && let-i="rowIndex">
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ product.masterTableSource }}</td>
+          <td>{{ product.lineItemName }}</td>
+          <td>{{ product.clientName }}</td>
+          <td>{{ product.clientTableHeaderName }}</td>
+          <td>{{ product.clientLineItemName }}</td>
+          <!-- <td><button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-success mr-2"
+              (click)="editProduct(product)"
+            ></button></td> -->
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div *ngIf="lineItemForm">
+    <h2 style="color: white; margin-top: -10px">
+      <i
+        class="pi pi-chevron-left"
+        (click)="onClickBack()"
+        style="cursor: pointer"
+      ></i>
+      Update Client Line Item Nomenclature
+    </h2>
+
+    <div>
+      <form [formGroup]="clientLineItemForm">
+        <div formArrayName="clientLineItemRow">
+          <p-table
+            #dt
+            [value]="analystLineItem.controls"
+            styleClass="p-datatable clientLineItemsMapTable"
+            responsiveLayout="scroll"
+            scrollHeight="100vh"
+          >
+            <ng-template pTemplate="header">
+              <tr class="tableHeader">
+                <th>Sr. No</th>
+                <th>Client Name</th>
+                <th>Master Table Source</th>
+                <th>Client Line Item Name</th>
+                <th>Client Table Header</th>
+              </tr>
+            </ng-template>
+            <ng-template
+              pTemplate="body"
+              let-analystLineItem
+              &&
+              let-i="rowIndex"
+            >
+              <tr class="tablerow" [formGroupName]="i">
+                <td>{{ i + 1 }}</td>
+                <td>
+                  <p-dropdown
+                    styleClass="Clientdropdown"
+                    [options]="client"
+                    optionLabel="totalClient"
+                    optionValue="totalClient"
+                    placeholder="Select"
+                    appendTo="body"
+                    formControlName="clientName"
+                    [required]="true"
+                  ></p-dropdown>
+                  <div
+                    *ngIf="
+                      !analystLineItem.controls.clientName?.valid &&
+                      (analystLineItem.controls.clientName?.dirty ||
+                        analystLineItem.controls.clientName?.touched)
+                    "
+                  >
+                    <span style="color: red; font-size: 15px"
+                      >Client Name is required</span
+                    >
+                  </div>
+                </td>
+                <td>
+                  <p-dropdown
+                    styleClass="clientMasterdropdown"
+                    [options]="value"
+                    optionValue="tableContent"
+                    optionLabel="tableContent"
+                    placeholder="Select"
+                    appendTo="body"
+                    formControlName="masterTableSource"
+                    [required]="true"
+                  ></p-dropdown>
+                  <div
+                    *ngIf="
+                      !analystLineItem.controls.masterTableSource?.valid &&
+                      (analystLineItem.controls.masterTableSource?.dirty ||
+                        analystLineItem.controls.masterTableSource?.touched)
+                    "
+                  >
+                    <span style="color: red; font-size: 15px"
+                      >Master Table Source is required</span
+                    >
+                  </div>
+                </td>
+                <td>
+                  <input
+                    class="ClientinputBox"
+                    type="text"
+                    pInputText
+                    placeholder="Enter"
+                    formControlName="clientLineItemName"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      !analystLineItem.controls.clientLineItemName?.valid &&
+                      (analystLineItem.controls.clientLineItemName?.dirty ||
+                        analystLineItem.controls.clientLineItemName?.touched)
+                    "
+                  >
+                    <span style="color: red; font-size: 15px"
+                      >Client Line Item Name is required</span
+                    >
+                  </div>
+                </td>
+                <td>
+                  <input
+                    class="ClientHeaderinputBox"
+                    type="text"
+                    pInputText
+                    placeholder="Enter"
+                    formControlName="clientTableHeaderName"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      !analystLineItem.controls.clientTableHeaderName?.valid &&
+                      (analystLineItem.controls.clientTableHeaderName?.dirty ||
+                        analystLineItem.controls.clientTableHeaderName?.touched)
+                    "
+                  >
+                    <span style="color: red; font-size: 15px"
+                      >Client Table Header Name is required</span
+                    >
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <br /><br />
+        <button
+          class="p-button-sm Addbutton"
+          pButton
+          label="Save"
+          (click)="onClickSaveAll()"
+          style="float: right"
+          [disabled]="!clientLineItemForm.valid"
+        ></button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- <router-outlet></router-outlet> -->
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

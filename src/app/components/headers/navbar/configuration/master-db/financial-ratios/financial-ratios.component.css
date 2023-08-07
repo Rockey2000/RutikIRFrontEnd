@@ -294,16 +294,18 @@ tr:nth-child(odd) {
   flex-wrap: wrap;
 }
 
-::ng-deep .cancelButton {
+::ng-deep .cancelButton1 {
   color: #d04a02 !important;
-  width: 7% !important;
+  width: 80px;
+  /* width: 7% !important; */
 }
 
 ::ng-deep .saveButton1 {
   background-color: #d04a02 !important;
   color: white !important;
   border: none !important;
-  width: 7% !important;
+  /* width: 7% !important; */
+  width: 80px;
 }
 
 ::ng-deep h2{
@@ -324,3 +326,21 @@ tr:nth-child(odd) {
 /* .flexDiv{
   display: flex;
 } */
+
+.spinner {
+  /* backdrop-filter: blur(2px); */
+  background-color: rgba(188, 170, 170, 0.2);
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 99%;
+  width: 100%;
+  position: absolute;
+
+}
+app-spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,164 @@
+::ng-deep .clientLabelCard {
+    margin-top: 30px !important;
+    background-color: #2d2d2d !important;
+    color: white !important;
+    font-family: Helvetica !important;
+    
+  }
+
+  .logoDiv{
+    margin-left: 80px;
+    border: 3px dotted white;
+    height: 300px;
+    width: 500px;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  :host::ng-deep .clientnameInput * {
+    background-color: #2d2d2d !important;
+    color: white !important;
+    cursor: pointer !important;
+  }
+  .inputlable1{
+    margin-top: -600%;
+  }
+  
+  ::ng-deep .clientnameInput {
+    background-color: #2d2d2d !important;
+    color: white !important;
+    width: 15%;
+    margin-top: 0.5%;
+  
+  }
+  .field col{
+    border: 1px solid;
+    margin-top: 10%;
+  }
+
+  .cssDiv{
+    border-radius: 15px;
+    border: 3px dotted white;
+    height: 300px;
+    width: 500px;
+    
+  }
+
+  
+ ::ng-deep .file-preview {
+    width: fit-content;
+  }
+
+ :host::ng-deep .uploadLogoBtn{
+    background-color: #26776d;
+    color: white !important;
+ margin-left: 10px;
+ border: none;
+ padding: auto;
+ cursor: pointer;
+  }
+  .uploadLogo{
+    margin-top: 5%;
+  }
+  :host::ng-deep .upload * {
+    background-color: #26776d !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 4px !important;
+    align-items: center;
+    cursor: pointer;
+  }
+  :host::ng-deep .upload{
+    margin-left: 10%;
+    margin-top: 20%;
+  }
+  
+  
+  ::ng-deep .upload2Btn{
+    background-color: #26776d !important;
+    color: white !important;
+    margin-left: 10px;
+    border: none;
+  }
+
+
+
+  .CssCancelButton{
+    background-color: #2d2d2d !important;
+    color: #26776d !important;
+    border: 1px solid !important;
+  }
+
+  .skipButton{
+    background-color: #191919 !important;
+    color: #d04a02 !important;
+    border: 1px solid !important;
+  }
+
+  .sendButton{
+    background-color: #d04a02;
+    color: white !important;
+    border: none !important;
+  }
+
+  ::ng-deep .logoPreview{
+margin-top: 90px;
+ margin-left: 60px;
+
+
+  }
+  ::ng-deep .logoPreview i{
+    margin-bottom: 10px;
+  }
+
+
+.cssPreview{
+margin-top: 100px;
+ margin-left: 200px;
+}
+
+
+::ng-deep .logoPreview1 {
+  margin-top: 90px;
+ margin-left: 60px;
+  margin-bottom: -40px !important;
+}
+::ng-deep .dropdown12{
+  margin-top: 10px;
+  background-color: #2d2d2d !important;
+  border-color: #26776d !important;
+}
+
+:host::ng-deep .dropdown12 *{
+  color: white !important;
+  border-color: #26776d !important;
+
+}
+
+
+.spinner {
+  /* backdrop-filter: blur(2px); */
+  background-color: rgba(188, 170, 170, 0.2);
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 99%;
+  width: 100%;
+  position: absolute;
+
+}
+app-spinner {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: -20%;
+  margin-right: 10%;
+
+}
+.custom-file-input {
+  /* Add your custom CSS styles here */
+  /* Example styles */
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  color: #333;
+}

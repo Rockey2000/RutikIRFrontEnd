@@ -1,0 +1,146 @@
+<div>
+  <!-- <p-dropdown
+    placeholder="Select Client Name"
+    [options]="client"
+    optionValue="totalClient"
+    optionLabel="totalClient"
+    [(ngModel)]="selectedClientName"
+    styleClass="Analystdropdown1"
+    appendTo="body"
+    (onChange)="onSelectAnalystName()"
+  ></p-dropdown> -->
+  <p-cascadeSelect
+    styleClass="cascade"
+    [showClear]="true"
+    formControlName="client"
+    [options]="allData"
+    optionLabel="name"
+    optionValue="name"
+    optionGroupLabel="name"
+    [optionGroupChildren]="['states', 'cities']"
+    [style]="{ width: '13.7rem' }"
+    placeholder="Select Client Name"
+    appendTo="body"
+    (onChange)="onSelectAnalystName($event)"
+  ></p-cascadeSelect>
+  <span *ngIf="mappingCard" (onChange)="onSelectAnalystName($event)">
+    <p-card styleClass="contactDetailsCard">
+      <div class="grid col-12">
+        <div class="col-md-2">
+          <p-dropdown
+            [filter]="true"
+            filterBy="tableName"
+            [showClear]="true"
+            placeholder="Select Line Items from Master Database"
+            [options]="masterTableHeaders"
+            optionLabel="tableName"
+            optionValue="tableName"
+            [(ngModel)]="selectedValue"
+            (onChange)="onSelectMasterTableName()"
+            styleClass="allTabledropdown"
+          ></p-dropdown>
+        </div>
+        <div class="col-md-2" style="margin-left: 15px">
+          <p-dropdown
+            [filter]="true"
+            filterBy="lineItem"
+            [showClear]="true"
+            [options]="balanceSheetLineItem"
+            optionLabel="lineItem"
+            optionValue="lineItem"
+            placeholder="balance Sheet Line Item Names"
+            *ngIf="balanceSheetTableValues"
+            styleClass="balanceSheetdropdown"
+            (onChange)="onClickMasterDbLineItem(selectedLineItem)"
+            [(ngModel)]="selectedLineItem"
+          ></p-dropdown>
+          <p-dropdown
+            [filter]="true"
+            filterBy="lineItem"
+            [showClear]="true"
+            [options]="incomeStatementLineItem"
+            optionLabel="lineItem"
+            optionValue="lineItem"
+            placeholder="Income Statement Line Item Names"
+            *ngIf="incomeStatmentTableValues"
+            styleClass="IncomeTabledropdown"
+            (onChange)="onClickMasterDbLineItem(selectedLineItem)"
+            [(ngModel)]="selectedLineItem"
+          ></p-dropdown>
+
+          <p-dropdown
+            [filter]="true"
+            filterBy="lineItem"
+            [showClear]="true"
+            [options]="cashFlowLineItem"
+            optionLabel="lineItem"
+            optionValue="lineItem"
+            placeholder="Cash Flow Line Item Names"
+            *ngIf="CashFlowTableValues"
+            styleClass="cashFlowdropdown"
+            (onChange)="onClickMasterDbLineItem(selectedLineItem)"
+            [(ngModel)]="selectedLineItem"
+          ></p-dropdown>
+        </div>
+        <div class="col-md-2" style="margin-left: 15px">
+          <p-dropdown
+            [filter]="true"
+            filterBy="clientLineItemName"
+            [showClear]="true"
+            [options]="LineItemByClientName"
+            optionLabel="clientLineItemName"
+            optionValue="clientLineItemName"
+            styleClass="analystDropdown"
+            placeholder="Select Client Line Item Name"
+            (onChange)="onClickAnalystLineItem(selectedClientLineItem)"
+            [(ngModel)]="selectedClientLineItem"
+          >
+          </p-dropdown>
+        </div>
+        <div class="col-md-6" style="margin-left: 15px; margin-top: 10px">
+          <p-card styleClass="mappingCard">
+            <h3 style="color: white; flex: auto">Mapped Fields:</h3>
+            <div
+              class="flexDiv"
+              *ngFor="let item of lineItemsArr; let i = index"
+            >
+              <div>{{ item }}</div>
+              <div>
+                <i class="pi pi-paperclip" style="color: lightseagreen"></i>
+              </div>
+              <div>{{ analystLineItemArr[i] }}</div>
+              <div>
+                <i
+                  class="pi pi-times grabbing"
+                  (click)="onClickMappedLineItem(item, analystLineItemArr[i])"
+                ></i>
+              </div>
+            </div>
+            <br />
+          </p-card>
+        </div>
+      </div>
+    </p-card>
+    <div style="text-align: right; margin-top: 10px">
+      <button
+        class="p-button-sm p-button-outlined backButton5"
+        pButton
+        label="Back"
+        (click)="onClickBack()"
+      ></button>
+      &nbsp;
+      <button
+        class="p-button-sm saveButton5"
+        pButton
+        label="Save"
+        (click)="onClickSave()"
+      ></button>
+    </div>
+  </span>
+</div>
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

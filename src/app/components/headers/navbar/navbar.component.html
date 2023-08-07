@@ -2,15 +2,19 @@
   <div class="cardData">
     <div class="flex card-container">
       <div class="flex-none flex justify-content-center">
-        <!-- <i
-            class="pi pi-bars"
-            style="float: left; padding: 1rem; font-size: 2rem; cursor: pointer"
-            (click)="sideBar()"
-          ></i> -->
-          <span class="logo1">pwc</span>
+        <span class="logo1" style="float: left"
+          ><h2>
+            <i> <b style="font-size: xx-large">PwC |</b></i
+            >   
+         
+          </h2>
+         
+        </span>
       </div>
-      <div class="flex-grow-1 flex align-items-left justify-content-left m-2">
-        <span style="margin-top: 10px !important; margin-left: 25px;" class="title1"
+      <div class="flex-grow-1 flex align-items-left justify-content-center m-2">
+        <span
+          style="margin-top: 10px !important; margin-left: 25px"
+          class="title1"
           >Investor Relations Platform
         </span>
       </div>
@@ -23,24 +27,30 @@
           class="pi pi-angle-double-right"
           alt=""
         />
-        &nbsp;
-        &nbsp;
-        <span
-          class="profile"
-          >AS</span
+        &nbsp; &nbsp;
+        <span class="profile" (click)="op.toggle($event)">
+          {{ userName.substring(0, 1) | uppercase }}</span
         >
+        <p-overlayPanel #op>
+          <ng-template pTemplate>
+            <span style="cursor: pointer" (click)="onClickLogout()"
+              >Logout</span
+            >
+          </ng-template>
+        </p-overlayPanel>
       </div>
     </div>
   </div>
 
   <!-- Left Panel -->
- <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
+  <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
     <div class="logo-container">
       <span *ngIf="!collapsed" class="toggleIcon" (click)="toggleCollapse()">
         <img
           src="assets/Images/collapse_out.png"
           class="pi pi-angle-double-right"
           alt=""
+          pTooltip="Open"
         />
       </span>
 
@@ -49,6 +59,7 @@
           src="assets/Images/collapse_in.png"
           class="pi pi-angle-double-left"
           alt=""
+          pTooltip="Collapse"
         />
         &nbsp; Collapse
       </span>
@@ -61,9 +72,14 @@
           [routerLink]="[data.routeLink]"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
-          (click)="toggleCollapse1()"
+          (click)="toggleCollapse1(data.view)"
         >
-          <img class="sidenav-link-icon" [src]="[data.image]" alt="" />
+          <img
+            [pTooltip]="data.label"
+            class="sidenav-link-icon"
+            [src]="[data.image]"
+            alt=""
+          />
 
           <span class="sidenav-link-text" *ngIf="collapsed">
             {{ data.label }}
@@ -72,17 +88,17 @@
       </li>
     </ul>
   </div>
- 
+
   <div class="pages">
     <div class="bradcrumb">
-      <xng-breadcrumb [separator]="iconTemplate"></xng-breadcrumb>
+      <xng-breadcrumb [separator]="iconTemplate" class="readonly"></xng-breadcrumb>
       <ng-template #iconTemplate>
-        <i class="pi pi-chevron-right" styleClass="bradcrumb"></i>
+        <i class="pi pi-chevron-right" styleClass="bradcrumb readonly" ></i>
       </ng-template>
     </div>
     <router-outlet></router-outlet>
     <p-card styleClass="pcard"></p-card>
-
   </div>
 
+  
 </div>

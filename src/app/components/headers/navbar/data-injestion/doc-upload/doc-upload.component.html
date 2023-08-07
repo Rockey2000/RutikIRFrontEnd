@@ -1,23 +1,52 @@
-<h2>Data</h2>
-<div class="outerDiv">
+<h2></h2>
+<div class="outerDiv" >
   <div>
-    <p-dropdown class="dropdown"
-     placeholder="Select"
-     [options]="client"
-        defaultLabel="Client"
-        optionLabel="accessclient"
-        optionValue="accessclient"
-        placeholder="Select"
-        selectedItemsLabel="{0} items selected"
+    <p-dropdown
+      styleClass="dropdown12"
+      placeholder="Filter By Client"
+      [options]="DataForDropdown"
+      [(ngModel)]="selectedType"
+      defaultLabel="Client"
+      optionLabel="client"
+      optionValue="client"
+      selectedItemsLabel="{0} items selected"
+      dropdownIcon="pi pi-filter"
+      (onChange)="dt.filterGlobal($any(selectedType), 'equals')"
+      [showClear]="true"
+      [filter]="true"
+      filterBy="client"
     >
     </p-dropdown>
-    <p-dropdown class="dropdown" placeholder="Select"
-    [options]="client"
-        defaultLabel="Client"
-        optionLabel="accessclient"
-        optionValue="accessclient"
-        placeholder="Select"
-        selectedItemsLabel="{0} items selected"
+
+    <!-- <p-cascadeSelect
+    styleClass="dropdown12"
+    [showClear]="true"
+      [(ngModel)]="selectedType"
+      [options]="allData"
+      optionLabel="name"
+      optionValue="name"
+      optionGroupLabel="name"
+      [optionGroupChildren]="['states', 'cities']"
+      [style]="{ width: '13.7rem' }"
+      placeholder="Select"
+      appendTo="body"
+      [(ngModel)]="selectedType"
+    ></p-cascadeSelect> -->
+
+    <p-dropdown
+      styleClass="analystdropdown1"
+      [options]="DataForDropdown1"
+      [(ngModel)]="selectedType1"
+      defaultLabel="Analyst"
+      optionLabel="analystName"
+      optionValue="analystName"
+      placeholder="Filter By Analyst Name"
+      selectedItemsLabel="{0} items selected"
+      dropdownIcon="pi pi-filter"
+      (onChange)="dt.filterGlobal($any(selectedType1), 'equals')"
+      [showClear]="true"
+      [filter]="true"
+      filterBy="analystName"
     ></p-dropdown>
 
     <!-- <button pButton icon="pi pi-list" id="listButton"></button>
@@ -34,63 +63,283 @@
       ></button> -->
 
     <button
-      class="uploadButton"
+      class="uploadBtn1"
       pButton
       label="Upload New Data"
       icon="pi pi-plus-circle"
       (click)="uploadNewData()"
     ></button>
-    <span class="p-input-icon-left searchBox">
+    <span class="p-input-icon-left searchBox" style="margin-bottom: 10px">
       <i class="pi pi-search"></i>
-      <input type="text" pInputText placeholder="Search" class="searchInputBox" />
+      <input
+        type="text"
+        class="searchInputBox1"
+        pInputText
+        placeholder="Search"
+        (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+      />
     </span>
-
   </div>
 </div>
 
-  <p-table
-  styleClass="p-datatable-sm uplodedDataTable"
+<p-table
+  styleClass="p-datatable-sm uplodedDataTable customPaginator"
   #dt
   [value]="dataIngestionData"
   [rows]="7"
-  [paginator]="false"
+  [paginator]="true"
+  [rows]="10"
   responsiveLayout="scroll"
   [rowHover]="true"
   dataKey="id"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   [showCurrentPageReport]="true"
-  [globalFilterFields]="[
-    'client',
-    'documentType',
-    'fileName',
-    'analystName',
-   ]"
+  [globalFilterFields]="['client', 'documentType', 'fileName', 'analystName']"
 >
   <ng-template pTemplate="header">
     <tr class="tableHeader">
       <!-- <th></th> -->
       <th>
-      <label>Client Name</label>
+        <label>Client Name</label>
       </th>
-      <th >Document Type</th>
+      <th>Document Type</th>
       <th>File Name</th>
       <th>Analyst Name</th>
-      <th >Time Period</th>
-</tr>
+      <th>Peer Name</th>
+      <th>Report Type</th>
+      <th>Report Date</th>
+      <!-- <th>Action</th> -->
+    </tr>
   </ng-template>
   <ng-template pTemplate="body" let-data>
-
-      <tr (click)="editTableValue(data)" class="tablerow">
+    <tr
+      style="cursor: pointer"
+      (click)="editTableValue(data)"
+      class="tablerow3"
+    >
       <td>{{ data.client }}</td>
       <td>{{ data.documentType }}</td>
       <td>{{ data.fileName }}</td>
       <td>{{ data.analystName }}</td>
-      <td>{{data.reportFrom| date: "EEE, dd-MMM yyyy"}} To {{data.reportTo| date: "EEE, dd-MMM yyyy"}}</td>
-      </tr>
+      <td>{{ data.peerName }}</td>
+      <td>
+        {{ data.reportType }}
+      </td>
+      <td>{{ data.reportDate | date : "EEE, dd-MMM yyyy" }}</td>
+      <!-- <td>
+        <button class="uploadBtn2" (click)="actionDialogBox(data)" pButton icon="pi pi-file"></button>
+      </td> -->
+    </tr>
   </ng-template>
 </p-table>
+<div class="spinnerDiv">
+  <span *ngIf="spinner" class="spinner">
+    <p-progressSpinner></p-progressSpinner>
+  </span>
+</div>
+
+<p-dialog header="Data Extraction" styleClass="p-fluid DataExtraction " [(visible)]="actionDailogBox" [modal]="true" [style]="{width: '60vw','background-color': '#191919'}"
+    [draggable]="false" [resizable]="false">
+    <form [formGroup]="actionForm" autocomplete="off">
+      <div class="grid1">
+    <div class="col-6 ">
+      <label for="date" style="font-size: 20px; margin-bottom: 10px;"> Date :</label>
+      <input
+        type="date"
+        class="calender3 p-inputtext-sm"
+        placeholder="Date"
+        formControlName="reportDate"
+        pInputText
+      />
+      <br />
+      <small
+        *ngIf="
+          !actionForm.get('reportDate')?.valid &&
+          actionForm.get('reportDate')?.touched
+        "
+      >
+        <span style="color: red">Please select Date</span>
+      </small>
+    </div>
+    <div class="col-6">
+      <label for="date" style="font-size: 20px; margin-bottom: 30px;">Page No : </label>
+      <input
+        type="text"
+        class="calender4 p-inputtext-sm"
+        placeholder="Page No"
+        formControlName="pageNo"
+        pInputText
+      />
+      <br />
+      <!-- <small
+        *ngIf="
+          !actionForm.get('pageNo')?.valid &&
+          actionForm.get('pageNo')?.touched
+        "
+      >
+        <span style="color: red">Please Enter Page No.</span>
+      </small> -->
+    </div>
+    </div>
+  </form>
+        <ng-template pTemplate="footer">
+          <button class="p-button uploadBtn3" (click)="extractFile()" pButton label="Extract"></button>
+        </ng-template>
+</p-dialog>
 
 
+<!-- <div>
+  <p-dialog
+    [(visible)]="uploadNewDataDialog"
+    [style]="{ width: '1000px', height: '400px' }"
+    [modal]="true"
+    styleClass="p-fluid labelDialog "
+  >
+    <form [formGroup]="document" autocomplete="off">
+      <label class="headerLabel1">
+        <i class="pi pi-chevron-left" (click)="onClickBack()"></i>
+        Upload New Data
+      </label>
 
+      <div class="flex flex-wrap gap-5 dataBox">
+        <p-cascadeSelect
+          [options]="industry"
+          optionLabel="cname"
+          optionGroupLabel="name"
+          optionValue="cname"
+          [optionGroupChildren]="['companies']"
+          placeholder="Client"
+          styleClass="cascade"
+          formControlName="client"
+        ></p-cascadeSelect>
+        <br />
+        <small
+          *ngIf="
+            !document.get('client')?.valid && document.get('client')?.touched
+          "
+        >
+          <span style="color: red">Mandetory Field</span>
+        </small>
+
+        <p-cascadeSelect
+          [options]="documents"
+          optionLabel="dname"
+          optionValue="dname"
+          optionGroupLabel="name"
+          [optionGroupChildren]="['Doctype']"
+          placeholder="Document Type"
+          styleClass="cascade"
+          (onChange)="onSelectDocument()"
+          formControlName="documentType"
+        ></p-cascadeSelect>
+        <br />
+        <small
+          *ngIf="
+            !document.get('documentType')?.valid &&
+            document.get('documentType')?.touched
+          "
+        >
+          <span style="color: red">Mandetory Field</span>
+        </small>
+
+       
+        <p-dropdown
+          styleClass="analystDropdown"
+          placeholder="Analyst"
+          [options]="analyst"
+          defaultLabel="Analyst"
+          optionLabel="accessAnalyst"
+          optionValue="accessAnalyst"
+          placeholder="Select"
+          selectedItemsLabel="{0} items selected"
+          *ngIf="analystName"
+          formControlName="analystName"
+          selectedItemsLabel="1"
+        >
+        </p-dropdown>
+        <br />
+        <small
+          *ngIf="
+            !document.get('analystName')?.valid &&
+            document.get('analystName')?.touched
+          "
+        >
+          <span style="color: red">Mandetory Field</span>
+        </small>
+      </div>
+      <div class="flex flex-wrap gap-5 dataBox">
+        <input
+          type="date"
+          class="calender1 p-inputtext-sm"
+          placeholder="Report From"
+          formControlName="reportFrom"
+          pInputText
+          [min]="currentDate | date : 'yyyy-MM-dd'"
+        />
+        <br />
+        <small
+          *ngIf="
+            !document.get('reportFrom')?.valid &&
+            document.get('reportFrom')?.touched
+          "
+        >
+          <span style="color: red">Mandetory Field</span>
+        </small>
+        <input
+          type="date"
+          class="calender2 p-inputtext-sm"
+          placeholder="Report To"
+          formControlName="reportTo"
+          pInputText
+          [min]="currentDate | date : 'yyyy-MM-dd'"
+        />
+        <br />
+        <small
+          *ngIf="
+            !document.get('reportTo')?.valid &&
+            document.get('reportTo')?.touched
+          "
+        >
+          <span style="color: red">Mandetory Field</span>
+        </small>
+
+        <span Class="upload">
+          <input
+            class="padding"
+            type="file"
+            accept=".pdf"
+            pInputText
+            id="dos"
+            name="file"
+            required
+            style="width: 200px"
+            id="file"
+            (change)="selectFile($event)"
+          />
+        </span>
+        <span class="upload1">
+          <button
+            [disabled]="!document.valid"
+            pButton
+            icon="pi pi-upload"
+            label="Upload"
+            (click)="onClickUpload()"
+          ></button>
+        </span>
+      </div>
+  
+
+      <div class="spinnerDiv">
+        <span *ngIf="spinner" class="spinner">
+          <p-progressSpinner></p-progressSpinner>
+        </span>
+      </div>
+    </form>
+  </p-dialog>
+</div> -->
 
 <router-outlet></router-outlet>
+<ng-container *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</ng-container>

@@ -1,75 +1,227 @@
-::ng-deep .searchInputBox{
-    background-color: #191919 !important;
-    color: white !important;
-    font-size: medium !important;
-    border-color: #50AD95 !important;
+::ng-deep .searchInputBoxAnalyst {
+  background-color: #191919 !important;
+  color: white !important;
+  font-size: medium !important;
+  border-color: #50ad95 !important;
 }
 
-::ng-deep .addAnalystButton{
-    background-color: #D04A02 !important;
-    color: white !important;
-    border: none !important;
-    float: right;
-  }
+::ng-deep .addAnalystButton {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  float: right;
+}
 
-  ::ng-deep .lineItemsMapTable{
-    margin-top: 20px !important;
-    border-radius: 10px;
-    border: 2px solid #3b3b3b !important;
-    overflow: hidden !important;
-  }
+::ng-deep .lineItemsMapTable {
+  margin-top: 20px !important;
+  border-radius: 10px;
+  border: 2px solid #3b3b3b !important;
+  overflow: hidden !important;
+}
 
-  .tableHeader::ng-deep * {
-    background-color: #191919 !important;
-    color: white !important;
-    padding: 10px !important;
-  }
+.tableHeader::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+  padding: 10px !important;
+}
 
-  tr:nth-child(even) {
-    background-color: #3b3b3b !important;
-    color: white;
-  }
-  tr:nth-child(odd) {
-    background-color: #2d2d2d !important;
-    color: white;
-  }
+tr:nth-child(even) {
+  background-color: #3d3d3d !important;
+  color: white;
+}
+tr:nth-child(odd) {
+  background-color: #2d2d2d !important;
+  color: white;
+}
 
-  /* analyst Details Form  */
-  ::ng-deep .headerLabel1{
+/* analyst Details Form  */
+::ng-deep .headerLabel1 {
   font-size: x-large;
-  }
-
-  ::ng-deep .AnalystDetailsCard {
-    margin-top: 100px !important;
-    background-color: #2D2D2D !important;
-    color: white !important;
-    font-family: Helvetica !important;
-    height: 150px;
-  }
-.main{
-    flex-wrap: wrap;
+  color: white;
 }
 
-::ng-deep .inputBox  {
-    background-color: #2d2d2d !important;
-    color: white;
-   
-  }
+::ng-deep .AnalystDetailsCard {
+  margin-top: 50px !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-family: Helvetica !important;
+}
+.main {
+  flex-wrap: wrap;
+  margin-left: 250px;
+}
+
+::ng-deep .inputBox * {
+  background-color: #2d2d2d !important;
+  color: white;
+}
+::ng-deep .inputBoxAnalystName {
+  background-color: #2d2d2d !important;
+  color: white;
+  width: 100%;
+}
+::ng-deep .inputAnalystName {
+  background-color: #2d2d2d !important;
+  color: white;
+  width: 20%;
+}
 ::ng-deep .saveButton {
-    background-color: #d04a02 !important;
-    color: white !important;
-    border: none !important;
-    width: 7% !important;
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  width: 7% !important;
+}
 
-  }
+::ng-deep .updateButton {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+}
 
-  ::ng-deep .updateButton {
-    background-color: #d04a02 !important;
-    color: white !important;
-    border: none !important;
-  }
+::ng-deep .deleteButton {
+  color: #d04a02 !important;
+}
+
+.uploadBtn {
+  margin-right: 10px;
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: 1px solid #d04a02 !important;
+  border-radius: 7%;
+}
+.downloadBtn {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: 1px solid #d04a02 !important;
+  border-radius: 7%;
+}
+::ng-deep .uploadDialogAnalyst * {
+  background-color: #2d2d2d !important;
+  color: white;
+}
+::ng-deep .cancelBtn * {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: 1px solid #d04a02 !important;
+  border-radius: 7%;
+}
+::ng-deep .dialogSaveBtn * {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: 1px solid #d04a02 !important;
+  border-radius: 7%;
+}
+:host ::ng-deep .upload * {
+  border: none !important;
+
+  border: 1px solid #26776d !important;
+}
+
+::ng-deep .customPaginator .p-paginator {
+  background-color: #191919 !important;
+}
+
+.customPaginator .p-paginator .ui-paginator-page {
+  color: white;
+}
+
+::ng-deep .card {
+  margin-left: -70px;
+}
+
+::ng-deep .skillButton {
+  background-color: #d04a02;
+
+  color: white;
+
+  border: none;
+}
+
+.skillButton:hover {
+  background-color: #d04a02;
+
+  color: white;
+
+  border: none;
+}
+
+::ng-deep .removeButton {
+  margin-top: 1rem;
+  margin-left: 10px;
+}
+
+::ng-deep .AnalystContactTable {
+  border-radius: 10px;
+
+  border: 2px solid #3b3b3b !important;
+
+  overflow: hidden !important;
+
+}
+
+::ng-deep .tablerow {
+  height: 2rem !important;
+
+  padding: 0% !important;
+
+  margin: 0% !important;
+}
+
+
+/* dialog of exitinng */
   
-  ::ng-deep .deleteButton {
-    color: #d04a02 !important;
-  }
- 
+::ng-deep .existingDataCardOverride{
+  /* color: white !important;
+  font-family: Helvetica !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  background-color: #2d2d2d !important;
+  width: 50%;
+  justify-content: center;
+  border: 1px solid white;
+}
+::ng-deep .p-dialog .p-dialog-content {
+  background-color: #2d2d2d !important;
+  color: white;
+
+}
+::ng-deep .p-dialog .p-dialog-header {
+  background-color: #2d2d2d !important;
+  color: white;
+
+}
+::ng-deep .p-dialog .p-dialog-footer{
+  background-color: #2d2d2d !important;
+  color: white;
+}
+.cancel-icon:hover{
+font-weight: bold;
+cursor: pointer
+}
+.cardButtons{
+  width: 100%;
+  display: flex;
+  margin-top:2%;
+  justify-content: center;
+}
+
+
+.spinner {
+  /* backdrop-filter: blur(2px); */
+  background-color: rgba(188, 170, 170, 0.2);
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 99%;
+  width: 100%;
+  position: absolute;
+
+}
+app-spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

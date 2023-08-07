@@ -1,0 +1,15 @@
+<div class="p-grid flex align-items-center justify-content-center">
+  <div *ngFor="let data of topNewsData" class="p-col-6 p-md-3 p-lg-2">
+<p-card class="grid">
+  <div class="flex align-items-stretch flex-wrap card-container" style="width: 500px;">
+      <img [src]="data.urlToImage" alt="image" style="width: 100%" />
+      <div class="card-content">
+        <span class="card-title">{{ data.title }}</span>
+        <p>{{ data.description }}</p>
+        <a [href]="data.url">Read More</a>
+      </div>
+ 
+    </div>
+    </p-card>
+  </div>
+</div>

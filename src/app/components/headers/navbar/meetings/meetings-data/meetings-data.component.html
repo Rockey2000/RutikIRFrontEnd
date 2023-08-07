@@ -1,0 +1,115 @@
+<h2 style="color: white">
+  <i
+    class="pi pi-chevron-left"
+    (click)="onClickBack()"
+    style="cursor: pointer"
+  ></i>
+  Meetings Data
+</h2>
+<br />
+<!-- <span >
+  <p-tabMenu
+    class="tabmenu"
+    routerLinkActive="active"
+    [model]="items"
+    [activeItem]="items[0]"
+    [ngClass]="status ? 'menuClass' : 'menuclass1'"
+  >
+  </p-tabMenu>
+</span> -->
+
+<!-- <router-outlet></router-outlet> -->
+
+<p-tabView >
+  <p-tabPanel header="Minutes of Meeting">
+    <div class="grid p-fluid">
+      <div class="col-9">
+        <p-card styleClass="momCard">
+          <button
+            pButton
+            label="Download"
+            class="p-button-sm downloadMom"
+            icon="pi pi-download"
+            (click)="onClickDownloadMom()"
+          ></button>
+
+          <iframe [src]="iframeUrl" width="100%" height="650px"></iframe>
+       
+        </p-card>
+      </div>
+      <div class="col-3">
+        <div class="grid">
+          <div class="col-12">
+            <p-card styleClass="momSummeryCard">
+              <h3 style="margin-top: -20px">Summary :</h3>
+              {{ meetingData.summary }}
+            </p-card>
+          </div>
+
+          <div class="col-12">
+            <p-card styleClass="momAttendanceCard">
+              <h3 style="margin-top: -20px">Attendees:</h3>
+              <ng-container *ngFor="let participant of formattedParticipants">
+                <div class="profile-container">
+                  <span class="profile">
+                    {{ participant.substring(0, 1) | uppercase }}
+                  </span>
+                  <span class="email">
+                    {{ participant }}
+                  </span>
+                </div>
+              </ng-container>
+            </p-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-tabPanel>
+
+  <p-tabPanel header="Meeting Recording">
+    <div class="grid p-fluid">
+      <div class="col-9">
+        <p-card styleClass="recordCard">
+          <!-- <div [innerHTML]="videoUrl" style="margin-left: 10%"></div> -->
+          <video controls class="recordCard1">
+            <source [src]="iframeUrl2" type="video/mp4">
+            Your browser does not support the audio element.
+          </video>
+          {{videoUrl}}
+          <!-- <iframe [src]="iframeUrl2" width="100%" height="650px"></iframe> -->
+        </p-card>
+      </div>
+      <div class="col-3">
+        <div class="grid">
+          <div class="col-12">
+            <p-card styleClass="recordSummeryCard">
+              <h3 style="margin-top: -20px">Summary :</h3>
+              {{ meetingData.summary }}
+            </p-card>
+          </div>
+
+          <div class="col-12">
+            <p-card styleClass="recordAttendanceCard">
+              <h3 style="margin-top: -20px">Attendees:</h3>
+              <ng-container *ngFor="let participant of formattedParticipants">
+                <div class="profile-container">
+                  <span class="profile">
+                    {{ participant.substring(0, 1) | uppercase }}
+                  </span>
+                  <span class="email">
+                    {{ participant }}
+                  </span>
+                </div>
+              </ng-container>
+            </p-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-tabPanel>
+</p-tabView>
+
+<ng-container *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</ng-container>

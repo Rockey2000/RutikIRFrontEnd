@@ -216,18 +216,23 @@
 }
 
 ::ng-deep .xng-breadcrumb-trail {
-  color: white !important;
+  color: #26776d !important;
 }
 ::ng-deep .xng-breadcrumb-root {
-  color: white !important;
+  color: #26776d !important;
 }
-::ng-deep .logo1 {
+/* ::ng-deep .logo1 {
   color: white !important;
   font-size: xx-large;
   font-weight: bold;
   font-style: italic;
   margin-left: 20px !important;
   margin-top: 7px !important;
+} */
+
+:host::ng-deep .logo1 * {
+  color: white !important;
+  margin: 0.8rem 0.3rem !important;
 }
 
 .leftTopbar {
@@ -239,8 +244,17 @@
   margin: 10px !important;
 }
 
-::ng-deep .pcard{
+::ng-deep .pcard {
   background-color: #191919 !important;
   border: none;
   box-shadow: none;
+}
+
+.bradcrumb ::ng-deep .pi:not(:first-child) {
+  display: none;
+}
+
+.readonly {
+  pointer-events: none;
+
 }

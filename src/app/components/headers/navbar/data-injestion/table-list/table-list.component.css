@@ -1,0 +1,89 @@
+::ng-deep .wholeDiv{
+  margin-top: -50px;
+}
+
+::ng-deep .headerLabel1 {
+  
+    color: white !important;
+    font-size: larger !important;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  ::ng-deep .headerLabel1 * {
+    padding-top: 5rem !important;
+  }
+
+::ng-deep .table{
+    margin-top: 50px;
+  }
+
+  ::ng-deep .usersTable {
+    margin-top: 40px;
+    border-radius: 07px;
+    overflow: hidden !important;
+    border: 1px solid #2d2d2d;
+  
+  }
+
+  ::ng-deep .customPaginator .p-paginator {
+    background-color:#191919 !important;
+  }
+  
+  .customPaginator .p-paginator .ui-paginator-page {
+    color: white;
+  }
+  
+  .tableHeader::ng-deep * {
+    background-color: #191919 !important;
+    color: white !important;
+    border-bottom: none !important;
+    padding: 15px;
+  }
+
+  .tablerow2::ng-deep * {
+    color: white !important;
+    border-bottom: none !important;
+  
+  }
+  
+  .tablerow2:hover {
+    color: white !important;
+    background-color: #415385 !important;
+    border-bottom: none !important;
+  }
+
+tr:nth-child(even) {
+    background-color: #3b3b3b !important;
+  }
+  tr:nth-child(odd) {
+    background-color: #2d2d2d !important;
+  }
+  
+  ::ng-deep .labelDialog *{
+    background-color: #3b3b3b !important;
+    color: white;
+  }
+  ::ng-deep .cancelBtn *{
+  color: white !important;
+  background-color: #d04a02 !important;
+  border-color: #d04a02 !important;
+  }
+  ::ng-deep .dialogSaveBtn *{
+    background-color: #d04a02 !important;
+    color: white !important;
+    border-color: #d04a02;
+  }
+::ng-deep .cancelBtn{
+    color: white !important;
+    background-color: #d04a02 !important;
+    border-color: #d04a02 !important;
+    }
+.dialogSaveBtn{
+      background-color: #d04a02 !important;
+      color: white !important;
+      border-color: #d04a02;
+    }
+    
+  .buttonColor{
+    background-color: #22c55e;
+  }

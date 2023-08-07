@@ -6,3 +6,4 @@ export interface Document{
     reportFrom:number;
     reportTo:number;
 }
+

@@ -1,0 +1,283 @@
+
+::ng-deep .searchSelect * {
+    background-color: #3d3d3d !important;
+    color: white !important;
+    border-color: #2d2d2d !important;
+  }
+
+  ::ng-deep .selected *{
+    color: white !important;
+    border-color: #2d2d2d !important;
+    background-color: #26776d !important;
+  }
+  ::ng-deep .selected {
+    color: white !important;
+    border-color: #2d2d2d !important;
+    background-color: #26776d !important;
+  }
+
+  ::ng-deep .updateButton {
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: none !important;
+    font-size: medium;
+    float: right;
+  }
+::ng-deep .lineItemsMapTable{
+    margin-top: 20px !important;
+    border-radius: 10px;
+    border: 2px solid #3b3b3b !important;
+    overflow: hidden !important;
+  }
+  
+  .tableHeader::ng-deep * {
+    background-color: #191919 !important;
+    color: white !important;
+    padding: 10px !important;
+    border-bottom: none !important;
+
+  }
+  
+.tableRow::ng-deep * {
+
+  color: white !important;
+  border-bottom: none !important;
+}
+
+.tableRow:hover {
+  color: white !important;
+  background-color: #415385 !important;
+  border-bottom: none !important;
+}
+
+  tr:nth-child(even) {
+    background-color: #3b3b3b !important;
+  }
+  tr:nth-child(odd) {
+    background-color: #2D2D2D !important;
+  }
+  
+  ::ng-deep td{
+    border-bottom: none !important;
+  }
+
+  ::ng-deep .customPaginator .p-paginator {
+    background-color:#191919 !important;
+  }
+  
+  .customPaginator .p-paginator .ui-paginator-page {
+    color: white;
+  }
+
+.size{
+  margin-left: 40px;
+  height: 650px;
+  width: 1700px;
+}
+::ng-deep .uploadDialog *{
+  background-color: #2d2d2d !important;
+  color: white;
+
+}
+
+
+/* uodate meeting card css */
+
+::ng-deep .label {
+  margin-left: 35px;
+  cursor: pointer !important;
+  font-size: x-large !important;
+  font-weight: bold;
+  color: white;
+}
+
+::ng-deep .ScheduleMeetingCard {
+  margin-top: 20px !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-family: Helvetica !important;
+  border-left: 10px solid #62719a;
+}
+::ng-deep .titleBoxname1 {
+  margin-bottom: 1vh;
+  width: 80%;
+  margin-left: 10%;
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .inputMeetingDate1 * {
+  
+  width: 80%;
+  margin-top: 5px;
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .inputBoxAgenda1{
+  width: 80%;
+  margin-left: 10%;
+  height: 100px;
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .startTime * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  width: 75%;
+  margin-left: 5%;
+}
+
+::ng-deep .EndTime * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  width: 75%;
+}
+
+::ng-deep .dropdownMeetingType {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border-color: #50ad95 !important;
+  margin-left: -6%;
+  width: 113%;
+}
+:host::ng-deep .dropdownMeetingType * {
+  background-color: #2d2d2d !important;
+  color: white;
+  border-color: #50ad95 !important;
+}
+
+::ng-deep .inputBoxParticipants {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+:host::ng-deep .upload * {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+}
+.deleteButton {
+  background-color: #191919 !important;
+  color: #d04a02 !important;
+  border: 1px solid !important;
+}
+.saveButton {
+  background-color: #d04a02;
+  color: white !important;
+  border: none !important;
+}
+.sendButton {
+  background-color: #d04a02;
+  color: white !important;
+  border: none !important;
+}
+
+::ng-deep .dropdownEmails1 {
+  width: 80%;
+  padding: auto;
+  margin-left: 5px;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border-color: #26776d !important;
+}
+:host::ng-deep .dropdownEmails1 * {
+  background-color: #2d2d2d !important;
+  color: white;
+  border-color: #26776d !important;
+}
+
+::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: #26776d;
+}
+
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: #26776d;
+}
+
+.addEmailBtn {
+  background-color: #d04a02;
+  color: white !important;
+  border: none !important;
+}
+
+::ng-deep .pbuttonclass2 {
+  background-color: #d04a02;
+  border-color: #d04a02;
+  float: right;
+}
+.pbuttonclass2:hover {
+  background-color: #d04a02;
+  color: #d04a02;
+  border: none;
+}
+
+
+:host::ng-deep .emailDialog *{
+  background-color: #2d2d2d !important;
+  color: white;
+
+}
+::ng-deep .emailBoxname {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .externalEmail {
+  margin-top: -90%;
+  width: 100%;
+
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+
+.spinner {
+  /* backdrop-filter: blur(2px); */
+  background-color: rgba(188, 170, 170, 0.2);
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 99%;
+  width: 100%;
+  position: absolute;
+
+}
+app-spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+::ng-deep .fc .fc-toolbar-title {
+  font-size: 1.75em;
+  margin: 0;
+  color: white;
+}
+.time-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.time-label {
+  width: 90px;
+  font-weight: bold;
+}
+
+.time-field {
+  margin-left: 5px;
+  flex: 1;
+}
+
+.to-label {
+  margin-left: -8%;
+}
+
+.error-message {
+  margin-top: 5px;
+  display: block;
+}

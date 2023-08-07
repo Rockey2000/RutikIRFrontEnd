@@ -1,0 +1,830 @@
+<div class="upperBody" *ngIf="meetingDataTable">
+  <span class="p-input-icon-left searchbar" style="margin-bottom: 10px">
+    <i class="pi pi-search"></i>
+    <input
+      type="text"
+      class="searchInputBoxShareData"
+      pInputText
+      placeholder="Search"
+      (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+    />
+  </span>
+  <!-- <button
+    pButton
+    class="p-button-sm button button1"
+    label="Add Details"
+    icon="pi pi-plus-circle"
+    (click)="addMeeting()"
+  ></button> -->
+  <!-- <button
+      pButton
+      class="p-button-sm button downloadbutton"
+      label="Download Template"
+      icon="pi pi-download"
+      (click)="downloadMeetingTemplate()"
+    ></button> -->
+
+  <div style="margin: 0%; padding: 0%">
+    <p-table
+      #dt1
+      [value]="completedMeeting"
+      styleClass="p-datatable-sm meetingDataTable customPaginator"
+      responsiveLayout="scroll"
+      scrollHeight="100vh"
+      [globalFilterFields]="[
+        'date',
+        'startTime',
+        'endTime',
+        'organisation',
+        'title',
+        'meetingType',
+        'status'
+      ]"
+      [paginator]="true"
+      [rows]="10"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="header">
+        <tr class="tableHeader">
+          <th>Sr. No</th>
+          <th>Meeting Date</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Title</th>
+          <!-- <th>Stakeholder Type</th> -->
+          <th>Meeting Type</th>
+          <th>Status</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product && let-i="rowIndex">
+        <tr class="tableRow" (click)="editMeeting(product)">
+          <td>
+            {{ i + 1 }}
+          </td>
+
+          <td>
+            {{ product.meetingDate }}
+          </td>
+          <td>
+            {{ product.startTime | date : "HH:mm:ss" }}
+          </td>
+          <td>
+            {{ product.endTime | date : "HH:mm:ss" }}
+          </td>
+          <td>
+            {{ product.title }}
+          </td>
+          <!-- <td>
+            {{ product.stakeholderType }}
+          </td> -->
+          <td>
+            {{ product.meetingType }}
+          </td>
+          <td>
+            {{ product.status }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<!-- table to add line-items -->
+<div *ngIf="meetingDataForm">
+  <br />
+  <label class="label">
+    <i class="pi pi-chevron-left" (click)="onClickBack()"></i>
+    Add Shareholder Meeting Details
+  </label>
+
+  <form [formGroup]="shMeetingDataForm" autocomplete="off">
+    <p-card
+      styleClass="contactDetailsCard"
+      [style]="{ width: '100%', margin: '0px 40px 40px 0px' }"
+    >
+      <ng-template pTemplate="content">
+        <div class="field">
+          <label for="emailId">Extract MoM</label>
+          <div style="text-align: left; margin-top: 10px">
+            <span class="upload">
+              <input
+                class="padding"
+                type="file"
+                accept=".docx"
+                pInputText
+                id="dos"
+                name="file"
+                required
+                style="width: 25%"
+                id="file"
+                (change)="selectFileMom($event)"
+              />
+            </span>
+            &nbsp;
+            <button
+              class="uploadBtn"
+              pButton
+              label="Extract"
+              icon="pi pi-upload"
+              iconPos="left"
+              (click)="onClickExtract()"
+            ></button>
+          </div>
+        </div>
+        <div class="grid p-fluid">
+          <div class="field col-12 md:col-3">
+            <label for="clientId">Date</label>
+            <input
+              class="inputBox"
+              type="text"
+              id="meetingType"
+               readonly
+              formControlName="date"
+              placeholder="Enter"
+              pInputText
+              required
+            />
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('date')?.invalid &&
+                shMeetingDataForm.get('date')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('date')?.errors?.['required']"
+                style="color: red"
+                >Mandatory Field</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label for="PortfolioID">Start Time</label>
+
+            <input
+              class="inputBox"
+              type="text"
+              id="meetingType"
+              readonly
+              formControlName="startTime"
+              placeholder="Enter"
+              pInputText
+              required
+            />
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('startTime')?.invalid &&
+                shMeetingDataForm.get('startTime')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('startTime')?.errors?.['required']"
+                style="color: red"
+                >Field Is Mandatory.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('startTime')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Time should be in following format 11:22 AM or 12:33
+                PM.</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label for="folio">End Time</label>
+
+            <input
+              class="inputBox"
+              type="text"
+              id="meetingType"
+              readonly
+              formControlName="endTime"
+              placeholder="Enter"
+              pInputText
+              required
+            />
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('endTime')?.invalid &&
+                shMeetingDataForm.get('endTime')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('endTime')?.errors?.['required']"
+                style="color: red"
+                >Field Is Mandatory.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('endTime')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Time should be in following format 11:22 AM or 12:33
+                PM.</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label for="shareholderName">Subject</label>
+
+            <input
+              class="inputBox"
+              type="text"
+              id="meetingType"
+              readonly
+              formControlName="subject"
+              placeholder="Enter"
+              pInputText
+              [pattern]="subjectPattern"
+              required
+            />
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('subject')?.invalid &&
+                shMeetingDataForm.get('subject')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('subject')?.errors?.['required']"
+                style="color: red"
+                >Enter Valid Subject.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('subject')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Subject Name contains Alphabets only.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('subject')?.errors?.['minlength']"
+                style="color: red"
+                >&nbsp;Subject Name must be at least 3 characters long.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('subject')?.errors?.['maxlength']"
+                style="color: red"
+                >&nbsp;Subject Name cannot be more than 15 characters
+                long.</span
+              >
+            </small>
+          </div>
+        </div>
+
+        <div class="grid p-fluid">
+          <div class="field col-12 md:col-3">
+            <label for="clientId">Organization</label>
+            <input
+              class="inputBox"
+              type="text"
+              id="organization"
+              pInputText
+              formControlName="organisation"
+              placeholder="Enter"
+              [pattern]="orgnisationPattern"
+              required
+            />
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('organisation')?.invalid &&
+                shMeetingDataForm.get('organisation')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('organisation')?.errors?.['required']"
+                style="color: red"
+                >Enter Valid Organization Name.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('organisation')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Organization Name contains Alphabets only.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('organisation')?.errors?.['minlength']"
+                style="color: red"
+                >&nbsp;Organization Name must be at least 3 characters
+                long.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('organisation')?.errors?.['maxlength']"
+                style="color: red"
+                >&nbsp;Organization Namev cannot be more than 15 characters
+                long.</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label for="PortfolioID">Direct/ Broker Meeting</label>
+            <p-dropdown
+              [options]="meetingsWith"
+              optionLabel="meetingWith"
+              optionValue="meetingWith"
+              placeholder="Select"
+              styleClass="dropdownbroker"
+              formControlName="broker"
+              [required]="true"
+            ></p-dropdown>
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('broker')?.invalid &&
+                shMeetingDataForm.get('broker')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('broker')?.errors?.['required']"
+                style="color: red"
+                >Mandatory Field</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label for="folio">Stakeholder Type</label>
+
+            <p-dropdown
+              [options]="stakeholders"
+              optionLabel="stakeholderType"
+              optionValue="stakeholderType"
+              placeholder="select"
+              styleClass="dropdownstakeholderType"
+              placeholder="Enter"
+              formControlName="stakeholderType"
+              [required]="true"
+            ></p-dropdown>
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('stakeholderType')?.invalid &&
+                shMeetingDataForm.get('stakeholderType')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('stakeholderType')?.errors?.['required']"
+                style="color: red"
+                >Mandatory Field</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label for="shareholderName">Meeting Type</label>
+
+            <p-dropdown
+              [options]="meetingTypes"
+              optionLabel="meetingType"
+              optionValue="meetingType"
+              placeholder="select"
+              styleClass="dropdownmeetingType"
+              placeholder="Enter"
+              formControlName="meetingType"
+              [required]="true"
+              [readonly]="true"
+            ></p-dropdown>
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('meetingType')?.invalid &&
+                shMeetingDataForm.get('meetingType')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('meetingType')?.errors?.['required']"
+                style="color: red"
+                >Mandatory Field</span
+              >
+            </small>
+          </div>
+        </div>
+        <div class="grid p-fluid">
+          <div class="field col-12 md:col-3">
+            <label for="shareholderName">Location</label>
+            <input
+              class="inputBox"
+              type="text"
+              formControlName="location"
+              placeholder="Enter"
+              id="location"
+              pInputText
+              required
+            />
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('location')?.invalid &&
+                shMeetingDataForm.get('location')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('location')?.errors?.['required']"
+                style="color: red"
+                >Field Is Mandatory.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('location')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Location contains Alphabets and Numbers.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('location')?.errors?.['minlength']"
+                style="color: red"
+                >&nbsp;Location must be at least 3 characters long.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('location')?.errors?.['maxlength']"
+                style="color: red"
+                >&nbsp;Location cannot be more than 250 characters long.</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label for="holdingPercentage">Status</label>
+            <p-dropdown
+              [options]="status"
+              optionLabel="status"
+              optionValue="status"
+              placeholder="Select"
+              styleClass="dropdownstatus"
+              formControlName="status"
+              [required]="true"
+            ></p-dropdown>
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('status')?.invalid &&
+                shMeetingDataForm.get('status')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('status')?.errors?.['required']"
+                style="color: red"
+                >Mandatory Field</span
+              >
+            </small>
+          </div>
+        </div>
+        <hr
+          style="width: 100%; margin-top: -30px; margin-bottom: 30px"
+          color="#26776d"
+        />
+        <div class="grid p-fluid">
+          <div class="field col-12 md:col-6">
+            <label for="holdingPercentage">Participants</label>
+            <textarea
+              class="inputBox"
+              type="text"
+              id="holdingPercentage"
+              pInputTextarea
+              class="dropdownparticipants"
+              placeholder="Enter"
+              formControlName="participants"
+              required
+              [pattern]="participantsPattern"
+              [rows]="5"
+              readonly
+              ></textarea>
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('participants')?.invalid &&
+                shMeetingDataForm.get('participants')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('participants')?.errors?.['required']"
+                style="color: red"
+                >Enter Valid Participants.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('participants')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Participants Contains Alphabets Only.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('participants')?.errors?.['minlength']"
+                style="color: red"
+                >&nbsp;Participants must be at least 3 characters long.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('participants')?.errors?.['maxlength']"
+                style="color: red"
+                >&nbsp;Participants cannot be more than 15 characters
+                long.</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-6">
+            <label for="emailId">Comments</label>
+            <textarea
+              pInputTextarea
+              style="width: 100%"
+              class="inputBox"
+              [autoResize]="false"
+              type="text"
+              formControlName="comments"
+              placeholder="Enter"
+              [rows]="5"
+            >
+            </textarea>
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('comments')?.invalid &&
+                shMeetingDataForm.get('comments')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('comments')?.errors?.['required']"
+                style="color: red"
+                >Enter valid Comments.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('comments')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Comments Contains Alphabets Only.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('comments')?.errors?.['minlength']"
+                style="color: red"
+                >&nbsp;Comments must be at least 3 characters long.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('comments')?.errors?.['maxlength']"
+                style="color: red"
+                >&nbsp;Comments cannot be more than 15 characters long.</span
+              >
+            </small>
+          </div>
+        </div>
+        <div class="grid p-fluid" style="margin-top: -30px">
+          <div class="field col-12 md:col-6">
+            <label for="emailId">Summary of the Discussion</label>
+            <textarea
+              pInputTextarea
+              style="width: 100%"
+              class="inputBox"
+              [autoResize]="false"
+              type="text"
+              formControlName="Summary"
+              placeholder="Enter"
+              [rows]="5"
+            >
+            </textarea>
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('Summary')?.invalid &&
+                shMeetingDataForm.get('Summary')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('Summary')?.errors?.['required']"
+                style="color: red"
+                >Enter valid Comments.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('Summary')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Comments Contains Alphabets Only.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('Summary')?.errors?.['minlength']"
+                style="color: red"
+                >&nbsp;Comments must be at least 3 characters long.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('Summary')?.errors?.['maxlength']"
+                style="color: red"
+                >&nbsp;Comments cannot be more than 15 characters long.</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-6">
+            <label for="emailId">Action Items</label>
+            <textarea
+              pInputTextarea
+              style="width: 100%"
+              class="inputBox"
+              [autoResize]="true"
+              type="text"
+              formControlName="actionItems"
+              placeholder="Enter"
+              [rows]="5"
+            >
+            </textarea>
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('actionItems')?.invalid &&
+                shMeetingDataForm.get('actionItems')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('actionItems')?.errors?.['required']"
+                style="color: red"
+                >Enter valid Comments.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('actionItems')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Comments Contains Alphabets Only.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('actionItems')?.errors?.['minlength']"
+                style="color: red"
+                >&nbsp;Comments must be at least 3 characters long.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('actionItems')?.errors?.['maxlength']"
+                style="color: red"
+                >&nbsp;Comments cannot be more than 15 characters long.</span
+              >
+            </small>
+          </div>
+        </div>
+        <div class="grid p-fluid" style="margin-top: -30px">
+          <div class="field col-12 md:col-6">
+            <label for="emailId">Investor Concerns</label>
+            <textarea
+              pInputTextarea
+              style="width: 100%"
+              class="inputBox"
+              [autoResize]="false"
+              type="text"
+              [rows]="5"
+              formControlName="investorConcerns"
+              placeholder="Enter"
+            >
+            </textarea>
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('investorConcerns')?.invalid &&
+                shMeetingDataForm.get('investorConcerns')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('investorConcerns')?.errors?.['required']"
+                style="color: red"
+                >Enter valid Comments.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('investorConcerns')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Comments Contains Alphabets Only.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('investorConcerns')?.errors?.['minlength']"
+                style="color: red"
+                >&nbsp;Comments must be at least 3 characters long.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('investorConcerns')?.errors?.['maxlength']"
+                style="color: red"
+                >&nbsp;Comments cannot be more than 15 characters long.</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-6">
+            <label for="emailId">Feedback</label>
+            <textarea
+              pInputTextarea
+              style="width: 100%"
+              class="inputBox"
+              [autoResize]="false"
+              type="text"
+              formControlName="feedback"
+              [rows]="5"
+              placeholder="Enter"
+            >
+            </textarea>
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('Summary')?.invalid &&
+                shMeetingDataForm.get('Summary')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('Summary')?.errors?.['required']"
+                style="color: red"
+                >Enter valid Comments.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('Summary')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Comments Contains Alphabets Only.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('Summary')?.errors?.['minlength']"
+                style="color: red"
+                >&nbsp;Comments must be at least 3 characters long.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('Summary')?.errors?.['maxlength']"
+                style="color: red"
+                >&nbsp;Comments cannot be more than 15 characters long.</span
+              >
+            </small>
+          </div>
+        </div>
+        <div class="grid p-fluid" style="margin-top: -30px">
+          <div class="field col-12 md:col-6">
+            <label for="emailId">Analysis</label>
+            <textarea
+              pInputTextarea
+              style="width: 100%"
+              class="inputBox"
+              [autoResize]="true"
+              type="text"
+              formControlName="analysis"
+              placeholder="Enter"
+              [rows]="5"
+            >
+            </textarea>
+            <br />
+            <small
+              *ngIf="
+                shMeetingDataForm.get('analysis')?.invalid &&
+                shMeetingDataForm.get('analysis')?.touched
+              "
+            >
+              <span
+                *ngIf="shMeetingDataForm.get('analysis')?.errors?.['required']"
+                style="color: red"
+                >Enter valid Comments.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('analysis')?.errors?.['pattern']"
+                style="color: red"
+                >&nbsp;Comments Contains Alphabets Only.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('analysis')?.errors?.['minlength']"
+                style="color: red"
+                >&nbsp;Comments must be at least 3 characters long.</span
+              >
+              <span
+                *ngIf="shMeetingDataForm.get('analysis')?.errors?.['maxlength']"
+                style="color: red"
+                >&nbsp;Comments cannot be more than 15 characters long.</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-6">
+            <label for="emailId">Upload Audio / Video File</label>
+            <span class="upload">
+              <input
+                class="padding"
+                type="file"
+                accept=".mp4, .mov, .wav, .mp3"
+                pInputText
+                id="dos"
+                name="file"
+                required
+                style="width: 100%"
+                id="file"
+                (change)="selectFile($event)"
+              />
+            </span>
+          </div>
+        </div>
+      </ng-template>
+    </p-card>
+    <div style="text-align: right; margin-right: 50px; margin-top: -30px">
+      <button
+        class="p-button-sm p-button-outlined cancelButton4"
+        pButton
+        label="Cancel"
+        (click)="onClickBack()"
+      ></button>
+      &nbsp;
+      <button
+        [disabled]="!shMeetingDataForm.valid"
+        class="p-button-sm saveButton4"
+        pButton
+        label="Save"
+        (click)="onClickSave()"
+      ></button>
+    </div>
+    <!-- <p-card styleClass="card"></p-card> -->
+
+
+  </form>
+
+
+</div>
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+<ng-container *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</ng-container>
+
+<ng-container *ngIf="uploadProgress > 0 && uploadProgress < 100">
+  <p-progressBar [value]="uploadProgress"></p-progressBar>
+</ng-container>

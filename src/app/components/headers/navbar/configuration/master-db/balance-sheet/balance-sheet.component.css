@@ -1,6 +1,11 @@
-::ng-deep .dropdownbalance {
+ .upperBody {
+  margin-top: -15px;
+}
+
+::ng-deep .dropdownbalance1 {
   background-color: #2d2d2d !important;
   color: white !important;
+  width: 90%;
  
 }
 
@@ -10,7 +15,7 @@
   color: white !important;
 }
 
-:host::ng-deep .dropdownbalance * {
+:host::ng-deep .dropdownbalance1 * {
   background-color: #2d2d2d !important;
   color: white;
 }
@@ -40,9 +45,19 @@ table {
 }
 
 
-.tablerow,
+.tablerowmain,
 .table::ng-deep * {
   /* background-color: #191919 !important; */
+  color: white !important;
+  border: none !important;
+}
+.tablerowmain:hover {
+  color: white !important;
+  background-color: #415385 !important;
+  border-bottom: none !important;
+}
+.tablerow,
+.table::ng-deep * {
   color: white !important;
   border: none !important;
 }
@@ -110,13 +125,16 @@ tr:nth-child(odd) {
   border-bottom: 0 solid;
 }
 
-::ng-deep .searchInputBox {
+::ng-deep .searchInputBoxBalance {
   border: 1px solid #50ad95 !important;
+  width: 95%;
+  height: 40px;
 }   
 
 ::ng-deep .label {
   cursor: pointer !important;
   font-size: larger !important;
+  color: white;
 }
 
 ::ng-deep .card{
@@ -126,3 +144,111 @@ tr:nth-child(odd) {
 ::ng-deep .balanceSheetForm{
   margin-top: 20px !important;
 }
+
+.uploadBtn{
+  margin-right: 10px;
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: 1px solid #d04a02 !important;
+  border-radius: 7%;
+}
+.downloadBtn{
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: 1px solid #d04a02 !important;
+  border-radius: 7%;
+}
+::ng-deep .uploadDialogBalance *{
+  background-color: #2d2d2d !important;
+  color: white;
+}
+::ng-deep .cancelBtn *{
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: 1px solid #d04a02 !important;
+  border-radius: 7%;
+   
+  }
+  ::ng-deep .dialogSaveBtn *{
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: 1px solid #d04a02 !important;
+    border-radius: 7%;
+  
+  }
+  :host ::ng-deep .upload *{
+  
+    
+    border: none !important;
+  
+    border: 1px solid #26776d !important;
+  }
+
+  .spinner {
+    /* backdrop-filter: blur(2px); */
+    background-color: rgba(188, 170, 170, 0.2);
+    content: " ";
+    top: 0;
+    left: 0;
+    height: 99%;
+    width: 100%;
+    position: absolute;
+  
+  }
+  app-spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  ::ng-deep .customPaginator .p-paginator {
+    background-color:#191919 !important;
+  }
+  
+  .customPaginator .p-paginator .ui-paginator-page {
+    color: white;
+  }
+
+  ::ng-deep .Updatelabel {
+    cursor: pointer !important;
+    font-size: larger !important;
+    color: #fff;
+  }
+  
+
+  /* dialog of exitinng */
+  
+  ::ng-deep .existingDataCardOverride{
+    /* color: white !important;
+    font-family: Helvetica !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    background-color: #2d2d2d !important;
+    width: 50%;
+    justify-content: center;
+    border: 1px solid white;
+  }
+ ::ng-deep .p-dialog .p-dialog-content {
+    background-color: #2d2d2d !important;
+    color: white;
+ 
+}
+ ::ng-deep .p-dialog .p-dialog-header {
+    background-color: #2d2d2d !important;
+    color: white;
+ 
+}
+ 
+.cancel-icon:hover{
+  font-weight: bold;
+  cursor: pointer
+  }
+  .cardButtons{
+    width: 100%;
+    display: flex;
+    margin-top:2%;
+    justify-content: center;
+  }

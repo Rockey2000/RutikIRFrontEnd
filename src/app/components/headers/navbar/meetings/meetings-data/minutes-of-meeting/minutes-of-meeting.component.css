@@ -1,0 +1,102 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid white;
+}
+
+.container1 {
+  padding: 10px 40px 10px 30px;
+  margin-top: -0.5%;
+}
+
+.container > div {
+  width: 50%;
+  height: 100px;
+  box-sizing: border-box;
+}
+
+.a {
+  order: 1;
+  float: right;
+}
+
+.b {
+  order: 1;
+  float: right;
+}
+
+
+::ng-deep .accessCard1 {
+  margin-top: 20px !important;
+  width: 150%;
+  height: 700px;
+  background-color: white;
+  color: white;
+  border-top: 10px solid #d04a02;
+}
+
+/* .summaryAttendeesContainer {
+  display: flex;
+  flex-wrap: wrap;
+} */
+
+::ng-deep .summeryCard{
+  
+}
+/* ::ng-deep .summeryCard{
+  display: flex;
+  margin-left: 55%;
+  width: 50%;
+  height: 350px;
+  margin-top: 20px !important;
+  background-color: #2d2d2d;
+  color: white;
+  overflow: auto;
+} */
+
+::ng-deep .entityCard {
+
+  width: 790px;
+  margin-left: 25px;
+  height: 320px;
+  margin-top: 20px !important;
+  background-color: #2d2d2d;
+  color: white;
+  /* border: 1px solid; */ 
+}
+
+/* @media screen and (max-width: 768px) {
+
+  .container > div {
+    width: 100%;
+  }
+
+  ::ng-deep .accessCard1 
+  {
+    width: 100%;
+  } */
+
+  /* ::ng-deep .summeryCard,
+  ::ng-deep .attendanceCard,
+  ::ng-deep .entityCard {
+    width: 100%;
+    margin-left: 0;
+  } */
+/* } */
+
+
+
+/* @media screen and (max-width: 480px) {
+
+  .container1 {
+    padding: 10px;
+  }
+
+  ::ng-deep .accessCard1,
+  ::ng-deep .summeryCard,
+  ::ng-deep .attendanceCard,
+  ::ng-deep .entityCard {
+    height: auto;
+    width: 100%;
+  }
+} */

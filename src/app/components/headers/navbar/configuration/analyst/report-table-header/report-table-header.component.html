@@ -1,0 +1,187 @@
+<div *ngIf="reportTableDiv" class="reportTableDiv">
+  <span class="p-input-icon-left searchbar" style="margin-bottom: 10px">
+    <i class="pi pi-search"></i>
+    <input
+      type="text"
+      class="ReportsearchInputBox"
+      pInputText
+      placeholder="Search"
+      (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+    />
+  </span>
+  <button
+    pButton
+    class="p-button-sm button AddHeaderBtn"
+    label="Add Field"
+    icon="pi pi-plus-circle"
+    (click)="addTableHeader()"
+  ></button>
+
+  <div style="margin: 0%; padding: 0%">
+    <p-table
+      #dt1
+      styleClass="p-datatable-sm ReportTableHeader customPaginator"
+      responsiveLayout="scroll"
+      scrollHeight="100vh"
+      [value]="tableHeaders"
+      [paginator]="true"
+      [rows]="10"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+      [globalFilterFields]="[
+        'fields',
+        'description',
+        'type',
+        'constraints',
+        'createdOn',
+        'modifiedOn'
+      ]"
+    >
+      <ng-template pTemplate="header">
+        <tr class="tableHeader">
+          <th>Sr. No</th>
+          <th>Report Table Header</th>
+          <th>Description</th>
+
+          <th>Created On</th>
+          <th>Modified On</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product && let-i="rowIndex">
+        <tr class="tablerowmain">
+          <td>
+            {{ i + 1 }}
+          </td>
+
+          <td>
+            {{ product.reportTableHeader }}
+          </td>
+          <td>
+            {{ product.description }}
+          </td>
+          <td>
+            {{ product.createdOn }}
+          </td>
+          <td>
+            {{ product.modifiedOn }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<div *ngIf="reportTableHeaderForm">
+  <label class="stockLabel">
+    <i class="pi pi-chevron-left" (click)="onClickBack()"></i> Add Header
+  </label>
+  <div style="text-align: left; margin-top: 40px">
+    <button
+      style="float: right"
+      type="button"
+      pButton
+      type="button"
+      icon="pi pi-plus-circle"
+      class="p-button button"
+      label="Add"
+      (click)="addHeader()"
+    ></button>
+  </div>
+  <br />
+  <br />
+  <div class="tableHeaderForm">
+    <form [formGroup]="tableHeaderForm" novalidate>
+      <div formArrayName="headerRow">
+        <p-table
+          #dt
+          [value]="tableHeader.controls"
+          styleClass="p-datatable reportHeaderTable"
+          responsiveLayout="scroll"
+          scrollHeight="100vh"
+        >
+          <ng-template pTemplate="header">
+            <tr class="tableHeader">
+              <th style="width: 7rem">Sr. no</th>
+              <th>Report Table Header</th>
+              <th>Description</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-tableHeader && let-i="rowIndex">
+            <tr class="tablerow" [formGroupName]="i">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <span>
+                  <input
+                    style="width: 100%"
+                    pInputText
+                    type="text"
+                    placeholder="Enter"
+                    formControlName="reportTableHeader"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      !tableHeader.controls.reportTableHeader?.valid &&
+                      (tableHeader.controls.reportTableHeader?.dirty ||
+                        tableHeader.controls.reportTableHeader?.touched)
+                    "
+                  >
+                    <span style="color: red; font-size: 15px"
+                      >Report Table Header is required.</span
+                    >
+                  </div>
+                </span>
+              </td>
+              <td>
+                <span>
+                  <textarea
+                    pInputTextarea
+                    style="width: 100%"
+                    [autoResize]="true"
+                    type="text"
+                    formControlName="description"
+                    required
+                    [required]="true"
+                    placeholder="Enter"
+                  >
+                  </textarea>
+                  <div
+                    *ngIf="
+                      !tableHeader.controls.description?.valid &&
+                      (tableHeader.controls.description?.dirty ||
+                        tableHeader.controls.description?.touched)
+                    "
+                  >
+                    <span style="color: red; font-size: 15px"
+                      >Description is required.</span
+                    >
+                  </div>
+                </span>
+              </td>
+              <td>
+                <span *ngIf="i > 0">
+                  <button
+                    class="p-button-sm button"
+                    pButton
+                    icon="pi pi-times"
+                    (click)="removeRow(i)"
+                  ></button>
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <br />
+      <br />
+      <button
+        class="p-button-sm button"
+        pButton
+        label="Save"
+        (click)="onClickSaveAll()"
+        style="float: right"
+        [disabled]="!tableHeaderForm.valid"
+      ></button>
+    </form>
+  </div>
+</div>

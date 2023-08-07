@@ -8,6 +8,7 @@
 ::ng-deep .headerLabel2 {
   color: white !important;
   font-size: larger;
+  margin-top: 20px;
 }
 ::ng-deep .headerLabel3 {
   color: white !important;
@@ -33,16 +34,26 @@
   color: white !important;
 }
 
-::ng-deep textarea,input {
-  width: 100% !important;
+:host:ng-deep textarea,
+input {
+  width: 100%;
   background-color: #2d2d2d !important;
   color: white !important;
 }
 
-
 /* ::ng-deep .feild {
   margin-bottom: 30px !important;
 } */
+
+::ng-deep textarea {
+  width: 100%;
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+::ng-deep input {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
 
 ::ng-deep .label,
 .status {
@@ -66,7 +77,7 @@
   background-color: #2d2d2d !important;
   color: white !important;
 }
-::ng-deep .multiSelectDropdown{
+::ng-deep .multiSelectDropdown {
   background-color: #2d2d2d !important;
   color: white !important;
 }
@@ -76,12 +87,39 @@
   border: #d04a02 !important;
   width: 173px !important;
 }
-
+::ng-deep .outerDiv {
+  flex-wrap: wrap;
+  margin-top: -10px;
+}
+::ng-deep .searchInputBoxRole {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-size: medium !important;
+  border: 1px solid #26776d !important;
+  float: right !important;
+}
 ::ng-deep .searchInputBox {
   background-color: #2d2d2d !important;
   color: white !important;
   font-size: medium !important;
   border: 1px solid #26776d !important;
+  float: right !important;
+  margin-bottom: 2rem;
+}
+
+::ng-deep .searchBoxRole {
+  float: right;
+  margin: 10px;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  margin-top: -0.1%;
+}
+::ng-deep .searchBoxRoleUser {
+  float: right;
+  margin: 10px;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  margin-bottom: 10%;
 }
 
 ::ng-deep .newRoleButton {
@@ -90,6 +128,18 @@
   float: right !important;
   border: none !important;
   border-radius: 4px !important ;
+
+  margin: 10px;
+}
+
+:host::ng-deep .filter * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+::ng-deep .filter {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: 1px solid #26776d !important;
 }
 
 ::ng-deep .topButtons {
@@ -97,7 +147,7 @@
 }
 
 ::ng-deep .roleTable {
-  margin-top: 20px !important;
+  margin-top: 1rem !important;
   border-radius: 07px;
   overflow: hidden !important;
   border: 1px solid #2d2d2d;
@@ -118,7 +168,7 @@
 
 :host::ng-deep .roleHeader * {
   background-color: #2d2d2d !important;
-  padding: 8px !important;
+  padding: 5px !important;
   border-radius: 5px !important;
   margin: 5px !important;
   cursor: pointer;
@@ -131,6 +181,7 @@
 .tablerow::ng-deep * {
   color: white !important;
   border-bottom: none !important;
+  width: 5px;
 }
 
 .tablerow1::ng-deep * {
@@ -196,3 +247,45 @@ tr:nth-child(odd) {
   color: green !important;
 }
 
+.spinner {
+  /* backdrop-filter: blur(2px); */
+  background-color: rgba(188, 170, 170, 0.2);
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 99%;
+  width: 100%;
+  position: absolute;
+}
+app-spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+::ng-deep .customPaginator .p-paginator {
+  background-color: #191919 !important;
+}
+
+.customPaginator .p-paginator .ui-paginator-page {
+  color: white;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+  background-color: #2d2d2d !important;
+
+  color: white;
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+  background-color: #2d2d2d !important;
+
+  color: white;
+}
+
+::ng-deep .p-dialog .p-dialog-footer {
+  background-color: #2d2d2d !important;
+
+  color: white;
+}

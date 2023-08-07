@@ -1,0 +1,261 @@
+<div>
+  <div style="text-align: left; margin-top: 40px">
+    <button
+      style="float: right"
+      type="button"
+      pButton
+      type="button"
+      icon="pi pi-plus-circle"
+      class="p-button-sm Addbutton"
+      label="Add"
+      (click)="addRow()"
+    ></button>
+    <button
+      class="p-button-sm uploadBtn"
+      pButton
+      label="Upload"
+      icon="pi pi-upload"
+      iconPos="left"
+      (click)="onClickUpload()"
+      style="margin-left: 10px; float: right"
+    ></button>
+    &nbsp;
+    <button
+      class="p-button-sm downloadBtn"
+      pButton
+      label="Download"
+      icon="pi pi-download"
+      iconPos="left"
+      style="float: right"
+      (click)="onClickDownloadAnalystLineItem()"
+    ></button>
+  </div>
+  <br />
+  <br />
+  <div class="uploadDialogBox">
+    <p-dialog
+      [(visible)]="uploadDialog"
+      [style]="{ width: '550px', height: '250px' }"
+      header="Upload Updated Excel Of Client Line Item"
+      [modal]="true"
+      styleClass="p-fluid uploadDialogClientLineItem"
+    >
+      <div class="p-field">
+        <span class="upload">
+          <input
+            class="padding"
+            type="file"
+            accept=".xlsx"
+            pInputText
+            id="dos"
+            name="file"
+            required
+            style="width: 80%"
+            id="file"
+            (change)="selectFile($event)"
+          />
+        </span>
+      </div>
+      <ng-template pTemplate="footer">
+        <span class="cancelBtn1">
+          <button
+            pButton
+            pRipple
+            label="Cancel"
+            icon="pi pi-times"
+            class="p-button-sm"
+            (click)="hideDialog()"
+          ></button>
+        </span>
+        <span class="dialogSaveBtn1">
+          <button
+            pButton
+            pRipple
+            label="Upload"
+            icon="pi pi-check"
+            class="p-button-sm"
+            [disabled]="!selectedFiles"
+            (click)="uploadExcel()"
+          ></button>
+        </span>
+      </ng-template>
+    </p-dialog>
+  </div>
+  <form [formGroup]="clientLineItemForm">
+    <div formArrayName="clientLineItemRow">
+      <p-table
+        #dt
+        [value]="analystLineItem.controls"
+        styleClass="p-datatable clientLineItemsMapTable"
+        responsiveLayout="scroll"
+        scrollHeight="100vh"
+      >
+        <ng-template pTemplate="header">
+          <tr class="tableHeader">
+            <th>Sr. No</th>
+            <th>Client Name</th>
+            <th>Master Table Source</th>
+            <th>Client Line Item Name</th>
+            <th>Client Table Header</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-analystLineItem && let-i="rowIndex">
+          <tr class="tablerow" [formGroupName]="i">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <!-- <p-dropdown
+                  styleClass="Clientdropdown"
+                  [options]="client"
+                  optionLabel="totalClient"
+                  optionValue="totalClient"
+                  placeholder="Select"
+                  appendTo="body"
+                  formControlName="clientName"
+                  [required]="true"
+                ></p-dropdown> -->
+              <p-cascadeSelect
+                styleClass="dropdown12"
+                [showClear]="true"
+                formControlName="clientName"
+                [options]="allData"
+                optionLabel="name"
+                optionValue="name"
+                optionGroupLabel="name"
+                [optionGroupChildren]="['states', 'cities']"
+                [style]="{ width: '13.7rem' }"
+                placeholder="Select"
+                appendTo="body"
+              ></p-cascadeSelect>
+              <div
+                *ngIf="
+                  !analystLineItem.controls.clientName?.valid &&
+                  (analystLineItem.controls.clientName?.dirty ||
+                    analystLineItem.controls.clientName?.touched)
+                "
+              >
+                <span style="color: red; font-size: 15px"
+                  >Client Name is required</span
+                >
+              </div>
+            </td>
+            <td>
+              <p-dropdown
+                styleClass="clientMasterdropdown"
+                [options]="value"
+                optionValue="tableContent"
+                optionLabel="tableContent"
+                placeholder="Select"
+                appendTo="body"
+                formControlName="masterTableSource"
+                [required]="true"
+              ></p-dropdown>
+              <div
+                *ngIf="
+                  !analystLineItem.controls.masterTableSource?.valid &&
+                  (analystLineItem.controls.masterTableSource?.dirty ||
+                    analystLineItem.controls.masterTableSource?.touched)
+                "
+              >
+                <span style="color: red; font-size: 15px"
+                  >Master Table Source is required</span
+                >
+              </div>
+            </td>
+            <td>
+              <input
+                class="ClientinputBox"
+                type="text"
+                pInputText
+                placeholder="Enter"
+                formControlName="clientLineItemName"
+                required
+              />
+              <div
+                *ngIf="
+                  !analystLineItem.controls.clientLineItemName?.valid &&
+                  (analystLineItem.controls.clientLineItemName?.dirty ||
+                    analystLineItem.controls.clientLineItemName?.touched)
+                "
+              >
+                <span style="color: red; font-size: 15px"
+                  >Client Line Item Name is required</span
+                >
+              </div>
+            </td>
+            <td>
+              <input
+                class="ClientinputBox"
+                type="text"
+                pInputText
+                placeholder="Enter"
+                formControlName="clientTableHeaderName"
+                required
+              />
+              <div
+                *ngIf="
+                  !analystLineItem.controls.clientTableHeaderName?.valid &&
+                  (analystLineItem.controls.clientTableHeaderName?.dirty ||
+                    analystLineItem.controls.clientTableHeaderName?.touched)
+                "
+              >
+                <span style="color: red; font-size: 15px"
+                  >Client Table Header Name is required</span
+                >
+              </div>
+            </td>
+            <td>
+              <span *ngIf="i > 0">
+                <button
+                  class="p-button-sm Addbutton"
+                  pButton
+                  icon="pi pi-times"
+                  (click)="removeRow(i)"
+                ></button>
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <br /><br />
+    <button
+      class="p-button-sm Addbutton"
+      pButton
+      label="Save"
+      (click)="onClickSaveAll()"
+      style="float: right"
+      [disabled]="!clientLineItemForm.valid"
+    ></button>
+  </form>
+</div>
+<p-dialog [(visible)]="lineItemCard" (onHide)="cancelCard()" [modal]="true" styleClass="existingDataCardOverride">
+  <div class="flex flex-wrap">
+  <h2 style="margin-top: -1%; ">Warning</h2>
+
+</div>
+  <hr class="lineinCard" style="color:#d04a02; width: 100%;"/>
+  <p style="text-align: center; font-size: large; font-weight: bold;">These line items already exists!!!</p>
+  
+
+  <div class="cardButtons" *ngFor="let data of existingLineItems; let i = index">
+    <span> {{ i + 1 }})&nbsp;</span>
+    <span>Client Name :- </span>
+    <span>&nbsp;{{data.clientName}}&nbsp;,</span> 
+    <span>Client Line Item Name :- </span>
+    <span>&nbsp;{{data.clientLineItemName}}</span>
+  </div>
+
+  
+</p-dialog>
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<br /><br />
+<ng-container *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</ng-container>

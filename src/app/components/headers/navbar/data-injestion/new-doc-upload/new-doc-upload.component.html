@@ -1,594 +1,405 @@
+<div class="wholeCard">
 <form [formGroup]="document" autocomplete="off">
   <label class="headerLabel1">
-    <i class="pi pi-chevron-left" (click)="onClickBack()"></i>
+    <i
+      style="cursor: pointer"
+      class="pi pi-chevron-left"
+      (click)="onClickBack()"
+      style="width: 16px; height: 10px; cursor: pointer"
+    ></i>
     Upload New Data
   </label>
-
-  <div class="flex flex-wrap gap-3 dataBox" *ngIf="FormTableBox">
-    <p-cascadeSelect
-      [options]="industry"
-      optionLabel="cname"
-      optionGroupLabel="name"
-      optionValue="cname"
-      [optionGroupChildren]="['companies']"
-      placeholder="Client"
-      styleClass="cascade"
-      formControlName="client"
-    ></p-cascadeSelect>
-    <br />
-    <small
-      *ngIf="!document.get('client')?.valid && document.get('client')?.touched"
+  <!-- card for new data entry -->
+  <!-- <div *ngIf="FormTableBox">
+    <p-card
+      styleClass="uploadDataCard"
+      [style]="{ width: '98%', margin: '50px 20px 20px 10px' }"
     >
-      <span style="color: red">Mandetory Field</span>
-    </small>
+      <ng-template pTemplate="content">
+        <div class="grid p-fluid">
+          <div class="field col-12 md:col-4">
+            <label for="clientId">Client</label>
+            <p-cascadeSelect
 
-    <p-cascadeSelect
-      [options]="documents"
-      optionLabel="dname"
-      optionValue="dname"
-      optionGroupLabel="name"
-      [optionGroupChildren]="['Doctype']"
-      placeholder="Document Type"
-      styleClass="cascade"
-      (onChange)="onSelectDocument()"
-      formControlName="documentType"
-    ></p-cascadeSelect>
-    <br />
-    <small
-      *ngIf="
-        !document.get('documentType')?.valid &&
-        document.get('documentType')?.touched
-      "
-    >
-      <span style="color: red">Mandetory Field</span>
-    </small>
+              [options]="industry"
+              optionLabel="cname"
+              optionGroupLabel="name"
+              optionValue="cname"
+              [optionGroupChildren]="['companies']"
+              placeholder="Client"
+              styleClass="cascade"
+              formControlName="client"
+            [required]="true"
+            
+            ></p-cascadeSelect>
+            <br />
+            <small *ngIf="document.get('client')?.invalid && document.get('client')?.touched" style="color: red">
+              <span>Client is required.</span>
+            </small>
+            <small *ngIf="document.get('client')!.invalid && document.get('client')!.touched" style="color: red">
+              Client is required.
+            </small>
+            
+          </div>
+          <div class="field col-12 md:col-4">
+            <label for="PortfolioID">Document Type</label>
+            <p-cascadeSelect
+              [options]="documents"
+              optionLabel="dname"
+              optionValue="dname"
+              optionGroupLabel="name"
+              [optionGroupChildren]="['Doctype']"
+              placeholder="Document Type"
+              styleClass="cascade"
+              (onChange)="onSelectDocument()"
+              formControlName="documentType"
+              required
+            ></p-cascadeSelect>
+            <br />
+            <small *ngIf="document.get('documentType')?.invalid && document.get('documentType')?.touched" style="color: red">
+              <span *ngIf="document.get('documentType')?.errors?.['required']">Client is required.</span>
+            </small>
+          </div>
+          <div class="field col-12 md:col-4" *ngIf="peerName">
+            <label for="folio">Peer Names</label>
+          <input
+            id="peerName"
+            type="text"
+            class="peerName"
+            pInputText
+            formControlName="peerName"
+            required="true"
+            *ngIf="peerName"
+          />
 
-    <p-multiSelect
-      styleClass="analystDropdown"
-      defaultLabel="Analyst"
-      [options]="analyst"
-      optionLabel="accessAnalyst"
-      optionValue="accessAnalyst"
-      placeholder="Analyst"
-      selectedItemsLabel="{0} items selected"
-      *ngIf="analystName"
-      formControlName="analystName"
-    ></p-multiSelect>
-    <br />
-    <small
-      *ngIf="
-        !document.get('analystName')?.valid &&
-        document.get('analystName')?.touched
-      "
-    >
-      <span style="color: red">Mandetory Field</span>
-    </small>
-    <input
-      type="date"
-      class="calender p-inputtext-sm"
-      placeholder="Report From"
-      formControlName="reportFrom"
-      pInputText
-      [min]="currentDate | date : 'yyyy-MM-dd'"
-    />
-    <br />
-    <small
-      *ngIf="
-        !document.get('reportFrom')?.valid &&
-        document.get('reportFrom')?.touched
-      "
-    >
-      <span style="color: red">Mandetory Field</span>
-    </small>
-    <input
-      type="date"
-      class="calender p-inputtext-sm"
-      placeholder="Report To"
-      formControlName="reportTo"
-      pInputText
-      [min]="currentDate | date : 'yyyy-MM-dd'"
-    />
-    <br />
-    <small
-      *ngIf="
-        !document.get('reportTo')?.valid && document.get('reportTo')?.touched
-      "
-    >
-      <span style="color: red">Mandetory Field</span>
-    </small>
+            <br />
+            <small
+              *ngIf="
+                !document.get('peerName')?.valid &&
+                document.get('peerName')?.touched
+              "
+            >
+              <span style="color: red">Mandetory Field</span>
+            </small>
+          </div>
+          <div class="field col-12 md:col-4" *ngIf="analystName">
+            <label for="shareholderName">Analyst Name</label>
+            <p-dropdown
+              styleClass="analystDropdown"
+              placeholder="Analyst"
+              [options]="analystDetails"
+              defaultLabel="Analyst Name"
+              optionLabel="analystName"
+              optionValue="analystName"
+              placeholder="Select Analyst Name"
+              selectedItemsLabel="{0} items selected"
+              *ngIf="analystName"
+              formControlName="analystName"
+              selectedItemsLabel="1"
+            
+            >
+            </p-dropdown>
+            <br />
+            <small
+              *ngIf="
+                !document.get('analystName')?.valid &&
+                document.get('analystName')?.touched
+              "
+            >
+              <span style="color: red">Mandetory Field</span>
+            </small>
+            </div>
+        </div>
+        <div class="grid p-fluid">
+          <div class="field col-12 md:col-4">
+            <label for="holdingValue">Units</label>
+            <p-dropdown
+              placeholder="Units"
+              [options]="units"
+              [(ngModel)]="selectedUnit"
+              optionLabel="totalUnits"
+              optionValue="totalUnits"
+              formControlName="units"
+              appendTo="body"
+              styleClass="unitsDropdown"
+              (onChange)="filterCurrencies()"
+                        ></p-dropdown>
+            <small
+              *ngIf="
+                !document.get('units')?.valid && document.get('units')?.touched
+              "
+            >
+              <span style="color: red">Mandatory Field</span>
+            </small>
+          </div>
+          <div class="field col-12 md:col-4">
+            <label for="holdingPercentage">Currency</label>
+            <p-dropdown
+            [options]="filteredCurrencies"
+            [(ngModel)]="selectedCurrency"
+              placeholder="Currency"
+              optionLabel="totalCurrency"
+              optionValue="totalCurrency"
+              formControlName="currency"
+              appendTo="body"
+              styleClass="currencyDropdown"
+              
+            >
+        
+         </p-dropdown>
+            <small
+              *ngIf="
+                !document.get('currency')?.valid &&
+                document.get('currency')?.touched
+              "
+            >
+              <span style="color: red">Mandatory Field</span>
+            </small>
+          </div>
+          <div class="field col-12 md:col-4">
+            <label for="denomination">Denomination</label>
+            <p-dropdown
+            placeholder="Denomination"
+            [options]="currencyValue"
+            optionLabel="totalDenomination"
+            optionValue="totalDenomination"
+            formControlName="denomination"
+            appendTo="body"
+            styleClass="unitsDropdown"
+           
+             ></p-dropdown>
+             <small
+             *ngIf="
+               !document.get('denomination')?.valid &&
+               document.get('denomination')?.touched
+             "
+           >
+             <span style="color: red">Mandatory Field</span>
+           </small>
+          </div>
+        </div>
 
-    <!-- <p-calendar formControlName="reportFrom" dateFormat="yy-mm-dd" appendTo="body" placeholder="Report From"></p-calendar>
+        <div class="grid p-fluid">
+          <div class="field col-12 md:col-4">
+            <label for="minorcode">Report Type</label>
+            <p-cascadeSelect
+              [options]="reportType"
+              optionLabel="rType"
+              optionGroupLabel="name"
+              optionValue="rType"
+              [optionGroupChildren]="['reportData']"
+              placeholder="Report Type"
+              styleClass="cascade"
+              formControlName="reportType"
+              required
+            ></p-cascadeSelect>
 
-    <p-calendar formControlName="reportTo" dateFormat="yy-mm-dd" [showButtonBar]="true" appendTo="body" placeholder="Report To"></p-calendar> -->
+            <br />
+            <small
+              *ngIf="
+                !document.get('reportType')?.valid &&
+                document.get('reportType')?.touched
+              "
+            >
+              <span style="color: red">Mandatory Field</span>
+            </small>
 
-    <span Class="upload">
-      <input
-        class="padding"
-        type="file"
-        accept=".pdf"
-        pInputText
-        id="dos"
-        name="file"
-        required
-        style="width: 80%"
-        id="file"
-        (change)="selectFile($event)"
-      />
-    </span>
+          </div>
+          <div class="field col-12 md:col-4">
+            <label for="emailId">Report Date</label>
+            <input
+              type="date"
+              class="calender2 p-inputtext-sm"
+              placeholder="Report To"
+              formControlName="reportDate"
+              pInputText
+            />
+
+            <br />
+            <small
+              *ngIf="
+                !document.get('reportDate')?.valid &&
+                document.get('reportDate')?.touched
+              "
+            >
+              <span style="color: red">Mandatory Field</span>
+            </small>
+          </div>
+          <div class="field col-12 md:col-4">
+            <label for="upload">Select File</label>
+            <br />
+            <span Class="upload">
+              <input
+                class="padding"
+                type="file"
+                pInputText
+                id="dos"
+                name="file"
+                required
+                style="width: 100%"
+                id="file"
+                (change)="selectFile($event)"
+                accept=".pdf"
+                multiple
+              />
+            </span>
+          </div>
+        </div>
+      </ng-template>
+    </p-card>
     <button
+      style="float: right"
       [disabled]="!document.valid"
       pButton
       icon="pi pi-upload"
-      label="Upload File"
-      class="p-button-sm uploadBtn"
+      label="Upload Data"
+      class="uploadBtn"
       (click)="onClickUpload()"
     ></button>
-  </div>
-</form>
-<br />
-<br />
-<!-- <div>
-  <ejs-spreadsheet #spreadsheet>
-    <e-sheets>
-      <e-sheet>
-        <e-ranges> <e-range [dataSource]="users"></e-range></e-ranges
-        ><e-columns
-          ><e-column [width]="90"></e-column><e-column [width]="100"></e-column
-          ><e-column [width]="96"></e-column><e-column [width]="120"></e-column
-          ><e-column [width]="130"></e-column
-          ><e-column [width]="120"></e-column></e-columns></e-sheet></e-sheets
-  ></ejs-spreadsheet>
-</div> -->
-<div class="flex-wrap datatable" *ngIf="!FormTableBox">
-  <!-- <button
-    pButton
-    icon="pi pi-check"
-    label="update"
-    class="p-button-sm updateBtn"
-    (click)="onClickUpdate()"
-  ></button>
-  <br />
-  <br /> -->
-  <!-- <p-dropdown
-    styleClass="tableDropdown"
-    [options]="getDataByFileId"
-    placeholder="Select"
-    (onChange)="selectedTableValue($event)"
-    defaultLabel="tableId"
-    optionLabel="tableId"
-    optionValue="tableId"
+  </div> -->
+
+<div>
+  <p-card
+  styleClass="uploadDataCard"
+  [style]="{ width: '98%', margin: '50px 20px 20px 10px' }"
+>
+<ng-template pTemplate="content">
+  <div class="grid p-fluid justify-content-center">
+    <div class="field col-12 md:col-4">
+      <label for="clientId">Client</label>
+      
+      <!-- <p-dropdown
+    styleClass="dropdownClient"
+    placeholder="Select Client"
+    [options]="allData"
+    defaultLabel="Client"
+    optionLabel="client"
+    optionValue="client"
     selectedItemsLabel="{0} items selected"
-    #dropDownThing
-  >
+    dropdownIcon="pi pi-filter"
+    [showClear]="true"
+    [filter]="true"
+    filterBy="client"
+    (onChange)="onSelectedClient($event)"
+    >
   </p-dropdown> -->
-  <div class="table" *ngIf="dataBox">
-    <p-table
-      styleClass="p-datatable-sm usersTable"
-      #dt
-      [value]="getDataByFileId"
-      [rows]="7"
-      [paginator]="false"
-      responsiveLayout="scroll"
-      [rowHover]="true"
-      dataKey="id"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [showCurrentPageReport]="true"
-    >
-      <ng-template pTemplate="header">
-        <tr class="tableHeader">
-          <th>Sr. No</th>
-          <th>Table Id</th>
-          <th>Table Name Name</th>
-          <th>Action</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-product && let-i="rowIndex">
-        <tr class="tablerow">
-          <td>
-            {{ i + 1 }}
-          </td>
-
-          <td>
-            {{ product.tableId }}
-          </td>
-          <td>
-            {{ product.tableName }}
-          </td>
-          <td>
-            <button
-              pButton
-              pRipple
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-success mr-2"
-              (click)="selectedTableValue(product.tableId)"
-            ></button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-
-  <!-- <div class="dataValueTable"> -->
-    <!-- <p-table
-      styleClass="p-datatable-sm usersTable"
-      #dt
-      [value]="getDataByTableId"
-      [rows]="7"
-      [paginator]="false"
-      responsiveLayout="scroll"
-      [rowHover]="true"
-      dataKey="id"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [showCurrentPageReport]="true"
-    >
-      <ng-template pTemplate="header">
-        <tr class="tableHeader">
-          <th pSortableColumn="tableName" class="userHeader">
-            <label>Table Name</label>
-          </th>
-
-          <th pSortableColumn="col1">Col 1</th>
-
-          <th pSortableColumn="col2">Col 2</th>
-          <th pSortableColumn="col3">Col 3</th>
-          <th pSortableColumn="col4">Col 4</th>
-          <th pSortableColumn="col5">Col 5</th>
-          <th pSortableColumn="col6">Col 6</th>
-          <th pSortableColumn="col7">Col 7</th>
-          <th pSortableColumn="col8">Col 8</th>
-          <th pSortableColumn="col9">Col 9</th>
-          <th pSortableColumn="col10">Col 10</th>
-          <th pSortableColumn="col11">Col 11</th>
-          <th pSortableColumn="col12">Col 12</th>
-          <th pSortableColumn="col13">Col 13</th>
-          <th pSortableColumn="col14">Col 14</th>
-          <th pSortableColumn="col15">Col 15</th>
-          <th pSortableColumn="col16">Col 16</th>
-          <th pSortableColumn="col17">Col 17</th>
-          <th pSortableColumn="col18">Col 18</th>
-          <th pSortableColumn="col19">Col 19</th>
-          <th pSortableColumn="col20">Col 20</th>
-          <th pSortableColumn="col21">Col 21</th>
-          <th pSortableColumn="col22">Col 22</th>
-          <th pSortableColumn="col23">Col 23</th>
-          <th pSortableColumn="col24">Col 24</th>
-          <th pSortableColumn="col25">Col 25</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-data>
-        <tr class="tablerow">
-          <td>{{ data.tableName }}</td>
-          <td>{{ data.col1 }}</td>
-          <td>{{ data.col2 }}</td>
-          <td>{{ data.col3 }}</td>
-          <td>{{ data.col4 }}</td>
-          <td>{{ data.col5 }}</td>
-          <td>{{ data.col6 }}</td>
-          <td>{{ data.col7 }}</td>
-          <td>{{ data.col8 }}</td>
-          <td>{{ data.col9 }}</td>
-          <td>{{ data.col10 }}</td>
-          <td>{{ data.col11 }}</td>
-          <td>{{ data.col12 }}</td>
-          <td>{{ data.col13 }}</td>
-          <td>{{ data.col14 }}</td>
-          <td>{{ data.col15 }}</td>
-          <td>{{ data.col16 }}</td>
-          <td>{{ data.col17 }}</td>
-          <td>{{ data.col18 }}</td>
-          <td>{{ data.col19 }}</td>
-          <td>{{ data.col20 }}</td>
-          <td>{{ data.col21 }}</td>
-          <td>{{ data.col22 }}</td>
-          <td>{{ data.col23 }}</td>
-          <td>{{ data.col24 }}</td>
-          <td>{{ data.col25 }}</td>
-        </tr>
-      </ng-template>
-    </p-table> -->
-
-    <!--editable table --->
-    <!-- <p-table [value]="getDataByTableId" dataKey="id" 
-styleClass="p-datatable-sm usersTable">
-  <ng-template pTemplate="header">
-      <tr  class="tableHeader">
-          <th>tableName</th>
-          <th>Col 1</th>
-          <th>Col 2</th>
-          <th>Col 3</th>
-          <th>Col 4</th>
-          <th>Col 5</th>
-          <th>Col 6</th>
-          <th>Col 7</th>
-          <th>Col 8</th>
-          <th>Col 9</th>
-          <th>Col 10</th>
-          <th>Col 11</th>
-          <th>Col 12</th>
-          <th>Col 13</th>
-          <th>Col 14</th>
-          <th>Col 15</th>
-          <th>Col 16</th>
-          <th>Col 17</th>
-          <th>Col 18</th>
-          <th>Col 19</th>
-          <th>Col 20</th>
-          <th>Col 21</th>
-          <th>Col 22</th>
-          <th>Col 23</th>
-          <th>Col 24</th>
-          <th>Col 25</th>
-      </tr>
-  </ng-template>
-  <ng-template pTemplate="body"  let-data>
-      <tr class="tablerow">
-          <td pEditableColumn>
-              <p-cellEditor>
-                  <ng-template pTemplate="input">
-                      <input pInputText type="text" [(ngModel)]="data.tableName">
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                      {{data.tableName}}
-                  </ng-template>
-              </p-cellEditor>
-          </td>
-          <td pEditableColumn>
-              <p-cellEditor>
-                  <ng-template pTemplate="input">
-                      <input pInputText type="text" [(ngModel)]="data.col1" required>
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                      {{data.col1}}
-                  </ng-template>
-              </p-cellEditor>
-          </td>
-          <td pEditableColumn>
-            <p-cellEditor>
-                <ng-template pTemplate="input">
-                    <input pInputText type="text" [(ngModel)]="data.col2" required>
-                </ng-template>
-                <ng-template pTemplate="output">
-                    {{data.col2}}
-                </ng-template>
-            </p-cellEditor>
-        </td>
-  
-          <td pEditableColumn>
-              <p-cellEditor>
-                  <ng-template pTemplate="input">
-                      <input pInputText type="text" [(ngModel)]="data.col3">
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                      {{data.col3}}
-                  </ng-template>
-              </p-cellEditor>
-          </td>
-          <td pEditableColumn>
-            <p-cellEditor>
-                <ng-template pTemplate="input">
-                    <input pInputText type="text" [(ngModel)]="data.col4" required>
-                </ng-template>
-                <ng-template pTemplate="output">
-                    {{data.col4}}
-                </ng-template>
-            </p-cellEditor>
-        </td>
-        <td pEditableColumn>
-          <p-cellEditor>
-              <ng-template pTemplate="input">
-                  <input pInputText type="text" [(ngModel)]="data.col5" required>
-              </ng-template>
-              <ng-template pTemplate="output">
-                  {{data.col5}}
-              </ng-template>
-          </p-cellEditor>
-      </td>
-      <td pEditableColumn>
-        <p-cellEditor>
-            <ng-template pTemplate="input">
-                <input pInputText type="text" [(ngModel)]="data.col6" required>
-            </ng-template>
-            <ng-template pTemplate="output">
-                {{data.col6}}
-            </ng-template>
-        </p-cellEditor>
-    </td>
-    <td pEditableColumn>
-      <p-cellEditor>
-          <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="data.col7" required>
-          </ng-template>
-          <ng-template pTemplate="output">
-              {{data.col7}}
-          </ng-template>
-      </p-cellEditor>
-  </td>
-  <td pEditableColumn>
-    <p-cellEditor>
-        <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="data.col8" required>
-        </ng-template>
-        <ng-template pTemplate="output">
-            {{data.col8}}
-        </ng-template>
-    </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col9" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col9}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col10" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col10}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col11" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col11}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col12" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col12}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col13" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col13}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col14" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col14}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col15" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col15}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col16" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col16}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col17" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col17}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col18" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col18}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col19" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col19}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col20" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col20}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col21" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col21}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col22" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col22}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col23" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col23}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col24" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col24}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-<td pEditableColumn>
-  <p-cellEditor>
-      <ng-template pTemplate="input">
-          <input pInputText type="text" [(ngModel)]="data.col25" required>
-      </ng-template>
-      <ng-template pTemplate="output">
-          {{data.col25}}
-      </ng-template>
-  </p-cellEditor>
-</td>
-      </tr>
-  </ng-template>
-</p-table> -->
-
-    <!--Dynamic table-->
-
-   
-  <!-- </div> -->
+      <p-cascadeSelect
+      styleClass="cascade"
+      [showClear]="true"
+      formControlName="client"
+        [options]="allData"
+        optionLabel="name"  
+        optionGroupLabel="name"
+        [optionGroupChildren]="['states', 'clientId']"
+        [style]="{ width: '13.7rem' }"
+        placeholder="Select Client Name"
+        appendTo="body"
+        (onChange)="onSelectedClient($event)"
+      ></p-cascadeSelect>
+      <br />
+      <small *ngIf="document.get('client')?.invalid && document.get('client')?.touched" style="color: red">
+        <span>Client is required.</span>
+      </small>
+      <small *ngIf="document.get('client')!.invalid && document.get('client')!.touched" style="color: red">
+        Client is required.
+      </small>
+      
+    </div>
+    <div class="field col-12 md:col-4">
+      <label for="upload">Select Files</label>
+      <br />
+      <span Class="upload">
+        <input
+          class="padding"
+          type="file"
+          pInputText
+          id="dos"
+          name="file"
+          required
+          style="width: 100%"
+          id="file"
+          (change)="selectFile($event)"
+          accept=".pdf"
+          multiple
+        />
+      </span>
+    </div>
+    </div>
+</ng-template>
+</p-card>
+<button
+      style="float: right"
+      [disabled]="!document.valid && !this.selectedFiles"
+      pButton
+      icon="pi pi-upload"
+      label="Upload Files"
+      class="uploadBtn"
+      (click)="onClickUploadMultiple()"
+    ></button>
 </div>
+  <ng-container *ngIf="isLoading">
+    <div class="spinner1"></div>
+    <app-spinner></app-spinner>
+  </ng-container>
+</form>
+</div>
+<br />
+<br />
+
+<!-- <div *ngIf="overRideCard">
+
+  <p-dialog [(visible)]="overRideCard" [modal]="true" styleClass="existingDataCardOverride">
+    <div>
+      <p>Warning</p>
+      <span class="cancel-icon pi pi-times " (click)="onClickCancel()"></span>
+    </div>
+    <hr class="lineinCard"/>
+    <p style=" font-size: large; font-weight: bold;">Files already exists for this Client and date combination.</p>
+    <p style=" font-size: large; font-weight: bold;">Do you want to override existing data?</p>
+    <div class="card-buttons" *ngFor="let data of existingFiles; let i = index">
+      <span>{{data.fileName}}</span>   &nbsp;&nbsp;
+      <button class="OverRideButton" pButton label="Override" icon="pi pi-clone" (click)="onClickOverRide(data,i)"></button>
+      &nbsp;&nbsp;
+      <button class="CancelOverButton" pButton label="Cancel"  (click)="ClickCancel(i)"></button>
+    </div>
+    <div class="footer" style="margin-left: 20%; margin-top: 20px;">
+      <button class="overrideAllButton" pButton label="Override All" icon="pi pi-clone" (click)="onClickOverRideAll(existingFiles)"></button>
+      &nbsp;&nbsp;
+      <button class="CancelAllButton" pButton label="Cancel All"  (click)="onClickCancelAll()"></button>
+    </div>
+    
+  </p-dialog>
+</div> -->
+
+
+
+  <p-dialog [(visible)]="overRideCard" (onHide)="cancelCard()" [modal]="true" styleClass="existingDataCardOverride">
+    <div class="flex flex-wrap">
+    <h2 style="margin-top: -1%; ">Warning</h2>
+    <!-- <span  style="float: right;margin-left: 70%;" class="cancel-icon pi pi-times " (click)="onClickCancel()"></span> -->
+  </div>
+    <hr class="lineinCard" style="color:#d04a02; width: 100%;"/>
+    <p style="text-align: center; font-size: large; font-weight: bold;">Files already exists for this Client and date combination.</p>
+    <p style="text-align: center; font-size: large; font-weight: bold;">Do you want to override existing data?</p>
+
+    <div class="cardButtons" *ngFor="let data of existingFiles; let i = index">
+      <span>{{data.fileName}}</span> ;
+      <button class="OverRideButton" pButton label="Override" icon="pi pi-clone" (click)="onClickOverRide(data,i)"></button>
+      <button class="CancelOverButton" pButton label="Cancel"  (click)="ClickCancel(i)"></button>
+    </div>
+
+    <div class="footer-Buttons">
+      <button class="overrideAllButton" pButton label="Override All" icon="pi pi-clone" (click)="onClickOverRideAll(existingFiles)"></button>
+      &nbsp;&nbsp;
+      <button class="CancelAllButton" pButton label="Cancel All"  (click)="onClickCancelAll()"></button>
+    </div>
+    
+  </p-dialog>
+
+
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>

@@ -2,9 +2,9 @@
     color: white;
   }
   
-  ::ng-deep .dropdown {
-    width: 100% !important;
-    height: 7.4vh !important;
+  :host::ng-deep .dropdown {
+    width: 100%;
+    height: 7.4vh;
     margin-top: 5px !important;
     background-color: #2d2d2d !important;
     color: white !important;
@@ -19,9 +19,9 @@
     background-color: #191919 !important;
     color: white;
   }
-  ::ng-deep .dropdown1{
-    width: 20% !important;
-    height: 7.4vh !important;
+  :host::ng-deep .dropdown1{
+    width: 20%;
+    height: 7.4vh;
     margin-top: 5px !important;
     background-color: #191919 !important;
     color: white !important;
@@ -52,7 +52,7 @@
     color: white !important;
   }
   
-  host::ng-deep .analystNomenclatureTableCard * {
+  :host::ng-deep .analystNomenclatureTableCard * {
     border-radius: 10px !important;
     border: 2px solid #3b3b3b !important;
     overflow: hidden !important;
@@ -81,11 +81,12 @@
   }
   
   
-  ::ng-deep .addMappingButton{
+  :host::ng-deep .addMappingButton{
     background-color: #D04A02 !important;
     color: white !important;
     border: none !important;
     float: right;
+    margin-top: 1%;
   }
   
   ::ng-deep .dropdown,
@@ -96,15 +97,15 @@
   }
   
   
-  ::ng-deep .searchInputBox{
+  :host::ng-deep .searchInputBoxMapping{
     background-color: #191919 !important;
     color: white !important;
     font-size: medium !important;
     border-color: #50AD95 !important;
   }
   
-  ::ng-deep .lineItemsMapTable{
-    margin-top: 20px !important;
+  :host::ng-deep .lineItemsMapTable{
+    margin-top: -1% !important;
     border-radius: 10px;
     border: 2px solid #3b3b3b !important;
     overflow: hidden !important;
@@ -142,4 +143,67 @@
     margin-top: 5vh !important;
     font-family: Helvetica;
     font-size: x-large;
+  }
+
+  :host::ng-deep .customPaginator .p-paginator {
+    background-color:#191919 !important;
+  }
+  
+  .customPaginator .p-paginator .ui-paginator-page {
+    color: white;
+  }
+
+  :host::ng-deep .UpdateAnalystdropdown * {
+    background-color: #2d2d2d !important;
+    color: white;
+
+  }
+::ng-deep .UpdateAnalystdropdown  {
+    background-color: #2d2d2d !important;
+    color: white;
+padding: -1px;
+  }
+
+  :host::ng-deep .UpdateMasterdropdown * {
+    background-color: #2d2d2d !important;
+    color: white;
+
+   
+  }
+
+  :host::ng-deep .analystdropdown1 *{
+    background-color: #191919 !important;
+    color: white !important;
+    border: none;
+  
+  }
+  
+  ::ng-deep .analystdropdown1 {
+    margin: 10px;
+
+    border: 1px solid #26776d !important;
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }
+::ng-deep .UpdateMasterdropdown{
+    background-color: #2d2d2d !important;
+    color: white;
+
+  }
+
+::ng-deep .AnalystinputBox  {
+    background-color: #2d2d2d !important;
+    color: white;
+   
+  }
+
+  ::ng-deep .saveButton{
+    background-color: #D04A02 !important;
+    color: white !important;
+    border: none !important;
+  }
+  ::ng-deep .AnalystUpdateinputBox  {
+    background-color: #2d2d2d !important;
+    color: white;
+   
   }

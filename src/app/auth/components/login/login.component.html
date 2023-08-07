@@ -19,7 +19,7 @@
             <p>
                 <span class="p-fluid">
                     <label for="password">Password</label><br>
-                    <input type="password" id="password" pInputText  formControlName="password"> 
+                    <input type="password" id="password" pInputText  formControlName="password" (keydown.enter)="onSave()"> 
                     <small *ngIf="!project.get('password')?.valid && project.get('password')?.touched">
                         <span style="color:red;">
                             Please enter valid Password.
@@ -37,7 +37,7 @@
     <div class="p-fluid" style="text-align: center;" >
         <button [disabled]="!project.valid" pButton label="Login" (click)="onSave()">
         </button>
-       <u> <a routerLink="#">Forget Password</a></u>
+       <!-- <u> <a routerLink="#">Forget Password</a></u> -->
     </div>
    
     </div>

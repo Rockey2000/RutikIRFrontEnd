@@ -5,7 +5,7 @@
       <input
         type="text"
         pInputText
-        class="p-inputtext-sm searchInputBox"
+        class="p-inputtext-sm searchInputBoxAnalyst"
         placeholder="Search"
         (input)="dt.filterGlobal($any($event.target).value, 'contains')"
       />
@@ -20,12 +20,12 @@
     <br />
     <br />
 
-    <p-table
-      styleClass="p-datatable-sm lineItemsMapTable "
+    <!-- <p-table
+      styleClass="p-datatable-sm lineItemsMapTable customPaginator"
       #dt
       [value]="analystDetails"
-      [rows]="5"
-      [paginator]="false"
+      [rows]="10"
+      [paginator]="true"
       responsiveLayout="scroll"
       [rowHover]="false"
       dataKey="id"
@@ -46,9 +46,7 @@
           <th>POC Name</th>
           <th>POC Email ID</th>
           <th>Created on</th>
-          <!-- <th>Modified on</th> -->
-          <!-- <th>Reporting Currency</th>
-            <th>Reporting Unit</th> -->
+         
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-analyst && let-i="rowIndex">
@@ -56,14 +54,88 @@
           <td>{{ i + 1 }}</td>
           <td>{{ analyst.analystName }}</td>
           <td>{{ analyst.analystId }}</td>
-          <td>{{ analyst.pocName }}</td>
-          <td>{{ analyst.pocEmailId }}</td>
-          <td>{{ analyst.createdOn| date: "EEE, dd-MMM yyyy" }}</td>
-          <!-- <td></td>
-            <td></td> -->
+          <td>{{analyst.analystContactDetails[0].pocName}}</td>
+          <td>{{analyst.analystContactDetails[0].pocEmailId}}</td>
+
+          <td>{{ analyst.createdOn | date : "EEE, dd-MMM yyyy" }}</td>
+
         </tr>
       </ng-template>
-    </p-table>
+    </p-table> -->
+
+    <!-- <p-table #dt [value]="analystDetails" sortField="analystName" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="analystName">
+      <ng-template pTemplate="header">
+        <tr>
+          
+          <th>Analyst Name</th>
+          <th>POC Name</th>
+          <th>POC Email ID</th>
+          <th>Created on</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="groupheader" let-analyst>
+        <tr pRowGroupHeader>
+          <td colspan="8">
+            <span class="font-bold ml-2">{{ analyst.analystName}}</span>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-analyst let-i="rowIndex">
+        <ng-container *ngFor="let contact of analyst.analystContactDetails; let firstContact = first">
+          <tr  (click)="editAnalyst(analyst)">
+  
+            <td>{{ contact.pocName }}</td>
+            <td>{{ contact.pocEmailId }}</td>
+            <td>{{ analyst.createdOn | date: "EEE, dd-MMM yyyy" }}</td>
+          </tr>
+        </ng-container>
+    
+      </ng-template>
+     
+    </p-table> -->
+<p-table
+    styleClass="p-datatable-sm  lineItemsMapTable customPaginator"
+    #dt
+    [value]="analystDetails"
+    [rows]="10"
+    [paginator]="true"
+    responsiveLayout="scroll"
+    [rowHover]="false"
+    dataKey="analystId"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    [globalFilterFields]="[
+    'analystName',
+    'pocName',
+    'pocEmailId',
+    'createdOn',
+
+  ]"
+  >
+    <ng-template pTemplate="header">
+      <tr class="tableHeader">
+        <th>Analyst Name</th>
+        <th>POC Name</th>
+        <th>POC Email ID</th>
+        <th>Created On</th>
+        <th>Modified On</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-analyst let-i="rowIndex">
+      <ng-container *ngFor="let contact of analyst.analystContactDetails; let firstContact = first">
+        <tr (click)="editAnalyst(analyst)">
+          <td *ngIf="firstContact" [attr.rowspan]="analyst.analystContactDetails.length">
+            {{ analyst.analystName }}
+          </td>
+          <td>{{ contact.pocName }}</td>
+          <td>{{ contact.pocEmailId }}</td>
+          <td>{{ analyst.createdOn | date: "EEE, dd-MMM yyyy" }}</td>
+          <td>{{analyst.modifiedOn | date: "EEE, dd-MMM yyyy"}}</td>
+        </tr>
+      </ng-container>
+    </ng-template>
+  </p-table>
+   
   </div>
 
   <div *ngIf="AnalystForm">
@@ -73,85 +145,305 @@
         editAnalystDetails ? "Edit Analyst Details" : "Create New Analyst"
       }}</span>
     </label>
-
-    <p-card styleClass="AnalystDetailsCard">
+    <div style="text-align: left; margin-top: 10px">
+      <button
+        class="p-button-sm uploadBtn"
+        pButton
+        label="Upload"
+        icon="pi pi-upload"
+        iconPos="left"
+        (click)="onClickUpload()"
+        style="margin-left: 10px; float: right"
+      ></button>
+      &nbsp;
+      <button
+        class="p-button-sm downloadBtn"
+        pButton
+        label="Download"
+        icon="pi pi-download"
+        iconPos="left"
+        style="float: right"
+        (click)="onClickDownloadAnalystDetails()"
+      ></button>
+    </div>
+    <div class="uploadDialogBox">
+      <p-dialog
+        [(visible)]="uploadDialog"
+        [style]="{ width: '550px', height: '250px' }"
+        header="Upload Updated Excel Of Analyst Details"
+        [modal]="true"
+        styleClass="p-fluid uploadDialogAnalyst"
+      >
+        <div class="p-field">
+          <span class="upload">
+            <input
+              class="padding"
+              type="file"
+              accept=".xlsx"
+              pInputText
+              id="dos"
+              name="file"
+              required
+              style="width: 80%"
+              id="file"
+              (change)="selectFile($event)"
+            />
+          </span>
+        </div>
+        <ng-template pTemplate="footer">
+          <span class="p-button-outlined cancelBtn">
+            <button
+              pButton
+              pRipple
+              label="Cancel"
+              icon="pi pi-times"
+              class="p-button-sm p-button-outlined"
+              (click)="hideDialog()"
+            ></button>
+          </span>
+          <span class="dialogSaveBtn">
+            <button
+              pButton
+              pRipple
+              label="Upload"
+              icon="pi pi-check"
+              class="p-button-sm"
+              [disabled]="!selectedFiles"
+              (click)="uploadExcel()"
+            ></button>
+          </span>
+        </ng-template>
+      </p-dialog>
+    </div>
+    <!-- <p-card styleClass="AnalystDetailsCard">
       <div class="main">
         <form [formGroup]="AnalystDetailsForm" autocomplete="off">
-          <div class="formgrid grid">
+          <div class="formgrid grid card">
             <div class="field col">
-              <label for="analystname">Analyst Name</label>&nbsp; &nbsp;
+              <label for="analystname">Analyst Name</label><br>
               <span>
               <input
                 id="analystname"
                 type="text"
-                class="inputBox"
+                class="inputBoxAnalystName"
                 pInputText
                 formControlName="analystName"
                 required="true"
-              />       
-                  <small
-                    *ngIf="!AnalystDetailsForm.get('analystName')?.valid && AnalystDetailsForm.get('analystName')?.touched"
-                  >
-                    <span style="color: red;margin-left: 140px;">Mandetory Field</span>
-                  </small>
+              />  
+              <br>     
+              <small *ngIf="AnalystDetailsForm.get('analystName')?.invalid && AnalystDetailsForm.get('analystName')?.touched">
+                <span *ngIf="AnalystDetailsForm.get('analystName')?.errors?.['required']" style="color: red">Analyst Name is required.</span>
+                <span *ngIf="AnalystDetailsForm.get('analystName')?.errors?.['pattern']" style="color: red">Analyst Name can only contain alphabets.</span>
+                <span *ngIf="AnalystDetailsForm.get('analystName')?.errors?.['minlength']" style="color: red">Analyst Name must be at least 3 characters long.</span>
+                <span *ngIf="AnalystDetailsForm.get('analystName')?.errors?.['maxlength']" style="color: red">Analyst Name cannot be more than 15 characters long.</span>
+              </small>
              </span>
             </div>
             <div class="field col">
-              <label for="pocname">POC Name</label>&nbsp; &nbsp;
-              <input
-                id="pocname"
-                type="text"
-                class="inputBox"
-                pInputText
-                formControlName="pocName"
-              />
-             
-    <small
-      *ngIf="!AnalystDetailsForm.get('pocName')?.valid && AnalystDetailsForm.get('pocName')?.touched"
-    >
-    <span style="color: red;margin-left: 140px;">Mandetory Field</span>
-  </small>
+              <label for="pocname">POC Name</label><br>
+    
+              <p-chips formControlName="pocName" styleClass="inputBox"></p-chips>
+            
+             <br>
+             <small
+             *ngIf="!AnalystDetailsForm.get('pocName')?.valid && AnalystDetailsForm.get('pocName')?.touched"
+           >
+           <span style="color: red;">POC Name Required.</span>
+           <span *ngIf="AnalystDetailsForm.get('pocName')?.errors?.['pattern']" style="color: red">POC Name can only contain alphabets.</span>
+         </small>
+          
 
             </div>
             <div class="field col">
-              <label for="poceamil">POC Email ID</label>&nbsp; &nbsp;
-              <input
-                id="poceamil"
-                type="email"
-                class="inputBox"
-                pInputText
-                formControlName="pocEmailId"
-              />
-             
+              <label for="poceamil">POC Email ID</label><br>
+        
+              <p-chips formControlName="pocEmailId" class="inputBox"></p-chips>
+             <br>
     <small
       *ngIf="!AnalystDetailsForm.get('pocEmailId')?.valid && AnalystDetailsForm.get('pocEmailId')?.touched"
     >
-    <span style="color: red;margin-left: 140px;">Mandetory Field</span>
+    <span style="color: red;">Email Required.</span>
+    <span *ngIf="AnalystDetailsForm.get('pocEmailId')?.errors?.['pattern']" style="color: red">Enter Valid POC Email ID.</span>
   </small>
             </div>
           </div>
         </form>
       </div>
-    </p-card>
+    </p-card> -->
+
+    <form [formGroup]="AnalystForm1" autocomplete="off">
+      <p-card styleClass="AnalystDetailsCard">
+        <div class="grid flex flex-row flex-wrap">
+        <div class="field col" >
+          <label for="analystname" style="font-weight: bold;">Analyst Name</label><br />
+          <span>
+            <input
+              id="analystname"
+              type="text"
+              class="inputAnalystName"
+              pInputText
+              formControlName="analystName"
+              [pattern]="analystNamePattern"
+              required="true"
+            />
+            <br>
+            <small *ngIf="AnalystForm1.get('analystName')?.invalid && AnalystForm1.get('analystName')?.touched">
+            <span *ngIf="AnalystForm1.get('analystName')?.errors?.['required']" style="color: red">Analyst Name is required.</span>
+            <span *ngIf="AnalystForm1.get('analystName')?.errors?.['pattern']" style="color: red">Analyst Name can only contain alphabets.</span>
+            <span *ngIf="AnalystForm1.get('analystName')?.errors?.['minlength']" style="color: red">Analyst Name must be at least 3 characters long.</span>
+            <!-- <span *ngIf="AnalystForm1.get('analystName')?.errors?.['maxlength']" style="color: red">Analyst Name cannot be more than 15 characters long.</span> -->
+          </small>
+         </span>
+          <span style=" float: right; margin-top: -50px;">
+            <button pTooltip="Add Row"
+            tooltipPosition="top"
+            class="skillButton"
+            type="button"
+            pButton
+            icon="pi pi-plus"
+            (click)="addSkills()">
+        
+            </button></span>
+        </div>
+      </div>
+        <hr style="width: 100%; margin-bottom: 10px" />
+        <div>
+          <h3>Analyst Contact Details</h3>
+        </div>
+        <!-- analyst Details Form Using formArray  -->
+
+        <form [formGroup]="skillsForm" novalidate>
+          <div formArrayName="skills">
+            <p-table
+              [value]="skills.controls"
+              responsiveLayout="scroll"
+              styleClass="p-datatable-sm AnalystContactTable"
+            >
+              <ng-template pTemplate="header">
+                <tr class="tableHeader">
+                  <th></th>
+                  <th>POC Name</th>
+                  <th>POC Email ID</th>
+                  <th>
+          
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-skill && let-i="rowIndex">
+                <tr class="tablerow" [formGroupName]="i">
+                  <td></td>
+                  <td>
+                    <span>
+                      <input
+                        id="pocName"
+                        type="text"
+                        class="inputBoxAnalystName"
+                        placeholder="Enter Poc Name"
+                        pInputText
+                        formControlName="pocName"
+                        required="true"
+                        (keydown.enter)="$event.preventDefault()"
+
+                        
+
+                      />
+                      <div
+                        *ngIf="
+                          !skill.controls.pocName?.valid &&
+                          (skill.controls.pocName?.dirty ||
+                            skill.controls.pocName?.touched)
+                        "
+                      >
+                      <span style="color: red; font-size: 15px;" *ngIf="skill.controls.pocName.errors.required">
+                      This field is required.&nbsp;
+                      </span>
+                      <span style="color: red; font-size: 15px;" *ngIf="skill.controls.pocName.errors.pattern">
+                        Only characters allowed without no special characters and numericals
+                      </span>
+                    </div>
+                    </span>
+                  </td>
+                  <td>
+                    <span>
+                      <input
+                        id="pocEmail"
+                        type="text"
+                        class="inputBoxAnalystName"
+                        placeholder="Enter Poc Email ID"
+                        pInputText
+                        formControlName="pocEmailId"
+                        required="true"
+                        (keydown.enter)="$event.preventDefault()"
+
+                      />
+                      <div
+                        *ngIf="
+                          !skill.controls.pocEmailId?.valid &&
+                          (skill.controls.pocEmailId?.dirty ||
+                            skill.controls.pocEmailId?.touched)
+                        "
+                      >
+                      <span style="color: red; font-size: 15px;" *ngIf="skill.controls.pocEmailId.errors.required">
+                      This field is required.
+                      </span>
+                      <span style="color: red; font-size: 15px;" *ngIf="skill.controls.pocEmailId.errors.pattern">
+                       Please Enter Valid Email ID. 
+                      </span>
+                    </div>
+                    </span>
+                  </td>
+                  <td>
+                    <div class="field col-12 md:col-3 removeButton" *ngIf="i > 0"> 
+                  
+                      <span *ngIf="skill.controls.id">
+                        <button
+                          pTooltip="Remove"
+                          tooltipPosition="top"
+                          class="skillButton"
+                          pButton
+                          icon="pi pi-times"
+                          (click)="removeSkill(i)"
+                        ></button>
+                      </span>
+                       <span *ngIf="!skill.controls.id">
+                        <button 
+                        pTooltip="Remove"
+                        tooltipPosition="top"
+                        class="skillButton"
+                        pButton
+                        icon="pi pi-times"
+                        (click)="removeSkill1(i,skill.value)"></button>
+                       </span>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </form>
+      </p-card>
+    </form>
+    <br>
+    
     <div
       style="text-align: right; margin-top: 10px"
       *ngIf="!editAnalystDetails"
     >
       <button
-      [disabled]="!AnalystDetailsForm.valid"
         class="p-button-sm saveButton"
         pButton
         label="Save"
         (click)="onClickSave()"
+        [disabled]="!AnalystForm1.controls['analystName'].valid || !skillsForm.valid"
+        
       ></button>
     </div>
     <div style="text-align: right; margin-top: 20px" *ngIf="editAnalystDetails">
-      <!-- <button class="p-button-sm saveButton" pButton label="Update" (click)="onClickUpdate()"></button> -->
       <div style="float: right">
         <button
           pButton
           label="Delete"
-          (click)="onClickDelete(analystData.analystId)"
+          (click)="onClickDelete()"
           class="p-button-sm p-button-outlined deleteButton"
         ></button>
         &nbsp;
@@ -160,16 +452,40 @@
           icon="pi pi-save"
           label="Update"
           class="p-button-sm updateButton"
+          [disabled]="!AnalystForm1.valid"
           (click)="onClickUpdate()"
         ></button>
       </div>
     </div>
   </div>
-
+  <p-dialog [(visible)]="analystDetailsCard" (onHide)="cancelCard()" [modal]="true" styleClass="existingDataCardOverride">
+    <div class="flex flex-wrap">
+    <h2 style="margin-top: -1%; ">Warning</h2>
+  
+  </div>
+    <hr class="lineinCard" style="color:#d04a02; width: 100%;"/>
+    <p style="text-align: center; font-size: large; font-weight: bold;">Some Analyst's are already exists in the system!!!</p>
+    
+  
+    <div class="cardButtons" *ngFor="let data of existingAnalyst; let i = index">
+      <span> {{ i + 1 }})&nbsp;</span>
+      <span>Analyst Name :-</span>
+      <span>&nbsp;{{data.analystName}}</span> 
+    
+    </div>
+  
+    
+  </p-dialog>
   <!-- Notification msg's -->
   <p-toast></p-toast>
   <p-confirmDialog
     header="Confirmation"
     icon="pi pi-exclamation-triangle"
   ></p-confirmDialog>
+
+
+  <ng-container *ngIf="isLoading">
+    <div class="spinner"></div>
+    <app-spinner></app-spinner>
+  </ng-container>
 </div>

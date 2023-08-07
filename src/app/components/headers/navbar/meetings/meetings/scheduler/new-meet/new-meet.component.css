@@ -1,0 +1,248 @@
+::ng-deep .label {
+  margin-left: 35px;
+  cursor: pointer !important;
+  font-size: x-large !important;
+  font-weight: bold;
+  color: white;
+}
+
+::ng-deep .ScheduleMeetingCard {
+  margin-top: 20px !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-family: Helvetica !important;
+  border-left: 10px solid #62719a;
+  padding: auto;
+}
+::ng-deep .titleBoxname1 {
+  margin-bottom: 1vh;
+  width: 70%;
+  margin-left: 11%;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  float: right;
+}
+::ng-deep .inputbox {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  margin-top: 1rem;
+}
+::ng-deep .styleInputbox *{
+  background-color: #2d2d2d !important;
+  color: white !important;
+  margin-top: 0.5rem;
+}
+
+::ng-deep .inputMeetingDate12 * {
+  
+  width: 70%;
+  margin-left:5%;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  float: right;
+}
+
+::ng-deep .inputBoxAgenda12{
+  width: 70%;
+  margin-left: 7%;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  width: 70%;
+  float: right;
+  /* margin-left: 10%; */
+}
+
+
+::ng-deep .startTime12 * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  width: 60%;
+  margin-left: 11%;
+}
+.spinner {
+  /* backdrop-filter: blur(2px); */
+  background-color: rgba(188, 170, 170, 0.2);
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 99%;
+  width: 100%;
+  position: absolute;
+}
+app-spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+::ng-deep .externalEmail12 {
+  width: 65%;
+
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+::ng-deep .updateButton {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  font-size: medium;
+}
+
+.deleteButton {
+  background-color: #191919 !important;
+  color: #d04a02 !important;
+  border: 1px solid !important;
+}
+
+
+::ng-deep .EndTime12 * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  width: 60%;
+  margin-left: 10%;
+}
+
+::ng-deep .MeetingType {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border-color: #26776d !important;
+  width: 100% !important;
+  margin-top: 1rem;
+
+}
+:host::ng-deep .MeetingType * {
+  background-color: #2d2d2d !important;
+  color: white;
+
+}
+
+::ng-deep .inputBoxParticipants {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+:host::ng-deep .upload * {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+}
+.deleteButton {
+  background-color: #191919 !important;
+  color: #d04a02 !important;
+  border: 1px solid !important;
+}
+.saveButton {
+  background-color: #d04a02;
+  color: white !important;
+  border: none !important;
+}
+.sendButton {
+  background-color: #d04a02;
+  color: white !important;
+  border: none !important;
+}
+.meetAndPartiDiv{
+  display: flex;
+}
+::ng-deep .dropdownEmails1 {
+  margin-top: 1rem;
+  background-color: #2d2d2d !important;
+   color: white !important;
+   width: 100% !important;
+  border-color: #26776d !important;
+
+  
+}
+
+:host::ng-deep .dropdownEmails1 * {
+  background-color: #2d2d2d !important;
+  color: white;
+ 
+}
+.participentDiv{
+  display: flex;
+  align-items: flex-end;
+  border: 1px dashed cadetblue;
+
+}
+::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: #26776d;
+
+}
+
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: #26776d;
+
+}
+::ng-deep .recordSwitch{
+  margin-top: 1rem;
+}
+.addEmailBtn {
+  background-color: #d04a02;
+  color: white !important;
+  border: none !important;
+  margin-top: 1rem;
+}
+/* .addBtn1{
+  width: 10%;
+  margin-top: -10%;
+  margin-left: 80%;
+
+} */
+
+::ng-deep .saveEmailBtn {
+  background-color: #d04a02;
+  border-color: #d04a02;
+  float: right;
+}
+.saveEmailBtn:hover {
+  background-color: #d04a02;
+  color: #d04a02;
+  border: none;
+}
+
+:host::ng-deep .emailDialog * {
+  background-color: #2d2d2d !important;
+  color: white;
+}
+::ng-deep .emailBoxname {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+.time-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* .time-label {
+  width: 90px;
+  font-weight: bold;
+}
+label{
+  margin-bottom: 10px !important;
+}
+
+/* .time-field {
+  margin-left: 5px;
+  flex: 1;
+} */
+
+.to-label {
+  margin-left: -8%;
+}
+
+.error-message {
+  margin-top: 5px;
+  display: block;
+}
+.label-wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+}
+

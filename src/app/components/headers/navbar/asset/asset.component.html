@@ -1,0 +1,117 @@
+<!-- <div class="cardData">
+  <div class="flex card-container">
+    <div class="flex-none flex justify-content-center">
+      <span class="logo1">pwc</span>
+    </div>
+    <div class="flex-grow-1 flex align-items-left justify-content-left m-2">
+      <span style="margin-left: 750px" class="title1"
+        >OCR Engine Platform
+      </span>
+    </div>
+    <div
+      style="margin-top: 10px !important"
+      class="flex-none flex align-items-center justify-content-center m-2 px-3"
+    >
+      &nbsp; &nbsp;
+    </div>
+  </div>
+</div>
+
+<div class="sidenav">
+  <div class="logo-container">
+    <div class="logo-text"></div>
+  </div>
+</div>
+
+<p-card styleClass="accessCard">
+  <label for="upload" class="floatLabel">*Select File For Extraction</label>
+  <br />
+  <span Class="upload">
+    <input
+      class="padding"
+      type="file"
+      pInputText
+      id="dos"
+      name="file"
+      required
+      style="width: 100%"
+      id="file"
+      (change)="selectFile($event)"
+      accept=".pdf"
+    />
+  </span>
+  <br /><br />
+
+  <button
+    pButton
+    icon="pi pi-upload"
+    label="Upload Data"
+    class="uploadBtn"
+    (click)="onClickUpload()"
+  ></button>
+</p-card>
+
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<ng-container *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</ng-container>
+
+
+
+
+
+
+ -->
+
+<p-toolbar>
+  <div class="p-toolbar-group-center">
+    <span class="navbar">OCR Engine Platforms</span>
+  </div>
+</p-toolbar>
+
+<div class="container">
+  <p-card styleClass="accessCard">
+    <label for="upload" class="floatLabel">*Select File For Extraction</label>
+    <br />
+    <div Class="upload">
+      <input
+        class="padding"
+        type="file"
+        pInputText
+        id="dos"
+        name="file"
+        required
+        style="width: 100%"
+        id="file"
+        (change)="selectFile($event)"
+        accept=".pdf"
+      />
+    </div>
+  
+    <button
+      pButton
+      icon="pi pi-upload"
+      label="Upload Data"
+      class="uploadBtn"
+      (click)="onClickUpload()"
+    ></button>
+  </p-card>
+</div>
+
+<!-- Notification -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<ng-container *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</ng-container>

@@ -14,7 +14,7 @@ export interface User{
     dataInjestionAccess?:string;
     dashboardAccess?:string;
     configurationAccess?:string;
-    status:string;
+    userStatus:string;
     createdOn?:Date;
     editedOn?:Date;
 }

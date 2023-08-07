@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { IRServiceService } from 'src/app/ir-service.service';
+import { LoadingSpinnerService } from 'src/app/loading-spinner.service';
 import { LineItem } from './model/tableStructure';
 
 interface TypesOfDoc {
@@ -52,15 +53,18 @@ export class ShContactDetailsComponent implements OnInit {
   selectedMinoreCode!: string;
   selectedShareholderName!: string;
 
-  namePattern = "^[a-zA-Z ]{3,15}$";
-  addressPattern = "^[a-zA-Z0-9._%+-/:, ]{3,50}$";
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-  contactPattern = "^((\\+91-?)|0)?[0-9]{1}[0-9]{9}$"; 
-  pocPattern = "^[a-zA-Z ]{3,15}$";
+  namePattern =  "^[a-zA-Z0-9 ]{3,255}$"
+  // addressPattern = /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{}|\\:;"'<>,.?\/\s]+$/
+  addressPattern = "^[a-zA-Z0-9\s#@$&* .,'&()/\\-]+$"
+  // emailPattern = '^[A-Za-z0-9._%+-]+@[A-Za-z]+[.]{1}[A-Za-z]{2,4}$';
+  emailPattern = '^[A-Za-z0-9._%+-]+[@]{1}[A-Za-z0-9.-]+[.]{1}[A-Za-z]{2,4}$';
+  contactPattern = '^((\\+91-?)|0)?[5,6,7,8,9]{1}[0-9]{9}$';
+  pocPattern = "^[a-zA-Z0-9 ]{3,255}$";
 
 
 
   constructor(
+    private lodSpinner : LoadingSpinnerService,
     private service: IRServiceService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
@@ -80,8 +84,14 @@ export class ShContactDetailsComponent implements OnInit {
       { minorcode: 'PL' },
     ];
   }
-
+  isLoading: boolean = false;
   ngOnInit(): void {
+
+    this.lodSpinner.isLoading.subscribe((val) => {
+      this.isLoading = val;
+    });
+
+    this.lodSpinner.isLoading.next(true);
     this.selectedTable=JSON.parse(JSON.stringify(localStorage.getItem('tableName')));
 
     this.lineItems = [];
@@ -96,6 +106,7 @@ export class ShContactDetailsComponent implements OnInit {
       (data: any) => {
         console.log(data);
         this.lineItems = data;
+        this.lodSpinner.isLoading.next(false);
       },
       (error: HttpErrorResponse) => {
         alert('something went wrong...');
@@ -105,11 +116,18 @@ export class ShContactDetailsComponent implements OnInit {
 
     this.lineItemForm = new FormGroup({
       name: new FormControl('', [Validators.required,
-      Validators.pattern(this.namePattern)]),
+      Validators.pattern(this.namePattern),
+      Validators.minLength(3),
+      Validators.maxLength(255)],
+      ),
       poc: new FormControl('', [Validators.required,
-      Validators.pattern(this.pocPattern)]),
+      Validators.pattern(this.pocPattern),
+      Validators.minLength(3),
+      Validators.maxLength(255)]),
       address: new FormControl('', [Validators.required,
-      Validators.pattern(this.addressPattern)]),
+      Validators.pattern(this.addressPattern),
+      Validators.minLength(3),
+      Validators.maxLength(255)]),
       email: new FormControl('', [Validators.required,
       Validators.pattern(this.emailPattern)]),
       contact: new FormControl('', [Validators.required,
@@ -151,6 +169,8 @@ export class ShContactDetailsComponent implements OnInit {
   }
 
   onClickSave() {
+
+    this.lodSpinner.isLoading.next(true);
     this.lineItemForm.value.tableName = this.selectedTable;
     console.log(this.lineItemForm.value, ' all data of shareholder');
 
@@ -161,6 +181,7 @@ export class ShContactDetailsComponent implements OnInit {
           summary: 'Success',
           detail: `Contact details Added`,
         });
+        this.lodSpinner.isLoading.next(false); 
         this.onClickCancle();
         this.ngOnInit();
       },
@@ -173,7 +194,7 @@ export class ShContactDetailsComponent implements OnInit {
           });
         } else {
         this.messageService.add({
-          severity: 'Error',
+          severity: 'error',
           summary: 'Error',
           detail: `Something went wrong while adding user..!!`,
         });

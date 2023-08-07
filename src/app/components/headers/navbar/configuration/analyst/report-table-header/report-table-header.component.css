@@ -1,0 +1,109 @@
+.reportTableDiv{
+    margin-top: -15px;
+}
+
+::ng-deep .searchbar{
+    border-color: #50AD95 !important;
+    text-align: left;
+    margin-top: 20px;
+    font-size: medium;
+  }
+::ng-deep .ReportsearchInputBox{
+    border: 1px solid #50ad95 !important;
+    width: 95%;
+    height: 40px;
+    background-color: #191919 !important;
+}
+
+::ng-deep .AddHeaderBtn{
+    float: right;
+    border-radius: 0%;
+    font-family: Helvetica;
+    font-size: 18px;
+    margin-top: 20px;
+    border-radius: 3px !important;
+}
+
+::ng-deep .button {
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: 1px solid #d04a02 !important;
+    border-radius: 7%;
+    float: right;
+  }
+
+
+  ::ng-deep .ReportTableHeader {
+    margin-top: 20px !important;
+    margin-bottom: -10px !important;
+    border-radius: 10px;
+    border: 2px solid #3b3b3b !important;
+    overflow: hidden !important;
+  }
+  
+  ::ng-deep .ReportTableHeader tr:last-child td {
+    border-bottom: 0 solid;
+  }
+
+  ::ng-deep .tableHeader * {
+    background-color: #191919 !important;
+    color: white !important;
+    padding: 10px !important;
+    border-bottom: none !important;
+  
+  }
+  .tablerowmain,
+.table::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+  border: none !important;
+}
+.tablerowmain:hover {
+  color: white !important;
+  background-color: #415385 !important;
+  border-bottom: none !important;
+}
+.tablerow,
+.table::ng-deep * {
+  color: white !important;
+  border: none !important;
+}
+
+tr:nth-child(even) {
+    background-color: #3b3b3b !important;
+  }
+  tr:nth-child(odd) {
+    background-color: #2D2D2D !important;
+  }
+
+  ::ng-deep .stockLabel {
+    cursor: pointer !important;
+    font-size: larger !important;
+    font-weight: bolder !important;
+  }
+
+  ::ng-deep .tableHeaderForm{
+    margin-top: 30px !important;
+  }
+
+  ::ng-deep .reportHeaderTable {
+    margin-top: 20px !important;
+    margin-bottom: -10px !important;
+    border-radius: 10px;
+    border: 2px solid #3b3b3b !important;
+    overflow: hidden !important;
+  }
+  
+  ::ng-deep .reportHeaderTable tr:last-child td {
+    border-bottom: 0 solid;
+  }
+
+  ::ng-deep input,
+  .content {
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }
+  ::ng-deep textarea,.content{
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }

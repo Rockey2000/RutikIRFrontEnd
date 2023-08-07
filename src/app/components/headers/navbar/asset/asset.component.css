@@ -1,0 +1,71 @@
+.navbar{
+  font-size: x-large;
+  font-weight: bold;
+  color: black;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin-top: -100px;
+  
+}
+
+.floatLabel{
+  font-style: italic;
+  font-weight: bold;
+  color: white;
+}
+
+::ng-deep .accessCard{
+width: 40rem;
+height: 20rem;
+background-color: #2d2d2d;
+}
+
+.uploadBtn{
+  
+  float: right;
+  margin: 50px 0px 0px 0px;
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none;
+}
+
+:host::ng-deep .upload * {
+
+    margin-top: 50px;
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+}
+
+.spinner {
+ 
+  /* backdrop-filter: blur(2px); */
+  /* background-color: rgba(188, 170, 170, 0.2);
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position:absolute; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(188, 170, 170, 0.2);
+  overflow-y: hidden; 
+}
+app-spinner {
+margin-top: -350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}

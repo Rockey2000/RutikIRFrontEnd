@@ -20,9 +20,34 @@ body {
   height: 100%;
   font-family: "Helvetica";
   background-color: #191919;
+  /* color: white !important; */
+}
+.p-steps .p-steps-item .p-menuitem-link {
+  background: transparent;
+  transition: box-shadow 0.2s;
+  border-radius: 6px;
+  background: #191919 !important;
+}
+.p-steps .p-steps-item.p-highlight .p-steps-title {
+  font-weight: 700;
   color: white !important;
 }
 
+/* .p-cascadeselect-panel {
+  background: white !important;
+ }
+ ::ng-deep .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item {
+  color: white !important;
+  background-color: #2d2d2d !important;
+
+}
+::ng-deep .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item:hover {
+  color: white !important;
+  background-color: #2d2d2d !important;
+} */
+
+
+  
 
 
 

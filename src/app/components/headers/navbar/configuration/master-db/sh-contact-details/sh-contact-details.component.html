@@ -1,7 +1,7 @@
 <div class="upperBody" *ngIf="lineItemsTable">
   <span class="p-input-icon-left searchbar" style="margin-bottom: 10px">
     <i class="pi pi-search"></i>
-    <input type="text" class="searchInputBox" 
+    <input type="text" class="searchInputBoxContact" 
     pInputText placeholder="Search"
     (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
     
@@ -10,7 +10,7 @@
   <button
     pButton
     class="p-button-sm button button1"
-    label="Add Line Items"
+    label="Add Details"
     icon="pi pi-plus-circle"
     (click)="addLneItem()"
   ></button>
@@ -22,7 +22,7 @@
         </span> -->
     <p-table
         #dt1
-      styleClass="p-datatable-sm contactDetailsTable"
+      styleClass="p-datatable-sm contactDetailsTable customPaginator"
       responsiveLayout="scroll"
       scrollHeight="100vh"
       [value]="lineItems"
@@ -33,6 +33,10 @@
       'email',
       'contact',
       'minorcode']"
+      [paginator]="true"
+      [rows]="10"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
     >
       <ng-template pTemplate="header">
         <tr class="tableHeader">
@@ -100,41 +104,30 @@
     >
       <ng-template pTemplate="content">
         <div class="grid fluid">
-          <label for="clientId" class="col-1" style="margin-top: 10px;">Name</label>
+          <label for="clientId" style="margin-top: 10px;width: 75px">Name</label>
           <div class="field col-12 md:col-3">
-
-            <input
-              class="p-pInputText-sm inputBox"
+             <input
+              class="p-pInputText-sm inputBoxname"
               type="text"
               id="name"
               formControlName="name"
               pInputText
               required
-              [pattern]="namePattern"
               placeholder="Enter"
             />
-            <br />
-            <small
-              *ngIf="
-                !lineItemForm.get('name')?.valid &&
-                lineItemForm.get('name')?.touched
-              "
-            >
-              <span style="color: red">Enter Valid Name</span>
-              <!-- <br /> -->
-              <span style="color: red">&nbsp;Name contains Alphabets only</span>
-              <!-- <br /> -->
-              <span style="color: red"
-                >&nbsp;First Name contains minimum 3 character and maximum 15
-                character
-              </span>
+            <br>
+         <small *ngIf="lineItemForm.get('name')?.invalid && lineItemForm.get('name')?.touched">
+              <span *ngIf="lineItemForm.get('name')?.errors?.['required']" style="color: red">Enter Valid Name.</span>
+              <span *ngIf="lineItemForm.get('name')?.errors?.['pattern']" style="color: red">&nbsp;Name contains Alphabets only.</span>
+              <span *ngIf="lineItemForm.get('name')?.errors?.['minlength']" style="color: red">&nbsp;Name must be at least 3 characters long.</span>
+              <span *ngIf="lineItemForm.get('name')?.errors?.['maxlength']" style="color: red">&nbsp;Name must be at least 3 to 255 characters long.</span>
             </small>
           </div>
 
-          <label for="shareholderName" class="col-1" style="margin-left: 40px;margin-top: 15px;">Address</label>
+          <label for="shareholderName"  style="margin-left: 40px;margin-top: 15px;width: 70px;">Address</label>
           <div class="field col-12 md:col-6">
             <textarea
-              class="inputBox"
+              class="inputBoxadd"
               type="text"
               id="holdingPercentage"
               formControlName="address"
@@ -142,29 +135,20 @@
               required
               placeholder="Enter"
             ></textarea>
-            <br />
-            <small
-              *ngIf="
-                !lineItemForm.get('address')?.valid &&
-                lineItemForm.get('address')?.touched
-              "
-            >
-              <span style="color: red">Enter Valid Address</span>
-              <!-- <br /> -->
-              <!-- <span style="color: red">&nbsp;Address contains Alphabets only</span>
-              <br /> 
-              <span style="color: red"
-                >&nbsp;Address contains minimum 3 character and maximum 15 character
-              </span> -->
+            <br>
+             <small *ngIf="lineItemForm.get('address')?.invalid && lineItemForm.get('address')?.touched">
+              <span *ngIf="lineItemForm.get('address')?.errors?.['required']" style="color: red">Enter Valid Address.</span>
+              <!-- <span *ngIf="lineItemForm.get('address')?.errors?.['pattern']" style="color: red">&nbsp;Address contains Alphabets And Numbers.</span> -->
+              <span *ngIf="lineItemForm.get('address')?.errors?.['minlength']" style="color: red">&nbsp;Address must be at least 3 characters long.</span>
+              <span *ngIf="lineItemForm.get('address')?.errors?.['maxlength']" style="color: red">&nbsp;Address must be at least 3 to 255 characters long.</span>
             </small>
-          </div>
+           </div>
         </div>
         <div class="grid fluid">
-          <label for="PortfolioID" class="col-1" style="margin-top: 10px;">POC</label>
+          <label for="PortfolioID"  style="margin-top: 10px;width: 75px">POC</label>
           <div class="field col-12 md:col-3">
-          
-            <input
-              class="inputBox"
+                      <input
+              class="inputBoxpoc"
               formControlName="poc"
               type="text"
               id="PortfolioID"
@@ -173,26 +157,18 @@
               required
               placeholder="Enter"
             />
-            <br />
-            <small
-              *ngIf="
-                !lineItemForm.get('poc')?.valid &&
-                lineItemForm.get('poc')?.touched
-              "
-            >
-              <span style="color: red">Enter Valid POC</span>
-              <!-- <br /> -->
-              <span style="color: red">&nbsp;POC contains Alphabets only</span>
-              <!-- <br /> -->
-              <span style="color: red"
-                >&nbsp;POC contains minimum 3 character and maximum 15 character
-              </span>
+            <br>
+            <small *ngIf="lineItemForm.get('poc')?.invalid && lineItemForm.get('poc')?.touched" >
+              <span *ngIf="lineItemForm.get('poc')?.errors?.['required']" style="color: red">Enter Valid POC.</span>
+              <span *ngIf="lineItemForm.get('poc')?.errors?.['pattern']" style="color: red">&nbsp;POC contains Alphabets only.</span>
+              <span *ngIf="lineItemForm.get('poc')?.errors?.['minlength']" style="color: red">&nbsp;POC must be at least 3 characters long.</span>
+              <span *ngIf="lineItemForm.get('poc')?.errors?.['maxlength']" style="color: red">&nbsp;POC must be at least 3 to 255 characters long.</span>
             </small>
           </div>
-          <label for="holdingValue" style="margin-bottom: 10px" class="col-1" style="margin-left: 40px;margin-top: 10px;">Contact</label>
+          <label for="holdingValue" style="margin-bottom: 10px"  style="margin-left: 40px;margin-top: 10px;width: 70px;">Contact</label>
           <div class="field col-12 md:col-3">
             <input
-              class="inputBox"
+              class="inputBoxcontact"
               type="text"
               id="holdingValue"
               formControlName="contact"
@@ -201,35 +177,26 @@
               [pattern]="contactPattern"
               placeholder="Enter"
             />
-            <br />
-            <small
-              *ngIf="
-                !lineItemForm.get('contact')?.valid &&
-                lineItemForm.get('contact')?.touched
-              "
-            >
-              <span style="color: red">Enter Valid Contact Details</span>
-              <!-- <br /> -->
-              <!-- <span style="color: red"
-                >&nbsp;Mobile Number should start with 6/7/8/9</span
-              > -->
+           <br>
+            <small *ngIf="lineItemForm.get('contact')?.invalid && lineItemForm.get('contact')?.touched">
+              <span *ngIf="lineItemForm.get('contact')?.errors?.['required']" style="color: red">Enter valid Mobile Number.</span>
+              <span *ngIf="lineItemForm.get('contact')?.errors?.['pattern']" style="color: red">Invalid Mobile Number.</span>
             </small>
           </div>
         </div>
 
         <div class="grid p-fluid">
-          <label for="folio" class="col-1" style="margin-top: 10px;">Email</label>
+          <label for="folio"  style="margin-top: 10px;width:75px">Email</label>
           <div class="field col-12 md:col-3">
           
             <input
-              class="inputBox"
+              class="inputBoxemail"
               type="text"
               formControlName="email"
               id="folio"
               pInputText
               required
               placeholder="Enter"
-              [pattern]="emailPattern"
             />
             <br />
             <small
@@ -238,12 +205,13 @@
                 lineItemForm.get('email')?.touched
               "
             >
-              <span style="color: red">Enter Valid Email Address</span>
+              <span style="color: red">Enter Valid Email Address.</span>
             </small>
           </div>
         </div>
+        <br>
         <div class="grid p-fluid">
-          <label for="minorcode" class="col-1" style="margin-top: 10px;" >Minorcode</label>
+          <label for="minorcode"  style="margin-top: 10px;width: 75px;" >Minorcode</label>
           <div class="field col-12 md:col-3">
             
             <p-dropdown
@@ -253,25 +221,20 @@
               [options]="minorcodes"
               optionLabel="minorcode"
               optionValue="minorcode"
-              placeholder="select"
+              placeholder="Select"
               [required]="true"
             ></p-dropdown>
-            <!-- <br /> -->
-            <small
-              *ngIf="
-                !lineItemForm.get('minorcode')?.valid &&
-                lineItemForm.get('minorcode')?.touched
-              "
-            >
-              <span style="color: red"> Field Is Mandetory</span>
-            </small>
+            <br />
+            <small *ngIf="lineItemForm.get('minorcode')?.invalid && lineItemForm.get('minorcode')?.touched">
+              <span *ngIf="lineItemForm.get('minorcode')?.errors?.['required']" style="color: red">Mandatory Field</span>
+              </small> 
           </div>
         </div>
       </ng-template>
     </p-card>
     <div style="text-align: right">
       <button
-        class="p-button-sm p-button-outlined cancelButton"
+        class="p-button-sm p-button-outlined cancelButton3"
         pButton
         label="Cancel"
         (click)="onClickCancle()"
@@ -279,7 +242,7 @@
       &nbsp;
       <button
         [disabled]="!lineItemForm.valid"
-        class="p-button-sm saveButton"
+        class="p-button-sm saveButton3"
         pButton
         label="Save"
         (click)="onClickSave()"
@@ -288,3 +251,7 @@
     <!-- <p-card styleClass="card"></p-card> -->
   </form>
 </div>
+<ng-container *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</ng-container>

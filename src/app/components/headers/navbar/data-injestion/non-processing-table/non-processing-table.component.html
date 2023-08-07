@@ -1,0 +1,84 @@
+<br>
+
+<div class="dropDiv">
+
+    <p-dropdown
+    styleClass="dropdownClient"
+    placeholder="Select Client"
+    [options]="DataForDropdown"
+    [(ngModel)]="selectedType"
+    defaultLabel="Client"
+    optionLabel="client"
+    optionValue="client"
+    selectedItemsLabel="{0} items selected"
+    dropdownIcon="pi pi-filter"
+    [showClear]="true"
+    [filter]="true"
+    filterBy="client"
+     (onChange)="onClientSelectionChange()"
+  >
+  </p-dropdown>
+   <!-- <p-cascadeSelect
+      styleClass="dropdown12"
+      [showClear]="true"
+        [options]="allData"
+        [(ngModel)]="selectedType"
+        selectedItemsLabel="{0} items selected"
+        optionLabel="name"  
+        optionValue="name"
+        optionGroupLabel="name"
+        [optionGroupChildren]="['states', 'cities']"
+        [style]="{ width: '13.7rem' }"
+        placeholder="Select"
+        appendTo="body"
+        (onChange)="onClientSelectionChange()"
+        filterBy="client"
+      ></p-cascadeSelect> -->
+</div>
+
+<div  class="npDataTable" *ngIf="tableVisible">
+    <p-table
+    styleClass="p-datatable-sm uplodedDataTable customPaginator"
+    #dt
+    [value]="filteredData"
+    [rows]="7"
+    [paginator]="true"
+    [rows]="10"
+    responsiveLayout="scroll"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    [globalFilterFields]="['client', 'documentType', 'fileName', 'analystName']"
+  >
+    <ng-template pTemplate="header">
+      <tr class="tableHeader">
+        <th>Sr.No</th>
+        <th>File Id</th>
+        <th>
+          <label>Client Name</label>
+        </th>
+       <th>File Name</th>
+       <th>File Type</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data && let-i="rowIndex">
+      
+      <tr
+        style="cursor: pointer"
+        (click)="editTableValue(data.client, data.clientId)"
+        class="tablerow3"
+      >
+        <td>{{i+1}}</td>
+        <td>{{data.npFileId}}</td>
+        <td>{{ data.client }}</td>
+        <td>{{ data.fileName }}</td>
+        <td>{{data.fileType}}</td>
+    
+        <!-- <td>
+          <button class="uploadBtn2" (click)="actionDialogBox(data)" pButton icon="pi pi-file"></button>
+        </td> -->
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

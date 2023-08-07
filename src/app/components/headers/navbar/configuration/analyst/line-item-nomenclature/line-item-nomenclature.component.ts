@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { IRServiceService } from 'src/app/ir-service.service';
@@ -39,99 +39,94 @@ export class LineItemNomenclatureComponent implements OnInit {
  
   analystLineItemNamePattern = "^[a-zA-Z ]{3,15}$";
   analystTableHeaderNamePattern= "^[a-zA-Z0-9. /]{3,50}$";
- 
-
-  
-
+  analystDetails: any;
+  selectedType1!:string;
+  table:any[]=[]
+  id: any;
+  updateAnalystLineItem!: string;
+  updateAnlystTableHeaderName!: string;
+  masterTableSource!:string;
+  analystName!:string;
+  outerTabMenu!: string;
+  DataForDropdown: any[]=[];
   constructor(
     private service: IRServiceService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private router : Router
+    private router : Router,
+    private fb: FormBuilder
   ) {
-    this.analystIds = [
-      { id: '1710' },
-      { id: '1720' },
-      { id: '1730' },
-      { id: '1740' },
-      { id: '1750' },
-      { id: '1760' },
+    this.value = [
+      { tableContent: 'Income Statement' },
+      { tableContent: 'Balance Sheet' },
+      { tableContent: 'Cash Flow' },
     ];
 
-    this.value =[
-      {tableContent:'Income Statment'},
-      {tableContent:'Balance Sheet'},
-      {tableContent:'Cash Flow'}
-    ];
-  }
 
-  ngOnInit(): void {
-
-    this.analystLineItemForm = new FormGroup({
-      masterTableSource: new FormControl(''),
-      lineItemName:new FormControl(''),
-      analystName:new FormControl(''),
-      analystLineItemName: new FormControl('', [Validators.required,
-      Validators.pattern(this.analystLineItemNamePattern)]),
-      analystTableHeaderName: new FormControl('',[ Validators.required,
-      Validators.pattern(this.analystTableHeaderNamePattern)]),
+    this.analystLineItemForm = this.fb.group({
+      analystLineItemRow: this.fb.array([this.newRow()]),
     });
+  }
+  tabmenus:boolean=true;
+  ngOnInit(): void {
+    localStorage.removeItem('tableName');
+    this.service.dialogFormDataSubscriber$.subscribe((data: any) => {
+      console.log(data,"!!");
+      this.tabmenus=!this.tabmenus;
+     
+    })
+      
+    console.log(this.tabmenus,"hello tabmenus");
 
-    this.service.getTableStructures().subscribe(
-      (data: any) => {
-        console.log(data);
-        this.balanceSheetLineItem = data;
-        console.log(this.balanceSheetLineItem, ' balance sheet data');
-      },
-      (error: HttpErrorResponse) => {
-        alert('something went wrong...');
-        console.log(error);
-      }
-    );
 
-    this.service.getIncomeStatementTableStructures().subscribe(
-      (data: any) => {
-        console.log(data);
-        this.incomeStatementLineItem = data;
-        console.log(this.incomeStatementLineItem, ' income data');
-      },
-      (error: HttpErrorResponse) => {
-        alert('something went wrong...');
-        console.log(error);
-      }
-    );
 
-    this.service.getCashFlowTableStructure().subscribe(
-      (data: any) => {
-        console.log(data);
-        this.cashFlowLineItem = data;
-        this.allMasterHeaderLineItems = [
-          ...this.balanceSheetLineItem,
-          ...this.incomeStatementLineItem,
-          ...this.cashFlowLineItem,
-        ];
-        console.log(this.allMasterHeaderLineItems, ' all data');
-      },
-      (error: HttpErrorResponse) => {
-        alert('something went wrong...');
-        console.log(error);
-      }
-    );
 
     this.service.getAnalystLineItems().subscribe(
     (data:any)=>{
       this.addLineItem=data;
       console.log(this.addLineItem);
-      
+      this.tabmenus=true;
+      const uniqueData = new Set(this.addLineItem);
+      this.DataForDropdown = Array.from(uniqueData); // Convert the Set back to an array
+ 
+ 
+  console.log(this.DataForDropdown, "Data for dropdown without duplicates");
+  const uniqueAnalyst = new Set(this.DataForDropdown.map(item => item.analystName));
+  this.DataForDropdown = Array.from(uniqueAnalyst).map(analystName => ({ analystName }));
+  console.log(this.DataForDropdown,"dataforDropdoen1");
+  this.DataForDropdown = Array.from(uniqueAnalyst)
+    .filter(analystName => analystName) // Only keep non-empty values
+    .map(analystName => ({ analystName }));
     },
     (error:HttpErrorResponse)=>{
       alert("something went wrong...!!");
     }
     )
-
+    this.service.getAnalystDetails().subscribe(
+      (data: any) => {
+        console.log(data);
+        this.analystDetails = data;
+        console.log(this.analystDetails, 'data is getting');
+      },
+      (error: HttpErrorResponse) => {
+        alert('something went wrong....');
+        console.log(error);
+      }
+    );
 
   }
 
+  get analystLineItem(): FormArray {
+    return this.analystLineItemForm.get('analystLineItemRow') as FormArray;
+  }
+  newRow(): FormGroup {
+    return this.fb.group({
+      analystName: '',
+      masterTableSource: '',
+      analystLineItemName: '',
+      analystTableHeaderName: '',
+    });
+  }
   onClickAdd() {
     // this.lineItemTable = false;
     // this.lineItemForm = true;
@@ -139,50 +134,79 @@ export class LineItemNomenclatureComponent implements OnInit {
    this.service.emitDialogFormData("done");
     this.router.navigate(["/document/nav/config/analyst/addAndMapingLineItems/addLineItem"])
   }
-
-  newRow() {
-    return this.passengerForm;
-  }
-  selectedTableName!: string;
-  passengerForm = [
-    {
-      id: '',
-      lineItem: '',
-      alternativeName: '',
-      type: '',
-    },
-  ];
-
-  addForm() {
-    this.passengerForm.push({
-      id: '',
-      lineItem: '',
-      alternativeName: '',
-      type: '',
+  initAnalystLineItemForm(): void {
+    this.analystLineItemForm = this.fb.group({
+      analystLineItemRow: this.fb.array([
+        this.fb.group({
+          analystName: [null, Validators.required],
+          masterTableSource: [null, Validators.required],
+          analystLineItemName: [null, Validators.required],
+          analystTableHeaderName: [null, Validators.required]
+        })
+      ])
     });
   }
+ 
+  onClickBack(){
+    this.lineItemTable=true;
+this.lineItemForm=false;
+  }
+  editProduct(data:any){
+console.log(data,"hello data in nomenclature");
+this.lineItemTable=false;
+this.lineItemForm=true;
 
-  onClickBack() {
-    this.lineItemTable = true;
-    this.lineItemForm = false;
-    this.service.emitDialogFormData("done");
+this.id=data.analystLineId;
+this.updateAnalystLineItem=data.analystLineItemName;
+this.updateAnlystTableHeaderName=data.analystTableHeaderName;
+this.masterTableSource=data.masterTableSource;
+this.analystName=data.analystName;
 
+console.log(this.updateAnalystLineItem,this.updateAnlystTableHeaderName,this.masterTableSource,this.analystName);
+
+this.analystLineItemForm.patchValue({
+  analystLineItemRow: [{
+    analystName: this.analystName,
+    masterTableSource: this.masterTableSource,
+    analystLineItemName: this.updateAnalystLineItem,
+    analystTableHeaderName: this.updateAnlystTableHeaderName
+  }]
+});
   }
 
-  saveLineItems() {
-    this.service.addLineItem(this.analystLineItemForm.value).subscribe(
-      (data) => {
+  onClickSaveAll(){
+    const updatedData = {
+      analystLineId: this.id,
+      analystName: this.analystLineItemForm.value.analystLineItemRow[0].analystName,
+      masterTableSource: this.analystLineItemForm.value.analystLineItemRow[0].masterTableSource,
+      analystLineItemName: this.analystLineItemForm.value.analystLineItemRow[0].analystLineItemName,
+      analystTableHeaderName: this.analystLineItemForm.value.analystLineItemRow[0].analystTableHeaderName
+    };
+
+    console.log(updatedData,"after save updated data");
+    this.service.updateAnalystLineItem(updatedData).subscribe(
+      (data: any) => {
         console.log(data);
+        this.ngOnInit();
         this.messageService.add({
           severity: 'success',
-          summary: 'Successfull',
-          detail: 'Analyst Nomenclature addedd successfully',
+          summary: 'Successful',
+          detail: 'Analyst Line Item Updated..!!',
         });
+
         this.onClickBack();
-        this.ngOnInit();
       },
       (error: HttpErrorResponse) => {
-        alert('something went wrong');
+       
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: `${error.error.developerMessage}`,
+          });
+ 
+        // alert(error);
+        this.ngOnInit();
+        this.onClickBack();
       }
     );
   }

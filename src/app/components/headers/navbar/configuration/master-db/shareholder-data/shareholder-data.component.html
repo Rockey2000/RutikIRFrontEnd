@@ -1,34 +1,125 @@
 <div class="upperBody" *ngIf="lineItemsTable">
   <span class="p-input-icon-left searchbar" style="margin-bottom: 10px">
     <i class="pi pi-search"></i>
-    <input type="text" class="searchInputBox" pInputText placeholder="Search"
-      (input)="dt1.filterGlobal($any($event.target).value, 'contains')" />
+    <input
+      type="text"
+      class="searchInputBoxHolder"
+      pInputText
+      placeholder="Search"
+      (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+    />
   </span>
 
-  <button pButton class="p-button-sm button button1" label="Add Line Items" icon="pi pi-plus-circle"
-    (click)="addLneItem()"></button>
+  <button
+    pButton
+    class="p-button-sm button button1"
+    label="Add Data"
+    icon="pi pi-plus-circle"
+    (click)="addLneItem()"
+  ></button>
+  <button
+    pButton
+    class="p-button-sm button downloadbutton"
+    label="Download Template"
+    icon="pi pi-download"
+    (click)="holderData()"
+  ></button>
+  <button
+    class="p-button-sm buttonDialog button1"
+    pButton
+    label="Upload Template"
+    icon="pi pi-upload"
+    iconPos="left"
+    (click)="onClickUpload()"
+    style="margin-right: 10px; float: right"
+  ></button>
+
+  <div class="uploadDialogBox">
+    <p-dialog
+      [(visible)]="uploadDialog"
+      [style]="{ width: '550px', height: '250px' }"
+      header="Upload Excel Of Shareholder Data"
+      [modal]="true"
+      styleClass="p-fluid uploadDialogShareData"
+    >
+      <form></form>
+      <div class="p-field">
+        <span class="upload">
+          <input
+            class="padding"
+            type="file"
+            accept=".xlsx"
+            pInputText
+            id="dos"
+            name="file"
+            required
+            style="width: 80%"
+            id="file"
+            (change)="selectFile($event)"
+            #fileInputRef
+          />
+        </span>
+      </div>
+      <ng-template pTemplate="footer">
+        <span class="p-button-outlined cancelBtn">
+          <button
+            pButton
+            pRipple
+            label="Cancel"
+            icon="pi pi-times"
+            class="p-button-sm p-button-outlined"
+            (click)="hideDialog()"
+          ></button>
+        </span>
+        <span class="dialogSaveBtn">
+          <button
+            pButton
+            pRipple
+            label="Upload"
+            icon="pi pi-check"
+            class="p-button-sm"
+            [disabled]="!selectedFiles"
+            (click)="uploadExcel(); fileInputRef.value = ''"
+          ></button>
+        </span>
+      </ng-template>
+    </p-dialog>
+  </div>
 
   <div style="margin: 0%; padding: 0%">
-    <p-table #dt1 styleClass="p-datatable-sm shareholderTable" responsiveLayout="scroll" scrollHeight="100vh"
-      [value]="lineItems" [globalFilterFields]="[
-      'clientId',
-      'portfolioId',
-      'folio',
-      'shareholderName',
-      'holdingValue',
-      'holdingPercentage',
-      'minorCode'
-      ]">
+    <p-table
+      #dt1
+      styleClass="p-datatable-sm shareholderTable customPaginator"
+      responsiveLayout="scroll"
+      scrollHeight="100vh"
+      [value]="lineItems"
+      [globalFilterFields]="[
+        'clientId',
+        'portfolioId',
+        'folio',
+        'shareholderName',
+        'holdingValue',
+        'holdingPercentage',
+        'minorCode'
+      ]"
+      [paginator]="true"
+      [rows]="10"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
       <ng-template pTemplate="header">
         <tr class="tableHeader">
           <th>Sr. No</th>
-          <th>Client ID</th>
+          <th>Client Name</th>
           <th>DP ID</th>
-          <th>Folio</th>
-          <th>Name</th>
-          <th>Holding</th>
+          <th>FOLIO/CL-ID</th>
+          <th>Shareholder Name</th>
+          <th>Holding Value</th>
           <th>% to EQT</th>
+          <th>Holding Cost</th>
           <th>Minorcode</th>
+          <th>Fund Group</th>
+          <th>Date</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-product && let-i="rowIndex">
@@ -38,7 +129,7 @@
           </td>
 
           <td>
-            {{ product.clientId }}
+            {{ product.clientName }}
           </td>
           <td>
             {{ product.portfolioId }}
@@ -55,8 +146,14 @@
           <td>
             {{ product.holdingPercentage }}
           </td>
+          <td>{{ product.holdingCost }}</td>
+
           <td>
             {{ product.minorCode }}
+          </td>
+          <td>{{ product.fundGroup }}</td>
+          <td>
+            {{ product.date }}
           </td>
         </tr>
       </ng-template>
@@ -72,136 +169,240 @@
   </label>
 
   <form [formGroup]="lineItemForm" autocomplete="off">
-    <p-card styleClass="shareholderCard" [style]="{ width: '95%', margin: '0px 40px 20px 40px' }">
+    <p-card
+      styleClass="shareholderCard"
+      [style]="{ width: '95%', margin: '0px 40px 20px 40px' }"
+    >
       <ng-template pTemplate="content">
         <div class="grid p-fluid">
           <div class="field col-12 md:col-3">
-            <label for="clientId">Client ID</label>
-            <p-dropdown
-              styleClass="text-base dropdown text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
-              [options]="clientIds" formControlName="clientId" optionLabel="clientID" optionValue="clientID"
-              placeholder="select" [required]="true"></p-dropdown>
-            <br />
-            <small *ngIf="
-                !lineItemForm.get('clientid')?.valid &&
-                lineItemForm.get('clientid')?.touched
-              ">
-              <span style="color: red">Field Is Mandetory</span>
+            <label for="clientId">Client Name</label>
+            <!-- <p-dropdown
+              styleClass="text-base dropdownclient text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+              [options]="clientIds"
+              formControlName="clientId"
+              optionLabel="clientID"
+              optionValue="clientID"
+              placeholder="Select"
+              [required]="true"
+            ></p-dropdown> -->
+            <p-cascadeSelect
+              styleClass="text-base dropdownclient text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary "
+              [options]="allData"
+              [showClear]="true"
+              formControlName="clientName"
+              optionLabel="name"
+              optionValue="name"
+              optionGroupLabel="name"
+              [optionGroupChildren]="['states', 'cities']"
+              [style]="{ width: '20.7rem' }"
+              placeholder="Select"
+              appendTo="body"
+              required="true"
+            ></p-cascadeSelect>
+            <small
+              *ngIf="
+                !lineItemForm.get('clientName')?.valid &&
+                lineItemForm.get('clientName')?.touched
+              "
+            >
+              <span style="color: red">Client Name Is Mandatory.</span>
             </small>
           </div>
           <div class="field col-12 md:col-3">
-            <label for="PortfolioID">Portfolio ID</label>
+            <label for="PortfolioID">DP ID</label>
 
             <input
-              class="text-base inputBox text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
-              formControlName="portfolioId" type="text" id="PortfolioID" pInputText required placeholder="Enter"
-              [pattern]="portfolioIdPattern" />
+              class="inputBox"
+              formControlName="portfolioId"
+              type="text"
+              id="PortfolioID"
+              pInputText
+              required
+              placeholder="Enter"
+              [pattern]="portfolioIdPattern"
+            />
             <br />
-            <small *ngIf="
-                !lineItemForm.get('portfolioid')?.valid &&
-                lineItemForm.get('portfolioid')?.touched
-              ">
-              <span style="color: red">Enter Valid Portfolio ID</span>
-              <br />
-              <span style="color: red">Portfolio ID Contains Alphabets And Numbers</span>
-              <br />
-              <span style="color: red">Portfolio ID contains minimum 3 characters & Numbers and
-                maximum 15 character & Numbers
-              </span>
+            <small
+              *ngIf="
+                lineItemForm.get('portfolioId')?.invalid &&
+                lineItemForm.get('portfolioId')?.touched
+              "
+            >
+              <span
+                *ngIf="lineItemForm.get('portfolioId')?.errors?.['required']"
+                style="color: red"
+                >Enter Valid Portfolio ID.</span
+              >
+
+              <span
+                *ngIf="lineItemForm.get('portfolioId')?.errors?.['pattern']"
+                style="color: red"
+                >Portfolio ID Contains Alphabets And Numbers.</span
+              >
+
+              <span
+                *ngIf="lineItemForm.get('portfolioId')?.errors?.['minlength']"
+                style="color: red"
+                >Portfolio ID must be at least 3 characters long.</span
+              >
+
+              <span
+                *ngIf="lineItemForm.get('portfolioId')?.errors?.['maxlength']"
+                style="color: red"
+                >Portfolio ID cannot be more than 15 characters long.</span
+              >
             </small>
           </div>
           <div class="field col-12 md:col-3">
-            <label for="folio">Folio</label>
+            <label for="folio">FOLIO/CL-ID</label>
 
-            <input type="text" formControlName="folio" id="folio"
-              class="text-base inputBoxfolio text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
-              required placeholder="Enter" [pattern]="folioPattern" />
+            <input
+              class="inputBox"
+              type="text"
+              formControlName="folio"
+              id="folio"
+              pInputText
+              required
+              placeholder="Enter"
+              [pattern]="folioPattern"
+            />
             <br />
-            <small *ngIf="
-                !lineItemForm.get('folio')?.valid &&
+            <small
+              *ngIf="
+                lineItemForm.get('folio')?.invalid &&
                 lineItemForm.get('folio')?.touched
-              ">
-              <span style="color: red">Enter Valid Folio Details</span>
-              <br />
-              <span style="color: red">Folio Details Contains Alphabets And Numbers</span>
-              <br />
-              <span style="color: red">Folio Details contains minimum 3 characters & Numbers and
-                maximum 15 character & Numbers
-              </span>
+              "
+            >
+              <span
+                *ngIf="lineItemForm.get('folio')?.errors?.['required']"
+                style="color: red"
+                >Enter Valid Folio Details.</span
+              >
+              <span
+                *ngIf="lineItemForm.get('folio')?.errors?.['pattern']"
+                style="color: red"
+                >Folio Details Contains Alphabets And Numbers.</span
+              >
+              <span
+                *ngIf="lineItemForm.get('folio')?.errors?.['minlength']"
+                style="color: red"
+                >Folio Details must be at least 3 characters long.</span
+              >
+              <span
+                *ngIf="lineItemForm.get('folio')?.errors?.['maxlength']"
+                style="color: red"
+                >Folio Details cannot be more than 15 characters long.</span
+              >
             </small>
           </div>
           <div class="field col-12 md:col-3">
             <label for="shareholderName">Shareholder Name</label>
 
-            <p-dropdown [required]="true"
+            <p-dropdown
+              [required]="true"
               styleClass="text-base dropdownshareholder text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
-              formControlName="shareholderName" [options]="shareholders" optionLabel="name" optionValue="name"
-              placeholder="select"></p-dropdown>
+              formControlName="shareholderName"
+              [options]="shareHolderDataArr"
+              optionLabel="name"
+              optionValue="name"
+              placeholder="Select"
+            ></p-dropdown>
             <br />
-            <small *ngIf="
-                !lineItemForm.get('shareholdername')?.valid &&
-                lineItemForm.get('shareholdername')?.touched
-              ">
-              <span style="color: red">Field Is Mandetory</span>
+            <small
+              *ngIf="
+                !lineItemForm.get('shareholderName')?.valid &&
+                lineItemForm.get('shareholderName')?.touched
+              "
+            >
+              <span style="color: red">Shareholder Name Is Mandatory.</span>
             </small>
           </div>
         </div>
-        <br>
+        <br />
         <div class="grid p-fluid">
           <div class="field col-12 md:col-3">
             <label for="holdingValue">Holding Value</label>
             <input
-              class="text-base inputBox text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
-              type="text" id="holdingValue" formControlName="holdingValue" pInputText placeholder="Enter" required />
+              class="inputBox"
+              type="text"
+              id="holdingValue"
+              formControlName="holdingValue"
+              pInputText
+              placeholder="Enter"
+              required
+            />
             <br />
-            <small *ngIf="
-                !lineItemForm.get('holdingvalue')?.valid &&
-                lineItemForm.get('holdingvalue')?.touched
-              ">
-              <span style="color: red">Enter Valid Holding Value</span>
-              <br />
-              <span style="color: red">Holding Value Contains Numbers</span>
-              <br />
-              <span style="color: red">Holding Value contains minimum 3 Numbers and
-                maximum 15 Numbers
-              </span>
+            <small
+              *ngIf="
+                lineItemForm.get('holdingValue')?.invalid &&
+                lineItemForm.get('holdingValue')?.touched
+              "
+            >
+              <span
+                *ngIf="lineItemForm.get('holdingValue')?.errors?.['required']"
+                style="color: red"
+                >Enter Valid Holding Value.</span
+              >
+              <span
+                *ngIf="lineItemForm.get('holdingValue')?.errors?.['pattern']"
+                style="color: red"
+                >Holding Value Contains only Numbers.</span
+              >
             </small>
           </div>
           <div class="field col-12 md:col-3">
             <label for="holdingPercentage">Holding Percentage</label>
             <input
-              class="text-base inputBox text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
-              type="text" id="holdingPercentage" formControlName="holdingPercentage" pInputText required
-              [pattern]="holdingPercentagePattern" placeholder="Enter" />
+              class="inputBox"
+              type="text"
+              id="holdingPercentage"
+              formControlName="holdingPercentage"
+              pInputText
+              required
+              placeholder="Enter"
+            />
             <br />
-            <small *ngIf="
-                !lineItemForm.get('holdingpercentage')?.valid &&
-                lineItemForm.get('holdingpercentage')?.touched
-              ">
-              <span style="color: red">Enter Valid Holding Percentage</span>
-              <br />
-              <span style="color: red">Holding Percentage ContainsNumbers</span>
-              <br />
-              <span style="color: red">Holding Percentage contains minimum 1 Number and
-                maximum 2 Numbers
-              </span>
+            <small
+              *ngIf="
+                lineItemForm.get('holdingPercentage')?.invalid &&
+                lineItemForm.get('holdingPercentage')?.touched
+              "
+            >
+              <span
+                *ngIf="lineItemForm.get('holdingPercentage')?.errors?.['required']"
+                style="color: red"
+                >Enter Valid Holding Percentage.</span
+              >
+              <span
+                *ngIf="lineItemForm.get('holdingPercentage')?.errors?.['pattern']"
+                style="color: red"
+                >Holding Percentage Contains Numbers , (.).</span
+              >
+              <span *ngIf="lineItemForm.get('holdingPercentage')?.errors?.['invalidPercentage']" style="color: red"
+      >Percentage must be between 0 and 100.</span
+    >
             </small>
           </div>
           <div class="field col-12 md:col-3">
             <label for="minorcode">Minorcode</label>
-            <p-dropdown [required]="true"
-              styleClass="text-base dropdown text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
-              formControlName="minorCode" 
+            <p-dropdown
+              [required]="true"
+              styleClass="text-base dropdownMinorcode text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+              formControlName="minorCode"
               [options]="minorcodes"
-               optionLabel="minorcode"
-                optionValue="minorcode"
-              placeholder="select"></p-dropdown>
+              optionLabel="minorcode"
+              optionValue="minorcode"
+              placeholder="Select"
+            ></p-dropdown>
             <br />
-            <small *ngIf="
-                !lineItemForm.get('minorcode')?.valid &&
-                lineItemForm.get('minorcode')?.touched
-              ">
-              <span style="color: red"> Field Is Mandatory</span>
+            <small
+              *ngIf="
+                !lineItemForm.get('minorCode')?.valid &&
+                lineItemForm.get('minorCode')?.touched
+              "
+            >
+              <span style="color: red"> Field Is Mandatory.</span>
             </small>
           </div>
           <div class="field col-12 md:col-3">
@@ -209,36 +410,145 @@
             <span class="p-input-icon-right">
               <i class="pi pi-spin pi-spinner"></i>
               <p-calendar
-              [required]="true"
-                styleClass="text-base dropdown text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
-                placeholder="select Date"
-                 formControlName="date"
-                 dateFormat="dd.mm.yy"></p-calendar>
+                [required]="true"
+                styleClass="text-base dropdowndate text-color surface-overlay border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+                placeholder="Select Date"
+                formControlName="date"
+                dateFormat="dd.mm.yy"
+                (onSelect)="onDateSelect($event)"
+              >
+              </p-calendar>
+
+              <br />
+              <small
+                *ngIf="
+                  !lineItemForm.get('date')?.valid &&
+                  lineItemForm.get('date')?.touched
+                "
+              >
+                <span style="color: red"> Field Is Mandatory.</span>
+              </small>
             </span>
           </div>
         </div>
         <div class="grid p-fluid">
           <div class="field col-12 md:col-3">
-            <label for="emailId"></label>
+            <label for="emailId">Holding Cost</label>
+            <input
+              class="inputBox"
+              formControlName="holdingCost"
+              type="text"
+              id="PortfolioID"
+              pInputText
+              required
+              placeholder="Enter"
+              [pattern]="holdingCostPattern"
+            />
+            <br />
+            <small
+              *ngIf="
+                lineItemForm.get('holdingCost')?.invalid &&
+                lineItemForm.get('holdingCost')?.touched
+              "
+            >
+              <span
+                *ngIf="lineItemForm.get('holdingCost')?.errors?.['required']"
+                style="color: red"
+                >Holding Cost Field Is Mandatory.</span
+              >
+              <span
+                *ngIf="lineItemForm.get('holdingCost')?.errors?.['pattern']"
+                style="color: red"
+                >Holding Cost Contains Only Two Decimal Numbers.</span
+              >
+            </small>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label for="emailId">Fund Group</label>
+            <input
+              class="inputBox"
+              formControlName="fundGroup"
+              type="text"
+              id="PortfolioID"
+              pInputText
+              required
+              placeholder="Enter"
+              [pattern]="fundgroupPattern"
+            />
+            <br />
+            <small
+              *ngIf="
+                lineItemForm.get('fundGroup')?.invalid &&
+                lineItemForm.get('fundGroup')?.touched
+              "
+            >
+              <span
+                *ngIf="lineItemForm.get('fundGroup')?.errors?.['required']"
+                style="color: red"
+                >Fund Group Field Is Mandatory.</span
+              >
+              <span
+                *ngIf="lineItemForm.get('fundGroup')?.errors?.['pattern']"
+                style="color: red"
+                >Fund Group Contains Alphanumeric and Special Character.</span
+              >
+            </small>
           </div>
         </div>
       </ng-template>
     </p-card>
     <div style="text-align: right">
-      <button class="p-button-sm p-button-outlined cancelButton" pButton label="Cancel"
-        (click)="onClickBack()"></button>
+      <button
+        class="p-button-sm p-button-outlined cancelButton2"
+        pButton
+        label="Cancel"
+        (click)="onClickBack()"
+      ></button>
       &nbsp;
-      <button [disabled]="!lineItemForm.valid" class="p-button-sm saveButton1" pButton label="Save"
-        (click)="onClickSave()"></button>
+      <button
+        [disabled]="!lineItemForm.valid"
+        class="p-button-sm saveButton2"
+        pButton
+        label="Save"
+        (click)="onClickSave()"
+      ></button>
     </div>
     <!-- <p-card styleClass="card"></p-card> -->
   </form>
-</div>
 
+
+
+</div>
+<p-dialog [(visible)]="shareHolderCard" (onHide)="cancelCard()" [modal]="true" styleClass="existingDataCardOverride">
+  <div class="flex flex-wrap">
+  <h2 style="margin-top: -1%; ">Warning</h2>
+
+</div>
+  <hr class="lineinCard" style="color:#d04a02; width: 100%;"/>
+  <p style="text-align: center; font-size: large; font-weight: bold;">Some shareholder's data is already exists in the system!!!</p>
+  
+
+
+  <div class="cardButtons" *ngFor="let data of existingShareData; let i = index">
+    <span> {{ i + 1 }})&nbsp;</span>
+    <span>Client Name :- </span>
+    <span>&nbsp;{{data.clientName}}&nbsp;,duplicate for &nbsp;</span> 
+    <span>Date :- </span>
+    <span>&nbsp;{{data.date}}</span>
+  </div>
+  
+</p-dialog>
 <!-- Notification msg's -->
 <p-toast></p-toast>
-<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
 
 <!-- [pattern]="portfolioIdPattern" -->
 <!-- [pattern]="holdingValuePattern" -->
+
+<ng-container *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</ng-container>

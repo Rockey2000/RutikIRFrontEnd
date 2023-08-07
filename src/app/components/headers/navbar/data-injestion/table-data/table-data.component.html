@@ -1,30 +1,154 @@
+<div class="dataDiv">
 <label class="headerLabel1">
-  <i class="pi pi-chevron-left" (click)="onClickBack()"></i>
-  Back
+  <i
+    style="cursor: pointer"
+    class="pi pi-chevron-left"
+    (click)="onClickBack()"
+    style="width: 16px; height: 10px; cursor: pointer"
+  ></i>
+  {{ this.tableListData }}
 </label>
 
+<div style="text-align: left; margin-top: 40px; margin-bottom: -30px">
+  <!-- <span style="color: aliceblue;">
+    <h3 class=mappedHeader>Mapped Line Item Count " {{masterLineItem}} "</h3>
+  </span> -->
+
+  <p-dropdown
+    [options]="getTableData.length > 1 ? getTableData : []"
+    optionLabel="tableName"
+    optionValue="tableId"
+    styleClass="mergeDropdown"
+    placeholder="Select table for merge "
+    [required]="true"
+    [(ngModel)]="selectedTableId"
+   
+  ></p-dropdown>
+  &nbsp;
+  <button
+    class="p-button mergeBtn"
+    pButton
+    label="Merge"
+    icon="pi pi-code"
+    iconPos="right"
+    style="float: left"
+    style="margin-left: 1px"
+    (click)="onClickMerge()"
+
+  ></button>
+&nbsp;
+  <button
+    class="p-button mergeBtn"
+    pButton
+    label="Auto Set"
+    icon="pi pi-sync"
+    iconPos="right"
+    style="float: left"
+    style="margin-left: 1px"
+    (click)="onSetDropDowns()"
+
+  ></button>
+  <button
+    class="p-button uploadBtn"
+    pButton
+    label="Upload"
+    icon="pi pi-upload"
+    iconPos="left"
+    (click)="onClickUpload()"
+    style="margin-left: 10px; float: right"
+  ></button>
+  &nbsp;
+  <button
+    class="p-button downloadBtn"
+    pButton
+    label="Download"
+    icon="pi pi-download"
+    iconPos="left"
+    style="float: right"
+    (click)="onClickDownloadtable()"
+  ></button>
+  <button
+    class="p-button splitBtn"
+    pButton
+    [disabled]="selectedRowIndex.length == 0"
+    label="Split Table"
+    icon="pi pi-sort-alt"
+    iconPos="left"
+    style="float: right"
+    (click)="onClickSplitTable()"
+  ></button>
+</div>
+<div class="uploadDialogBox">
+  <p-dialog
+    [(visible)]="uploadDialog"
+    [style]="{ width: '550px', height: '250px' }"
+    header="Upload Updated Excel Sheet"
+    [modal]="true"
+    styleClass="p-fluid uploadDialog"
+  >
+    <div class="p-field">
+      <span class="upload">
+        <input
+          class="padding"
+          type="file"
+          accept=".xlsx"
+          pInputText
+          id="dos"
+          name="file"
+          required
+          style="width: 80%"
+          id="file"
+          (change)="selectFile($event)"
+        />
+      </span>
+    </div>
+    <ng-template pTemplate="footer">
+      <span class="UploadcancelBtn">
+      <button
+        pButton
+        pRipple
+        label="Cancel"
+        icon="pi pi-times"
+        class="p-button-text UploadcancelBtn"
+        (click)="hideDialog()"
+      ></button>
+    </span>
+    <span class="UploadDialogSaveBtn">
+      <button
+        pButton
+        pRipple
+        label="Upload"
+        icon="pi pi-check"
+        class="p-button-text UploadDialogSaveBtn"
+        (click)="uploadExcel()"
+      ></button>
+    </span>
+    </ng-template>
+  </p-dialog>
+</div>
 <div>
-  <form [formGroup]="dataForm">
+  <!-- <form [formGroup]="dataForm"> -->
     <p-table
       [value]="getDataByTableId"
-      styleClass="p-datatable-sm usersTable"
+      styleClass="p-datatable-sm  usersTable"
       [rows]="10"
       [paginator]="false"
       responsiveLayout="scroll"
       [rowHover]="true"
-      dataKey="id"
+      #dt
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [showCurrentPageReport]="true"
+      [(selection)]="selectedProducts"
     >
       <ng-template pTemplate="header">
         <tr class="tableHeader">
           <th></th>
           <th></th>
-      
 
-          <th *ngFor="let keys of tabKay; let i = index" >
+          <th *ngFor="let keys of tabKay; let i = index">
             <!-- {{tabKay|json}} -->
-            <p-dropdown
+            <!-- <p-dropdown
+        
               styleClass="tableDP1"
               [options]="year"
               placeholder="Year"
@@ -32,14 +156,17 @@
               optionLabel="year"
               optionValue="year"
               name="year"
-              [hidden]="i == 0 || i == 1"
+              [hidden]="i == 0 || i == 1 || i == 2"
               selectedItemsLabel="{0} items selected"
               (onChange)="setDropValue($event, i, 'year')"
               [required]="true"
               appendTo="body"
+              [ngModel]="dropDowns[i + 3]?.year"
             >
             </p-dropdown
-            ><br /><br />
+            >
+ 
+            <br /><br />
             <p-dropdown
               styleClass="tableDP2"
               [options]="quarter"
@@ -48,11 +175,12 @@
               optionLabel="quarter"
               optionValue="quarter"
               name="quarter"
-              [hidden]="i == 0 || i == 1"
+              [hidden]="i == 0 || i == 1 || i == 2"
               selectedItemsLabel="{0} items selected"
               (onChange)="setDropValue($event, i, 'quarter')"
               [required]="true"
               appendTo="body"
+              [ngModel]="dropDowns[i + 3]?.quarter"
             >
             </p-dropdown
             ><br /><br />
@@ -64,71 +192,261 @@
               optionLabel="estimated"
               optionValue="estimated"
               name="selectEstimate"
-              [hidden]="i == 0 || i == 1"
+              [hidden]="i == 0 || i == 1 || i == 2"
               selectedItemsLabel="{0} items selected"
               (onChange)="setDropValue($event, i, 'type')"
               [required]="true"
               appendTo="body"
+              [ngModel]="dropDowns[i + 3]?.type"
             >
             </p-dropdown
-            ><br>
+            ><br /> -->
+            <!-- Dropdown for Year -->
+<p-dropdown
+styleClass="tableDP1"
+[ngModel]="dropDowns[i]?.year"
+[options]="year"
+optionLabel="year"
+optionValue="year"
+placeholder="Year"
+name="selectYear"
+[hidden]="i == 0 || i == 1 || i == 2"
+selectedItemsLabel="{0} items selected"
+(onChange)="setDropValue($event, i, 'year')"
+[required]="true"
+appendTo="body"
+>
+</p-dropdown>
+<br /><br />
 
-             <span class="userHeader">{{keys}}</span>
-            
-          
+<!-- Dropdown for Quarter -->
+<p-dropdown
+styleClass="tableDP2"
+[ngModel]="dropDowns[i]?.quarter"
+[options]="quarter"
+optionLabel="quarter"
+optionValue="quarter"
+placeholder="Quarter"
+name="quarter"
+[hidden]="i == 0 || i == 1 || i == 2"
+selectedItemsLabel="{0} items selected"
+(onChange)="setDropValue($event, i, 'quarter')"
+[required]="true"
+appendTo="body"
+>
+</p-dropdown>
+<br /><br />
+
+<!-- Dropdown for Type -->
+<p-dropdown
+styleClass="tableDP3"
+[ngModel]="dropDowns[i]?.type"
+[options]="estimated"
+optionLabel="estimated"
+optionValue="estimated"
+placeholder="Type"
+name="selectEstimate"
+[hidden]="i == 0 || i == 1 || i == 2"
+selectedItemsLabel="{0} items selected"
+(onChange)="setDropValue($event, i, 'type')"
+[required]="true"
+appendTo="body"
+>
+</p-dropdown>
+<br />
+
+          </th>
+        </tr>
+        <tr class="tableHeader">
+          <th><input type="checkbox" (change)="selectAll($event)" /></th>
+          <th></th>
+
+          <th *ngFor="let keys of tabKay; let i = index">
+            <span class="userHeader">{{ keys | titlecase }}</span>
           </th>
         </tr>
 
         <tr *ngFor="let tab of tabValue; let i = index" class="tablerow">
-          <td style="height: 50px;margin-top: 100px;">
-            <p-checkbox
-              name="groupname"
-              (onChange)="selectedItems($event, i)"
-              value="{{ i }}"
-            ></p-checkbox>
+          <td style="height: 50px; margin-top: 100px; padding-left: 10px">
+            <input
+              type="checkbox"
+              [checked]="checks"
+              (change)="selectedItems($event, i)"
+            />
           </td>
           <td></td>
-          <td *ngFor="let val of tab; let ind =index">
+          <td *ngFor="let val of tab; let ind = index" class="tablerow">
+            
             <input
               type="text"
               value=" {{ val }}"
-              (change)="setValue($event, i ,ind)"
-              style="height: 30px; border: none"
-              [readOnly]="ind == 0 || ind == 1"
+              (change)="setValue($event, i, ind)"
+              style="height: 30px;border: none"
+              [style.width.px]="ind === 2 ? 300 : 150"
+              [readOnly]="ind == 0"
+              pInputText
+              pTooltip="{{val}}"
+              tooltipPosition="top"
+         
             />
+            <!-- <p-autoComplete *ngIf="ind==1" [ngModel]="val" [suggestions]="results" (completeMethod)="filterYear($event)">
+             
+            </p-autoComplete> -->
+            
           </td>
         </tr>
       </ng-template>
-      <!-- <ng-template pTemplate="caption">
-    
-    </ng-template> -->
     </p-table>
-    <div style="text-align: right" >
-      <!-- <button
-        class="p-button-sm p-button-outlined cancelButton"
-        pButton
-        label="Update Table Values"
-        (click)="onClickUpdate()"
-        style="margin-top: 10px"
-      ></button> -->
-      &nbsp;
+    <div style="text-align: left">
       <button
-     
-      class="p-button-sm"
-      pButton
-      label="Save"
-      (click)="onClickSaveAll()"
-      style="float: right; margin-top: 10px"
-    ></button>
+        [disabled]="selectedRowIndex.length == 0"
+        class="p-button-sm rightBtn"
+        pButton
+        label="Shift Right"
+        icon="pi pi-arrow-right"
+        iconPos="right"
+        (click)="shiftRight()"
+        style="margin-top: 10px; margin-left: 10px"
+      ></button>
+      &nbsp;&nbsp;
+      <button
+        [disabled]="selectedRowIndex.length == 0"
+        icon="pi pi-arrow-left"
+        iconPos="left"
+        class="p-button-sm leftBtn"
+        pButton
+        label="Shift Left"
+        (click)="shiftLeft()"
+        style="float: left; margin-top: 10px"
+      ></button>
     </div>
-    
-  </form>
+    <div style="text-align: right; margin-top: -40px">
+      <button
+        [disabled]="selectedRowIndex.length == 0"
+        class="p-button-sm p-button-outlined deleteBtn"
+        pButton
+        label="Delete"
+        style="margin-right: 10px"
+        (click)="onClickDeleteRow()"
+      ></button>
+
+      <button
+        [disabled]="!isDropdownValueSelected || selectedRowIndex.length == 0"
+        class="p-button-sm saveBtn"
+        pButton
+        label="Preview"
+        (click)="onClickSaveAll()"
+        style="float: right"
+      ></button>
+    </div>
+  <!-- </form> -->
   <br />
   <br />
 </div>
+</div>
+<div>
+  <p-dialog
+    [(visible)]="previewDialog"
+    [style]="{ width: '85%', height: '750px' }"
+    header="Preview"
+    [modal]="true"
+    styleClass="p-fluid previewDialog"
+    (onHide)="cancelPreview()"
+  >
+
+
+  <p-table
+  #dt
+ [value]="previewData"
+ [rowHover]="true"
+ [rows]="10"
+ styleClass="p-datatable-gridlines"
+ [showCurrentPageReport]="true"
+ [rowsPerPageOptions]="[10, 25, 50]"
+ [paginator]="true"
+ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+>
+ <ng-template pTemplate="header">
+   <tr class="previewTableHeader">
+     <th>Sr.No</th>
+     <th>Client Name</th>
+     <th>Document Type</th>
+     <!-- <th>Analyst Name</th>
+ <th>Peer Name</th> -->
+    <th>Report Type</th>
+    <th>Report Date</th>
+     <th>Table Name</th>
+     <th>Line Item Name</th>
+     <th>Master Line Item</th>
+     <th>Year</th>
+     <th>Quarter</th>
+     <th>type</th>
+     <!-- <th>Units</th>
+ <th>Currency</th> -->
+     <th>value</th>
+     <th>Denomination</th>
+   </tr>
+ </ng-template>
+ <ng-template pTemplate="body" let-data && let-i="rowIndex">
+   <tr styleClass="tablerow3">
+     <td>
+       {{ i + 1 }}
+     </td>
+     <td>{{ data.companyName }}</td>
+     <td>{{ data.documentType }}</td>
+     <!-- <td>{{ data.analyst }}</td>
+ <td>{{ data.peerName }}</td> -->
+ <td>{{data.reportType}}</td>
+     <td>
+       "{{ data.reportDate | date : "EEE, dd-MMM yyyy" }}"
+     </td>
+     <td>{{ data.tableName }}</td>
+     <td>{{ data.lineItemName }}</td>
+     <td>{{ data.masterLineItem }}</td>
+     <td>{{ data.year }}</td>
+     <td>{{ data.quarter }}</td>
+     <td>{{ data.type }}</td>
+     <!-- <td>{{data.units}}</td> -->
+     <!-- <td>{{data.currency}}</td> -->
+     <td>{{ data.value }}</td>
+     <td>{{data.denomination}}</td>
+   </tr>
+ </ng-template>
+</p-table>
+
+  
+<ng-template pTemplate="footer">
+
+      <button
+      class="p-button-text previewcancelBtn"
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      (click)="cancelPreview()"
+      ></button>
+
+ &nbsp;
+      <button
+     class="p-button-text PreviewDialogSaveBtn"
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      (click)="saveData()"
+    ></button>
+     </ng-template>
+       </p-dialog>
+</div>
+
 <!-- Notification msg's -->
 <p-toast></p-toast>
 <p-confirmDialog
   header="Confirmation"
   icon="pi pi-exclamation-triangle"
 ></p-confirmDialog>
+
+<ng-container *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</ng-container>

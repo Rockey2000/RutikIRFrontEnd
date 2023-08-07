@@ -29,7 +29,7 @@
 ::ng-deep .Analystdropdown  {
     background-color: #2d2d2d !important;
     color: white;
-
+padding: -1px;
   }
 
   :host::ng-deep .Masterdropdown * {
@@ -41,7 +41,7 @@
 ::ng-deep .Masterdropdown{
     background-color: #2d2d2d !important;
     color: white;
-
+    padding: -1px;
   }
 
 ::ng-deep .inputBox  {
@@ -61,3 +61,96 @@
     border: 1px solid #d04a02 !important;
     border-radius: 7%;
   }
+
+
+  .uploadBtn{
+    margin-right: 10px;
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: 1px solid #d04a02 !important;
+    border-radius: 7%;
+  }
+  .downloadBtn{
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: 1px solid #d04a02 !important;
+    border-radius: 7%;
+  }
+  ::ng-deep .uploadDialogAnalystLineItem *{
+    background-color: #2d2d2d !important;
+    color: white;
+  }
+  ::ng-deep .cancelBtn *{
+    background-color: #d04a02 !important;
+    color: white !important;
+    border: 1px solid #d04a02 !important;
+    border-radius: 7%;
+     
+    }
+    ::ng-deep .dialogSaveBtn *{
+      background-color: #d04a02 !important;
+      color: white !important;
+      border: 1px solid #d04a02 !important;
+      border-radius: 7%;
+    
+    }
+    :host ::ng-deep .upload *{
+    
+      
+      border: none !important;
+    
+      border: 1px solid #26776d !important;
+    }
+
+    .spinner {
+      /* backdrop-filter: blur(2px); */
+      background-color: rgba(188, 170, 170, 0.2);
+      content: " ";
+      top: 0;
+      left: 0;
+      height: 99%;
+      width: 100%;
+      position: absolute;
+    
+    }
+    app-spinner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+/* dialog of exitinng */
+  
+::ng-deep .existingDataCardOverride{
+  /* color: white !important;
+  font-family: Helvetica !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  background-color: #2d2d2d !important;
+  width: 50%;
+  justify-content: center;
+  border: 1px solid white;
+}
+::ng-deep .p-dialog .p-dialog-content {
+  background-color: #2d2d2d !important;
+  color: white;
+
+}
+::ng-deep .p-dialog .p-dialog-header {
+  background-color: #2d2d2d !important;
+  color: white;
+
+}
+
+.cancel-icon:hover{
+font-weight: bold;
+cursor: pointer
+}
+.cardButtons{
+  width: 100%;
+  display: flex;
+  margin-top:2%;
+  justify-content: center;
+}

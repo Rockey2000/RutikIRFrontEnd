@@ -1,0 +1,179 @@
+<div *ngIf="clientLabelForm">
+  <form [formGroup]="whitelableform">
+
+    <p-card
+    styleClass="clientLabelCard"
+    [style]="{ width: '100%', margin: '0px 40px 40px 0px' }"
+    >
+    <ng-template pTemplate="content">
+      <div style=" margin-top: -2%;">
+        
+        <label class="inputlable1" for="name">Client Name</label>
+      </div>
+      <div>
+        <!-- <p-dropdown
+        [options]="whiteLableArray"
+        optionLabel="clientName"
+        optionValue="clientName"
+        [showClear]="true"
+        formControlName="clientName"
+        placeholder="Select Client Name"
+        styleClass="clientnameInput"
+        [required]="true"
+        class="custom-dropdown"
+        ></p-dropdown> -->
+        <p-cascadeSelect
+      styleClass="dropdown12"
+      [showClear]="true"
+      formControlName="clientName"
+        [options]="allData"
+        optionLabel="name"  
+        optionValue="name"
+        optionGroupLabel="name"
+        [optionGroupChildren]="['states', 'cities']"
+        [style]="{ width: '13.7rem' }"
+        placeholder="Select"
+        appendTo="body"
+      ></p-cascadeSelect>
+        <br />
+      </div>
+      <div class="formgrid grid">
+        
+        <div class="field col">
+          
+          <label for="uploadLogo" style="font-weight: bold; margin-left: 80px; margin-top: 5%;"
+          >Upload Logo</label
+          >
+          <div
+          class="logoDiv"
+          >
+          <div class="upload">
+            <input
+              type="file"
+              accept=".pdf"
+              pInputText
+              name="file"
+              formControlName="logofile"
+              class="custom-file-input"
+              required
+              style="width: 90%"
+              id="file"
+              (change)="selectFile($event)"
+            />
+          </div>   
+      </div>
+      <br>
+      <div style="display: flex; float: right; margin-right: 190px;"> 
+        
+        </div>
+      </div>
+      
+      <div class="field col">
+        <label for="uploadCss" style="font-weight: bold;margin-top: 5%;">Upload CSS File</label>
+        <div
+        class="cssDiv"
+        >
+        <div class="upload">
+          <input
+            type="file"
+            accept=".pdf"
+            pInputText
+            formControlName="cssfile"
+            class="custom-file-input"
+            name="file"
+            required
+            style="width: 90%"
+            id="file"
+            (change)="selectFilecss($event)"
+          />
+        </div>
+    </div>
+          <br />
+   <div style="display: flex; float: right; margin-right: 270px;">
+    
+  </div>
+</div>
+</div>
+</ng-template>
+</p-card>
+
+</form>
+
+
+<div style="text-align: right; margin-right: 90px; margin-top: -20px;">
+  <button
+  class="p-button-sm p-button-outlined skipButton"
+  pButton
+  label="Back"
+  (click)="onClickBack()"
+  ></button>
+  &nbsp;
+  <button
+  [disabled]="!whitelableform.valid"
+  class="p-button-sm sendButton"
+  pButton
+  label="Save & Next"
+  (click)="onClickSave()" 
+  ></button>
+</div>
+</div>
+
+<!-- Spinner -->
+<div *ngIf="isLoading">
+  <div class="spinner"></div>
+  <app-spinner></app-spinner>
+</div>
+
+<!-- <div *ngIf="clienLabelTable">
+  <div >
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+      type="text"
+      class="p-inputtext-sm searchInputBox"
+          pInputText
+          (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="Search"
+        />
+      </span>
+
+    
+      <button
+        pButton
+        label="Add New Client"
+        icon="pi pi-plus-circle"
+        class="p-button-sm addMappingButton"
+        (click)="addClientLabel()"
+      ></button>
+    </div>
+
+
+    <p-table
+    #dt
+    [value]="clientLabel"
+    styleClass="p-datatable-sm lineItemsMapTable customPaginator"
+    [paginator]="true"
+    [rows]="10"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+
+  >
+    <ng-template pTemplate="header">
+      <tr class="tableHeader">
+        <th>Sr. No</th>
+        <th>
+          Client Name
+        </th>
+        <th>Client Logo Name</th>
+        
+ </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product && let-i="rowIndex">
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>{{ product.clientName }}</td>
+        <td>{{ product.clientLogoName }}</td>
+           </tr>
+    </ng-template>
+  </p-table>
+  </div> -->

@@ -1,0 +1,181 @@
+<div *ngIf="ApiTable">
+<h2 style="color: white; font-weight: bold; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Manage APIs</h2>
+
+
+<div class="outerDiv">
+    <div>
+        <span class="p-input-icon-left searchBoxRole">
+            <i class="pi pi-search"></i>
+            <input
+              type="text"
+              pInputText
+              class="p-inputtext-sm searchInputBoxRole"
+              placeholder="Search"
+              (input)="dt.filterGlobal($any($event.target).value,'contains')"
+            />
+          </span>
+      <p-dropdown
+      styleClass="filter"
+      [options]="newsData"
+      [(ngModel)]="selectedApi"
+      placeholder="Filter By"
+      optionLabel="roleName"
+      optionValue="roleName"
+      dropdownIcon="pi pi-filter"
+      (onChange)="dt.filterGlobal($any(selectedApi), 'equals')"
+       [showClear]="true"
+      [filter]="true"
+      filterBy="roleName"
+    ></p-dropdown>
+   
+    <button
+      pButton
+      icon="pi pi-plus-circle"
+      label="Add New API"
+      class="p-button newRoleButton"
+      (click)="onClickAddAPI()"
+    ></button>
+   
+    <button
+    class="p-button-sm p-button-outlined skipButton"
+    pButton
+    label="Delete API's"
+    (click)="onShowApi()"
+  ></button>
+  </div>
+  </div>
+
+<p-table
+styleClass="p-datatable-sm roleTable customPaginator"
+#dt
+[value]="newsData"
+[rows]="10"
+[paginator]="true"
+responsiveLayout="scroll"
+[rowHover]="true"
+dataKey="id"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+[showCurrentPageReport]="true"
+sortMode="multiple"
+[globalFilterFields]="[
+  'roleName',
+   'description',
+   'noOfUser',
+  'accessItem',
+  'createdOn',
+  'status',
+  'lastEdit',
+  'createdOn'
+]"
+>
+<ng-template pTemplate="header">
+  <tr class="tableHeader">
+    <th style="width: 4rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+    </th>
+    <th pSortableColumn="roleName" class="roleHeader">
+      <label>
+        Source Name <p-sortIcon styleClass="sortIcon" field="name" ></p-sortIcon
+      ></label>
+    </th>
+    <th>API</th>
+    <th>Status</th>
+    <th>Last Updated By</th>
+    <th>Last Updated On</th>
+  </tr>
+</ng-template>
+<ng-template pTemplate="body" let-api>
+    <tr class="tablerow">
+        <td>
+            <p-tableCheckbox [value]="api"></p-tableCheckbox>
+        </td>
+    <td>{{ api.sourceName }}</td>
+    <td>{{ api.api }}</td>
+    <td>{{api.status}}</td>
+    <td>{{api.lastUpdateBy}}</td>
+    <td>{{ api.lastUpdatedOn| date: "EEE, dd-MMM yyyy" }}</td>
+    
+  </tr>
+</ng-template>
+</p-table>
+</div>
+
+<div *ngIf="ApiForm">
+    <label class="headerLabel1">
+        <i
+          style="cursor: pointer"
+          class="pi pi-chevron-left"
+          (click)="onClickBack()"
+          style="width: 16px; height: 10px; cursor: pointer"
+        ></i>
+       Add New API
+      </label>
+
+      <form [formGroup]="newApiForm" autocomplete="off">
+      <p-card styleClass="apiFormCard">
+        <ng-template pTemplate="content">
+            <div class="grid fluid">
+                <label for="source" style="margin-top: 10px;font-weight: bold;">Source Name</label>
+                <div class="field col-12 md:col-4" style="margin-left: 20px;">
+                  <input
+                  class="p-pInputText-sm inputBoxSourceName"
+                  type="text"
+                  id="title"
+                  pInputText
+                  required
+                  placeholder="Enter"
+                  formControlName="sourceName"
+                />
+             
+                </div>
+        
+                <label for="shareholderName"  style="margin-left: 150px; margin-top: 10px;width: 50px; font-weight: bold;">Status</label>
+                <div class="field col-12 md:col-3" >
+                    <p-inputSwitch
+                    [required]="true"
+                    styleClass="inputSwitch"
+                    placeholder="Enter"
+                    [(ngModel)]="checked"
+                    formControlName="apiStatus"
+                    (onChange)="handleChange($event)"
+                  ></p-inputSwitch>
+                  &nbsp;
+                  <span style="font-size: large" *ngIf="checked">Active</span>
+                  <span style="font-size: large" *ngIf="!checked">In-active</span>
+                 </div>
+              </div>
+              <div class="grid fluid">
+                <label for="url" style="margin-top: 10px;font-weight: bold;">URL</label>
+                <div class="field col-12 md:col-4" style="margin-left: 90px;">
+                    <input
+                    class="p-pInputText-sm inputBoxUrl"
+                    type="text"
+                    id="title"
+                    pInputText
+                    required
+                    placeholder="Enter"
+                    formControlName="url"
+                  />
+                  </div>
+          
+              </div>
+            </ng-template>
+      </p-card>
+      </form>
+      <div style="text-align: left; margin-left: 700px; margin-top: 60px;">
+        <button
+          class="p-button-sm p-button-outlined deleteButton"
+          pButton
+          label="Cancel"
+          (click)="onClickCancel()"
+        ></button>
+        &nbsp;
+        <button
+    
+          class="p-button-sm saveApiButton"
+          pButton
+          label="Save API"
+          (click)="onClickSave()"
+        ></button>
+        </div>
+</div>

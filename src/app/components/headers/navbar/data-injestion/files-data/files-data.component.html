@@ -1,0 +1,224 @@
+<div>
+    <label class="headerLabel1">
+        <i
+          style="cursor: pointer"
+          class="pi pi-chevron-left"
+          (click)="onClickBack()"
+          style="width: 16px; height: 10px; cursor: pointer"
+        ></i>
+       Configure data for {{clientName}}
+      </label>
+</div>
+
+<div>
+    <p-table
+  styleClass="p-datatable-sm uplodedDataTable"
+[scrollable]="false"
+  [value]="dataIngestionData"
+  responsiveLayout="scroll"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+
+>
+  <ng-template pTemplate="header">
+    <tr class="tableHeader">
+      <th>File Name</th>
+      <th>Document Type</th>
+      <th>Analyst Name</th>
+      <th>Peer Name</th>
+      <th>Units</th>
+      <th>Currency</th>
+      <th>Denomination</th>
+      <th>Report Type</th>
+      <th>Report Date</th>
+      <th>Page No.</th>
+      <th>Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+    <tr>
+      <td style="color: white;">{{ data.fileName}}</td>
+      <td>  <p-cascadeSelect
+        [options]="documents"
+        optionLabel="dname"
+        optionValue="dname"
+        optionGroupLabel="name"
+        [optionGroupChildren]="['Doctype']"
+        placeholder="Document Type"
+        styleClass="documentcascade"
+        [(ngModel)]="data.documentType"
+        appendTo="body"
+        (onChange)="onDocumentTypeChange(data.documentType, data)"
+      ></p-cascadeSelect>
+      <div *ngIf="!data.documentType && showValidationMessage" class="error-message">
+        Document Type is required.
+      </div></td>
+      <td> <p-dropdown
+        styleClass="analystDropdown"
+        placeholder="Analyst"
+        [options]="analystDetails"
+        defaultLabel="Analyst Name"
+        optionLabel="analystName"
+        optionValue="analystName"
+        placeholder="Select Analyst Name"
+        selectedItemsLabel="{0} items selected"
+        [(ngModel)]="data.analystName"
+        [readonly]="isAnalystNameReadOnly(data.documentType)"
+            appendTo="body"
+      ></p-dropdown>
+    </td>
+      <td>
+        <!-- <input
+        id="peerName"
+        type="text"
+        class="peerName"
+        [(ngModel)]="data.peerName"
+        [readonly]="isPeerNameReadOnly(data.documentType)"
+        pInputText
+      /> -->
+
+      <p-dropdown
+        placeholder="Peers"
+        [options]="clientPeerData"
+        appendTo="body"
+        styleClass="unitsDropdown"
+        [(ngModel)]="data.clientPeerData"
+        [readonly]="isPeerNameReadOnly(data.documentType)"
+        ></p-dropdown>
+    </td>
+      <td>   
+          <p-dropdown
+        placeholder="Units"
+        [options]="units"
+        [(ngModel)]="data.units"
+        optionLabel="totalUnits"
+        optionValue="totalUnits"
+        appendTo="body"
+        styleClass="unitsDropdown"
+        (onChange)="filterCurrencies(data.units)"
+        ></p-dropdown>
+
+        <div *ngIf="!data.units && showValidationMessage" class="error-message">
+          Units is required.
+        </div></td>
+      <td>    <p-dropdown
+        [options]="filteredCurrencies"
+        [(ngModel)]="data.currency"
+          placeholder="Currency"
+          optionLabel="totalCurrency"
+          optionValue="totalCurrency"
+          appendTo="body"
+          styleClass="currencyDropdown"
+          >
+        </p-dropdown>
+        <div *ngIf="!data.currency && showValidationMessage" class="error-message">
+          Currency is required.
+        </div></td>
+        <td>          <p-dropdown
+          placeholder="Denomination"
+          [options]="currencyValue"
+          optionLabel="totalDenomination"
+        optionValue="totalDenomination"
+        appendTo="body"
+        styleClass="unitsDropdown"
+        [(ngModel)]="data.denomination"
+        ></p-dropdown>
+        <div *ngIf="!data.denomination && showValidationMessage" class="error-message">
+          Denomination is required.
+        </div></td>
+        <td>    
+         <p-cascadeSelect
+        [options]="reportType"
+        optionLabel="rType"
+        optionGroupLabel="name"
+        optionValue="rType"
+        [optionGroupChildren]="['reportData']"
+        placeholder="Report Type"
+        styleClass="reportType"
+        appendTo="body"
+        [(ngModel)]="data.reportType"
+        ></p-cascadeSelect>
+        <div *ngIf="!data.reportType && showValidationMessage" class="error-message">
+          Report Type is required.
+        </div></td>
+        <td> <input
+          type="date"
+        class="calender2"
+        placeholder="Report To"
+        pInputText
+        [(ngModel)]="data.date"
+      />
+      <div *ngIf="!data.date && showValidationMessage" class="error-message">
+        Report Date is required.
+      </div></td>
+      <td> <input
+        id="pageNo"
+        type="text"
+        class="pageNo"
+        [(ngModel)]="data.pageNo"
+        placeholder="All or 1,2,3"
+        pInputText/><div *ngIf="!data.pageNo && showValidationMessage" class="error-message">
+          Page No. is required.
+        </div></td>
+        
+        <td>
+          <button pButton pRipple icon="pi pi-file" class="p-button-rounded p-button-success mr-2"  [disabled]="!formIsValid(data)" (click)="onClickPreviewData(data)"></button>
+          
+          
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+  
+  <div *ngIf="previewCard" class="overrideCard">
+    <p-dialog [(visible)]="previewCard" [modal]="true" styleClass="custom-card">
+      <label style="font-weight: bold; top: 10%;">Document Preview</label>
+    <br>
+<br>
+<div class="grid">
+<div class="left-section">
+  <iframe [src]="iframeUrl" width="100%" height="700px"></iframe>
+
+</div>
+<div class="right-section">
+  <span style="color: white; font-weight: bold; margin-top: 50px; font-size: x-large;">Document Data :</span>
+  <br>
+  <br>
+  <p class="labels">Client: {{ dataPreview.client }}</p>
+  <p class="labels">Document Type: {{ dataPreview.documentType }}</p>
+  <p class="labels">File Name: {{ dataPreview.fileName }}</p>
+  <p class="labels">Report Date: {{ dataPreview.date | date}}</p>
+  <p class="labels">Report Type: {{ dataPreview.reportType }}</p>
+  
+  
+  <span>
+    <button pButton label="Cancel" class="p-button-sm cancelPreviewBtn" (click)="onClickCancelData()"></button>&nbsp;
+    <button pButton icon="pi pi-save"
+    label="Save"
+    class="p-button-sm updateButton"
+    (click)="onDataSave(dataPreview)"
+    ></button>
+  </span>
+</div>
+<ng-container *ngIf="isLoading">
+  <div class="spinner2"></div>
+  <app-spinner></app-spinner>
+</ng-container>
+</div>
+
+</p-dialog>
+
+</div>
+
+<!-- Notification msg's -->
+<p-toast></p-toast>
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+
+<ng-container *ngIf="isLoading">
+  <div class="spinner1"></div>
+  <app-spinner></app-spinner>
+</ng-container>

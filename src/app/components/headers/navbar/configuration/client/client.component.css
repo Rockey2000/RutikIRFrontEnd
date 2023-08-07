@@ -1,0 +1,202 @@
+.table {
+    color: white;
+  }
+  
+  ::ng-deep .dropdown {
+    width: 100% !important;
+    height: 7.4vh !important;
+    margin-top: 5px !important;
+    background-color: #2d2d2d !important;
+    color: white !important;
+    border-radius: 0%;
+  }
+  
+  :host::ng-deep .dropdown * {
+    background-color: #2d2d2d !important;
+    color: white;
+  }
+  :host::ng-deep .dropdown1 * {
+    background-color: #191919 !important;
+    color: white;
+  }
+  ::ng-deep .dropdown1{
+    width: 20% !important;
+    height: 7.4vh !important;
+    margin-top: 5px !important;
+    background-color: #191919 !important;
+    color: white !important;
+  }
+  
+  ::ng-deep .externalDiv {
+    padding: 50px !important;
+  }
+  
+  ::ng-deep .calender * {
+    margin-top: 1vh !important;
+    background-color: #2d2d2d !important;
+    color: white !important;
+    width: 100% !important;
+  }
+  
+  ::ng-deep .grid {
+    margin-bottom: 3vh !important;
+  }
+  
+  /* ::ng-deep .dropdown {
+    width: 80% !important;
+    background-color: #2d2d2d !important;
+  } */
+  
+  ::ng-deep .card {
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }
+  
+  host::ng-deep .analystNomenclatureTableCard * {
+    border-radius: 10px !important;
+    border: 2px solid #3b3b3b !important;
+    overflow: hidden !important;
+    color: white !important;
+    margin-top: 20px !important;
+  }
+  
+  ::ng-deep .tableList {
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }
+  
+  .tableHeader::ng-deep * {
+    background-color: #191919 !important;
+    color: white !important;
+    padding: 10px !important;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #3b3b3b !important;
+    color: white;
+  }
+  tr:nth-child(odd) {
+    background-color: #2d2d2d !important;
+    color: white;
+  }
+  .clientItems{
+    border: 1px solid;
+    margin-top: 1%;
+  }
+  
+  
+  :host::ng-deep .addMappingButton{
+    background-color: #D04A02 !important;
+    color: white !important;
+    border: none !important;
+    float: right;
+    margin-top: 1%;
+  }
+  :host::ng-deep i{
+    margin-top: 1%;
+  }
+  
+  ::ng-deep .dropdown,
+  .inputBox {
+    background-color: #2d2d2d !important;
+    color: white;
+    border-radius: 0%;
+  }
+  
+  
+  :host::ng-deep .searchBoxClientNomen{
+    background-color: #191919 !important;
+    color: white !important;
+    font-size: medium !important;
+    border-color: #50AD95 !important;
+    margin-top: 7% !important;
+  }
+  
+  ::ng-deep .lineItemsMapTable{
+    margin-top: 20px !important;
+    border-radius: 10px;
+    border: 2px solid #3b3b3b !important;
+    overflow: hidden !important;
+  }
+  
+  .tableHeader::ng-deep * {
+    background-color: #191919 !important;
+    color: white !important;
+    padding: 10px !important;
+    border-bottom: none !important;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #3b3b3b !important;
+  }
+  tr:nth-child(odd) {
+    background-color: #2D2D2D !important;
+  }
+  
+  ::ng-deep td{
+    border-bottom: none !important;
+  }
+  
+  ::ng-deep .addButton,.saveButton{
+    background-color: #D04A02 !important;
+    color: white !important;
+    border: none !important;
+  }
+  
+  ::ng-deep .col-fixed{
+    font-weight: bold;
+  }
+
+  ::ng-deep .headerLabel2{
+    margin-top: 5vh !important;
+    font-family: Helvetica;
+    font-size: x-large;
+  }
+
+  ::ng-deep .customPaginator .p-paginator {
+    background-color:#191919 !important;
+  }
+  
+  .customPaginator .p-paginator .ui-paginator-page {
+    color: white;
+  }
+
+  :host::ng-deep .Clientdropdown * {
+    background-color: #2d2d2d !important;
+    color: white;
+
+  }
+::ng-deep .Clientdropdown  {
+    background-color: #2d2d2d !important;
+    color: white;
+padding: -1px;
+  }
+
+  :host::ng-deep .clientMasterdropdown * {
+    background-color: #2d2d2d !important;
+    color: white;
+
+   
+  }
+::ng-deep .clientMasterdropdown{
+    background-color: #2d2d2d !important;
+    color: white;
+
+  }
+
+::ng-deep .ClientinputBox  {
+    background-color: #2d2d2d !important;
+    color: white;
+   
+  }
+
+  ::ng-deep .Addbutton{
+    background-color: #D04A02 !important;
+    color: white !important;
+    border: none !important;
+  }
+  ::ng-deep .ClientHeaderinputBox  {
+    background-color: #2d2d2d !important;
+    color: white;
+   
+  }

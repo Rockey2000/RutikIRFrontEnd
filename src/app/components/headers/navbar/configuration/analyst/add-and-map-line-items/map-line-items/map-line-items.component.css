@@ -4,38 +4,56 @@
     color: white !important;
     font-family: Helvetica !important;
     height: 500px auto;
+    width: 100%;
   }
  
 
-  ::ng-deep .Analystdropdown1{
+  
+  ::ng-deep .Analystdropdown1 *{
     background-color: #2D2D2D !important;
-    color: white !important;
-    border: 1px solid #26776d !important;
+    color: #fff;
+  }
+  :host::ng-deep .Analystdropdown1{
+    background-color: #2D2D2D !important;
+
   }
 
-  :host::ng-deep .Analystdropdown1 * {
+
+  
+  .p-dropdown-panel {
+    color: #495057 !important;
+    border: 0 none;
+    border-radius: 6px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  /* :host::ng-deep .Analystdropdown1 * {
     background-color: #2d2d2d !important;
-    color: white !important;
-    }
-    
+color: #fff;
+
+    }  */
+   
 
 
-    ::ng-deep .MasterTabledropdown {
+    /* ::ng-deep .MasterTabledropdown {
       background-color: #2d2d2d !important;
       color: white !important;
       border: 1px solid #26776d !important;
-      
+      width: 250px;
+      margin-top: 10px;
     }
   :host::ng-deep .MasterTabledropdown * {
     background-color: #2d2d2d !important;
     color: white !important;
-  }
+  } */
   
   
   ::ng-deep .analystDropdown{
     background-color: #2d2d2d !important;
     color: white !important;
     border: 1px solid #26776d !important;
+    width: 250px;
+    margin-top: 10px;
   }
 
   :host::ng-deep .analystDropdown * {
@@ -43,11 +61,64 @@
     color: white !important;
   }
 
+  /* master table style */
+  ::ng-deep .allTabledropdown{
+    background-color: #2d2d2d !important;
+    color: white !important;
+    border: 1px solid #26776d !important;
+    width: 250px;
+    margin-top: 10px;
+  }
 
+  :host::ng-deep .allTabledropdown * {
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }
+
+  ::ng-deep .balanceSheetdropdown{
+    background-color: #2d2d2d !important;
+    color: white !important;
+    border: 1px solid #26776d !important;
+    width: 250px;
+    margin-top: 10px;
+  }
+
+  :host::ng-deep .balanceSheetdropdown * {
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }
+
+  ::ng-deep .IncomeTabledropdown{
+    background-color: #2d2d2d !important;
+    color: white !important;
+    border: 1px solid #26776d !important;
+    width: 250px;
+    margin-top: 10px;
+  }
+
+  :host::ng-deep .IncomeTabledropdown * {
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }
+
+  ::ng-deep .cashFlowdropdown{
+    background-color: #2d2d2d !important;
+    color: white !important;
+    border: 1px solid #26776d !important;
+    width: 250px;
+    margin-top: 10px;
+  }
+
+  :host::ng-deep .cashFlowdropdown * {
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }
+/* master table style ends */
  :host::ng-deep .mappingCard{
   background-color: #3b3b3b;
-       width: 400px;
+       width: 500px;
        height: 100% auto;
+       float: right;
   }
   .flexDiv{
     display: flex;
@@ -61,21 +132,22 @@
   }
 
 
+  .grabbing {cursor: -webkit-grabbing; cursor: grabbing;}
 
 
 
 
-
- ::ng-deep .backButton{
+ ::ng-deep .backButton5{
     color: #d04a02 !important;
-    width: 7% !important;
+    /* width: 7% !important; */
+    width: 80px;
+  } 
 
-  }
-
-  ::ng-deep .saveButton {
+  ::ng-deep .saveButton5{
     background-color: #d04a02 !important;
     color: white !important;
     border: none !important;
-    width: 7% !important;
+    /* width: 7% !important; */
+    width: 80px;
 
   }

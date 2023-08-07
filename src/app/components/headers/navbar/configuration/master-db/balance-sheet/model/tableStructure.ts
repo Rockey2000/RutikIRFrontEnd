@@ -13,7 +13,7 @@ export interface tableStructure{
 export interface LineItem{
     id?:string,
     lineItem?:string,
-    alternativeName?:string,
+    alternativeName: string[] | string; 
     type?:string,
     tableName?:string;
 }

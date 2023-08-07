@@ -1,26 +1,61 @@
+::ng-deep .wholeCard{
+  margin-top: -40px;
+}
+
 ::ng-deep .dataBox {
   margin-top: 30px;
 }
 
 ::ng-deep .headerLabel1 {
+  margin-top: 20px;
   color: white !important;
   font-size: larger !important;
   font-weight: bold;
+  margin-left: 10px;
 }
 ::ng-deep .headerLabel1 * {
   padding-top: 5rem !important;
 }
 
-:host::ng-deep .cascade {
+::ng-deep .uploadDataCard{
+  margin-top: 30px !important;
   background-color: #2d2d2d !important;
   color: white !important;
-  border: 1px solid #26776d !important;
+  font-family: Helvetica !important;
 }
 
-:host::ng-deep .cascade * {
+
+::ng-deep .cascade {
+  background-color: #2d2d2d !important;
+    border-color: #26776d !important;
+    color: white !important;
+}
+
+  :host::ng-deep .cascade *{
+    background-color: #2d2d2d !important;
+    color: white !important;
+  }
+/* .p-cascadeselect-panel {
+  background: #2d2d2d !important;
+ } */
+/* ::ng-deep .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item {
+  color: white !important;
+  background-color: #2d2d2d !important;
+
+}
+::ng-deep .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item:hover {
+  color: white !important;
+  background-color: #2d2d2d !important;
+} */
+ 
+
+
+
+
+/* :host::ng-deep .cascade:hover * {
   background-color: #2d2d2d !important;
   color: white !important;
-}
+} */
 
 :host::ng-deep .analystDropdown * {
   background-color: #2d2d2d !important;
@@ -30,16 +65,105 @@
 ::ng-deep .analystDropdown {
   background-color: #2d2d2d !important;
   color: white !important;
-  width: 200px;
+  width: 100%;
   border: 1px solid #26776d !important;
 }
+::ng-deep .peerName  {
+  background-color: #2d2d2d !important;
+  color: white;
+  border: 1px solid #26776d !important;
+}
+/* :host::ng-deep .peerDropdown * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
 
-.calender {
+::ng-deep .peerDropdown {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  width: 100%;
+  border: 1px solid #26776d !important;
+} */
+
+:host::ng-deep .unitsDropdown * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .unitsDropdown {
+  background-color: #2d2d2d !important;
+  color: white !important;
+
+  border: 1px solid #26776d !important;
+}
+:host::ng-deep .currencyDropdown * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .currencyDropdown {
+  background-color: #2d2d2d !important;
+  color: white !important;
+
+  border: 1px solid #26776d !important;
+}
+::ng-deep .dropdown12{
+  background-color: #2d2d2d !important;
+  border-color: #26776d !important;
+}
+
+:host::ng-deep .dropdown12 *{
+  color: white !important;
+  border-color: #26776d !important;
+
+}
+
+:host::ng-deep .dropdowndate * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border-color: #26776d !important;
+}
+
+::ng-deep .dropdowndate {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  width: 100% !important;
+  border-color: #26776d !important;
+}
+.calender1 {
   background-color: #2d2d2d !important;
   color: white !important;
   border: 1px solid #26776d !important;
 }
+/* .calender2 {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border: 1px solid #26776d !important;
+} */
 
+.calender2 {
+  border: 1px solid #26776d !important;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white !important;
+  background-color: #2d2d2d !important;
+}
+
+.calender2:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.calender2::-webkit-calendar-picker-indicator {
+   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+  cursor: pointer;
+}
 :host::ng-deep .upload * {
   background-color: #d04a02 !important;
   color: white !important;
@@ -48,15 +172,15 @@
 }
 
 :host::ng-deep .uploadBtn {
-  margin-left: -55px !important;
+  margin-right: 28px!important;
   background-color: #d04a02 !important;
   color: white !important;
   border: none !important;
   border-radius: 3px !important;
 }
 ::ng-deep .datatable{
- margin-top: 20px;
-
+ margin-top: 20px auto;
+ 
 }
 ::ng-deep .table{
   margin-top: 30px;
@@ -79,12 +203,14 @@ color: white !important;
   border-radius: 07px;
   overflow: hidden !important;
   border: 1px solid #2d2d2d;
+
 }
 
 .tableHeader::ng-deep * {
   background-color: #191919 !important;
   color: white !important;
   border-bottom: none !important;
+  padding: 15px;
 }
 
 :host::ng-deep .roleHeader * {
@@ -98,7 +224,7 @@ color: white !important;
 .tablerow::ng-deep * {
   color: white !important;
   border-bottom: none !important;
-  background-color: #2d2d2d !important;
+
 }
 
 .tablerow:hover {
@@ -126,3 +252,162 @@ float: right;
 ::ng-deep .dataValueTable{
   margin-top: 30px;
 }
+
+/* .spinnerDiv1{
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+}
+.spinner{
+
+  display: inline-block;
+  text-align: center;
+  margin: 10px 10px 0 0;
+  padding: 5px 10px
+} */
+
+::ng-deep .labelDialog *{
+  background-color: #3b3b3b !important;
+  color: white;
+}
+::ng-deep .cancelBtn *{
+color: #d04a02 !important;
+ 
+}
+::ng-deep .dialogSaveBtn *{
+  color: #d04a02 !important;
+
+}
+::ng-deep .inputBox *{
+  background-color: white;
+}
+
+.spinner1 {
+  /* backdrop-filter: blur(2px); */
+  background-color: rgba(188, 170, 170, 0.2);
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  justify-content: center;
+}
+app-spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: -150px;
+}
+
+::ng-deep .customPaginator .p-paginator {
+  background-color:#191919 !important;
+}
+
+.customPaginator .p-paginator .ui-paginator-page {
+  color: white;
+}
+
+/* .disabled {
+  color: #bfbfbf;
+  cursor: not-allowed;
+} */
+
+:host::ng-deep .dropdowndate * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border-color: #50ad95 !important;
+}
+
+::ng-deep .dropdowndate {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  width: 100% !important;
+  border-color: #50ad95 !important;
+}
+
+  ::ng-deep .existingDataCardOverride{
+    /* color: white !important;
+    font-family: Helvetica !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    background-color: #2d2d2d !important;
+    width: 50%;
+    justify-content: center;
+
+  }
+ ::ng-deep .p-dialog .p-dialog-content {
+    background-color: #2d2d2d !important;
+    color: white;
+ 
+}
+ ::ng-deep .p-dialog .p-dialog-header {
+    background-color: #2d2d2d !important;
+    color: white;
+ 
+}
+ 
+  :host ::ng-deep .lineinCard *{
+    background-color: #d04a02;
+
+    width: 100%;
+  }
+::ng-deep .hr{
+  color: #d04a02;
+  }
+  .cancel-icon:hover{
+  font-weight: bold;
+  cursor: pointer
+  }
+  .cardButtons{
+    width: 100%;
+    display: flex;
+    margin-top:2%;
+    justify-content: center;
+  }
+  .footer-Buttons{
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+  }
+  :host::ng-deep .CancelOverButton {
+  
+      background-color: #d04a02 !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 3px !important;
+      margin-left: 3%;
+    }
+
+    :host::ng-deep .OverRideButton {
+        background-color: #d04a02 !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 3px !important;
+      margin-left: 10%;
+      
+    }
+
+    :host::ng-deep .CancelAllButton {
+  
+      background-color: #d04a02 !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 3px !important;
+      margin-left: 10%;
+
+     }
+
+    :host::ng-deep .overrideAllButton {
+        background-color: #d04a02 !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 3px !important;
+    }
+
+  
+  

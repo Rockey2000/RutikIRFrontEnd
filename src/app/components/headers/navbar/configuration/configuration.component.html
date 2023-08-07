@@ -1,19 +1,27 @@
 <div *ngIf="tabmenus">
   <h2 style="color: white">Configuration</h2>
-
-  <p-tabMenu
-    class="tabmenu"
-    routerLinkActive="active"
-    [model]="items"
-    [activeItem]="items[0]"
-    (click)="onClickMenu()"
-    [ngClass]="status ? 'menuClass' : 'menuclass1'"
-  >
-  </p-tabMenu>
+  <span (click)="onClickMenu($event)">
+    <p-tabMenu
+      class="tabmenu"
+      routerLinkActive="active"
+      [model]="items"
+      [activeItem]="items[0]"
+      [ngClass]="status ? 'menuClass' : 'menuclass1'"
+    >
+    </p-tabMenu>
+  </span>
+  <span class="dropdown" *ngIf="masterDatabaseDropdown">
+    <p-dropdown
+      styleClass="tableList"
+      [options]="docList"
+      [(ngModel)]="selectedTableName"
+      optionLabel="docName"
+      optionValue="docName"
+      placeholder="select"
+      (onChange)="onClickTable()"
+    ></p-dropdown>
+  </span>
 </div>
 <div>
-  <div>
-    <br />
-    <router-outlet></router-outlet>
-  </div>
+  <router-outlet></router-outlet>
 </div>

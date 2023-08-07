@@ -26,7 +26,29 @@ import { AddLineItemsComponent } from './navbar/configuration/analyst/add-and-ma
 import { MapLineItemsComponent } from './navbar/configuration/analyst/add-and-map-line-items/map-line-items/map-line-items.component';
 import { NewDocUploadComponent } from './navbar/data-injestion/new-doc-upload/new-doc-upload.component';
 import { AnalystDetailsComponent } from './navbar/configuration/analyst/analyst-details/analyst-details.component';
+import { SpinnerComponent } from './navbar/configuration/master-db/spinner/spinner.component';
+import { AuthGuard } from 'src/app/shared-module/auth.guard';
+import { AnalystGuard } from 'src/app/shared-module/analyst.guard';
+import { ClientGuard } from 'src/app/shared-module/client.guard';
+import { AssetComponent } from './navbar/asset/asset.component';
+import { AppComponent } from 'src/app/app.component';
+import { AuthModule } from 'src/app/auth/auth.module';
+import { ReportModule } from './navbar/report/report.module';
+import { ClientComponent } from './navbar/configuration/client/client.component';
+import { AddAndMapClientLineItemComponent } from './navbar/configuration/client/add-and-map-client-line-item/add-and-map-client-line-item.component';
+import { AddClientLineItemComponent } from './navbar/configuration/client/add-and-map-client-line-item/add-client-line-item/add-client-line-item.component';
+import { MapClientLineItemComponent } from './navbar/configuration/client/add-and-map-client-line-item/map-client-line-item/map-client-line-item.component';
+import { MeetingsModule } from './navbar/meetings/meetings.module';
+import { StockEstimatesComponent } from './navbar/configuration/analyst/stock-estimates/stock-estimates.component';
+import { ClientSetupFormComponent } from './navbar/configuration/client/client-setup-form/client-setup-form.component';
+import { ClientDetailsComponent } from './navbar/configuration/client/client-setup-form/client-details/client-details.component';
+import { ClientLabelComponent } from './navbar/configuration/client/client-setup-form/client-label/client-label.component';
 
+import { MarketNewsModule } from './navbar/market-intel/market-news/market-news.module';
+import { ReportTableHeaderComponent } from './navbar/configuration/analyst/report-table-header/report-table-header.component';
+import { ClientFinancialRatioComponent } from './navbar/configuration/client/client-setup-form/client-financial-ratio/client-financial-ratio.component';
+import { MarketNewsComponent } from './navbar/market-intel/market-news/market-news.component';
+import { ClientSetupDropdownComponent } from './navbar/configuration/client/client-setup-dropdown/client-setup-dropdown.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -40,7 +62,7 @@ import { AnalystDetailsComponent } from './navbar/configuration/analyst/analyst-
     ShContactDetailsComponent,
     MeetingDataComponent,
     FinancialRatiosComponent,
-AnalystDetailsComponent,
+    AnalystDetailsComponent,
     UserComponent,
     RoleComponent,
     AnalystComponent,
@@ -48,12 +70,30 @@ AnalystDetailsComponent,
     AddAndMapLineItemsComponent,
     AddLineItemsComponent,
     MapLineItemsComponent,
+    SpinnerComponent,
+    AssetComponent,
+    ClientComponent,
+    ClientSetupFormComponent,
+    AddAndMapClientLineItemComponent,
+    AddClientLineItemComponent,
+    MapClientLineItemComponent,
+    StockEstimatesComponent,
+    ClientDetailsComponent,
+    ClientLabelComponent,
+    ReportTableHeaderComponent,
+    ClientFinancialRatioComponent,
+    ClientSetupDropdownComponent,
   ],
+
   imports: [
     CommonModule,
     SharedModuleModule,
     BreadcrumbModule,
     RouterModule.forChild([
+      {
+        path: '',
+        loadChildren: () => AuthModule,
+      },
       {
         path: 'nav',
         component: NavbarComponent,
@@ -64,57 +104,69 @@ AnalystDetailsComponent,
             path: 'config',
             component: ConfigurationComponent,
             data: { breadcrumb: 'Configuration' },
+            canActivate: [AnalystGuard],
             children: [
               {
                 path: 'role',
                 component: RoleComponent,
                 data: { breadcrumb: 'Role' },
+                canActivate: [AuthGuard],
               },
               {
                 path: 'user',
                 component: UserComponent,
                 data: { breadcrumb: 'User' },
+                canActivate: [AuthGuard],
               },
               {
                 path: 'master-db',
                 component: MasterDbComponent,
-                data: { breadcrumb: 'MasterData' },
+                data: { breadcrumb: 'Master Data' },
+                canActivate: [AnalystGuard],
                 children: [
                   {
                     path: 'balance-sheet',
-                    pathMatch:'full',
+                    pathMatch: 'full',
                     component: BalanceSheetComponent,
-                    data: { breadcrumb: 'Balance-Sheet' },
+                    data: { breadcrumb: 'Balance Sheet' },
+                    canActivate: [AnalystGuard],
                   },
                   {
                     path: 'income',
                     component: IncomeStatementComponent,
-                    data: { breadcrumb: 'Income-Statement' },
+                    data: { breadcrumb: 'Income Statement' },
+                    canActivate: [AnalystGuard],
                   },
                   {
                     path: 'cash-flow',
                     component: CashFlowComponent,
-                    data: { breadcrumb: 'Cash-Flow' },
+                    data: { breadcrumb: 'Cash Flow' },
+                    canActivate: [AnalystGuard],
                   },
                   {
                     path: 'finacial-ratio',
                     component: FinancialRatiosComponent,
                     data: { breadcrumb: 'Financial Ratio' },
+                    canActivate: [AnalystGuard],
                   },
                   {
                     path: 'shareholder',
                     component: ShareholderDataComponent,
-                    data: { breadcrumb: 'Shareholder' },
+                    data: { breadcrumb: 'Shareholder Data' },
+                    canActivate: [AnalystGuard],
                   },
                   {
                     path: 'meeting',
                     component: MeetingDataComponent,
-                    data: { breadcrumb: 'Meeting' },
+                    data: { breadcrumb: 'Meeting Data' },
+                    canActivate: [AnalystGuard],
                   },
                   {
                     path: 'contact',
                     component: ShContactDetailsComponent,
-                    data: { breadcrumb: 'Contact' },
+
+                    data: { breadcrumb: 'Share Holder Contact Details' },
+                    canActivate: [AnalystGuard],
                   },
                 ],
               },
@@ -123,30 +175,149 @@ AnalystDetailsComponent,
                 path: 'analyst',
                 component: AnalystComponent,
                 data: { breadcrumb: 'Analyst' },
+                canActivate: [AnalystGuard],
                 children: [
                   {
                     path: 'nomenclature',
                     component: LineItemNomenclatureComponent,
                     data: { breadcrumb: 'Line Item Nomenclature' },
+                    canActivate: [AnalystGuard],
                   },
                   {
-                    path:'analystDetails',
-                    component:AnalystDetailsComponent
+                    path: 'analystDetails',
+                    component: AnalystDetailsComponent,
+                    data: { breadcrumb: 'Analyst Details' },
+                    canActivate: [AnalystGuard],
                   },
                   {
                     path: 'addAndMapingLineItems',
                     component: AddAndMapLineItemsComponent,
+                    data: { breadcrumb: 'Add And Map Line Items' },
+                    canActivate: [AnalystGuard],
                     children: [
                       {
                         path: 'addLineItem',
                         component: AddLineItemsComponent,
                         data: { breadcrumb: 'Add Line Item' },
+                        canActivate: [AnalystGuard],
                       },
                       {
                         path: 'mapLineItem',
                         component: MapLineItemsComponent,
+                        data: { breadcrumb: 'Map Line Items' },
+                        canActivate: [AnalystGuard],
                       },
                     ],
+                  },
+                  {
+                    path: 'stockEstimates',
+                    component: StockEstimatesComponent,
+                    data: { breadcrumb: 'Stock Estimates' },
+                  },
+                  {
+                    path: 'tableheader',
+                    component: ReportTableHeaderComponent,
+                    data: { breadcrumb: 'Report Table Header' },
+                  },
+                ],
+              },
+              {
+                path: 'clientSetupDetails',
+                component: ClientSetupDropdownComponent,
+                data: { breadcrumb: 'Client Setup' },
+                children: [
+                  {
+                    path: 'client',
+                    component: ClientComponent,
+                    data: { breadcrumb: 'Client Nomenclature' },
+                    // canActivate: [AnalystGuard],
+                    children: [
+                      {
+                        path: 'addAndMapingClientLineItems',
+                        component: AddAndMapClientLineItemComponent,
+                        data: { breadcrumb: 'Add And Map Client Line Items' },
+                        // canActivate: [AnalystGuard],
+                      },
+                    ],
+                  },
+
+                  {
+                    path: 'clientSetup',
+                    component: ClientSetupFormComponent,
+                    data: { breadcrumb: 'Client Setup' },
+                    children: [
+                      {
+                        path: 'clientDetails',
+                        component: ClientDetailsComponent,
+                        data: { breadcrumb: 'Client Details' },
+                      },
+                      {
+                        path: 'clientLabel',
+                        component: ClientLabelComponent,
+                        data: { breadcrumb: 'Whitelabelling' },
+                      },
+                      {
+                        path: 'clientFinancialRatio',
+                        component: ClientFinancialRatioComponent,
+                        data: { breadcrumb: 'Client Financial Ratio' },
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                path: 'client',
+                component: ClientComponent,
+                data: { breadcrumb: 'Client' },
+                // canActivate: [AnalystGuard],
+                children: [
+                  {
+                    path: 'addAndMapingClientLineItems',
+                    component: AddAndMapClientLineItemComponent,
+                    data: { breadcrumb: 'Add And Map Client Line Items' },
+                    // canActivate: [AnalystGuard],
+                  },
+                ],
+              },
+
+              {
+                path: 'addAndMapingClientLineItems',
+                component: AddAndMapClientLineItemComponent,
+                data: { breadcrumb: 'Add And Map Client Line Items' },
+                children: [
+                  {
+                    path: 'addClientLineItem',
+                    component: AddClientLineItemComponent,
+                    data: { breadcrumb: 'Add Client Line Item' },
+                    // canActivate: [AnalystGuard],
+                  },
+                  {
+                    path: 'mapClientLineItem',
+                    component: MapClientLineItemComponent,
+                    data: { breadcrumb: 'Map Client Line Items' },
+                    // canActivate: [AnalystGuard],
+                  },
+                ],
+              },
+              {
+                path: 'clientSetup',
+                component: ClientSetupFormComponent,
+                data: { breadcrumb: 'Client Setup' },
+                children: [
+                  {
+                    path: 'clientDetails',
+                    component: ClientDetailsComponent,
+                    data: { breadcrumb: 'Client Details' },
+                  },
+                  {
+                    path: 'clientLabel',
+                    component: ClientLabelComponent,
+                    data: { breadcrumb: 'Whitelabelling' },
+                  },
+                  {
+                    path: 'clientFinancialRatio',
+                    component: ClientFinancialRatioComponent,
+                    data: { breadcrumb: 'Client Financial Ratio' },
                   },
                 ],
               },
@@ -156,6 +327,25 @@ AnalystDetailsComponent,
             path: 'dataInjestion',
             loadChildren: () => DataInjestionModule,
             data: { breadcrumb: 'Data' },
+            canActivate: [ClientGuard],
+          },
+          {
+            path: 'report',
+            loadChildren: () => ReportModule,
+            data: { breadcrumb: { skip: true } },
+            
+            canActivate: [ClientGuard],
+          },
+          {
+            path: 'meetings',
+            loadChildren: () => MeetingsModule,
+            data: { breadcrumb: 'Meetings' },
+            
+          },
+          {
+            path: 'marketNews',
+            loadChildren: () => MarketNewsModule,
+            data: { breadcrumb: 'News' },
           },
         ],
       },

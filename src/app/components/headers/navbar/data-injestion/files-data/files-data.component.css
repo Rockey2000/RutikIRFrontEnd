@@ -1,0 +1,283 @@
+::ng-deep .headerLabel1 {
+  margin-top: 20px;
+  color: white !important;
+  font-size: larger !important;
+  font-weight: bold;
+  margin-left: 10px;
+}
+::ng-deep .headerLabel1 * {
+  padding-top: 5rem !important;
+}
+
+::ng-deep .uplodedDataTable {
+  margin-top: 40px;
+  border-radius: 07px;
+  overflow: hidden !important;
+  border: 1px solid #2d2d2d;
+}
+
+.tableHeader::ng-deep * {
+  background-color: #191919 !important;
+  color: white !important;
+  border-bottom: none !important;
+}
+
+.tablerow3::ng-deep * {
+  color: white !important;
+  border-bottom: none !important;
+}
+
+.tablerow3:hover {
+  color: white !important;
+  background-color: #415385 !important;
+  border-bottom: none !important;
+}
+
+tr:nth-child(even) {
+  background-color: #3b3b3b !important;
+}
+tr:nth-child(odd) {
+  background-color: #2d2d2d !important;
+}
+
+::ng-deep .documentcascade{
+background-color: #2d2d2d;
+border: 1px solid #26776d !important;
+color: white !important;
+}
+:host::ng-deep .documentcascade *{
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+::ng-deep .reportType{
+background-color: #2d2d2d;
+border: 1px solid #26776d !important;
+color: white !important;
+}
+:host::ng-deep .reportType *{
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+:host::ng-deep .analystDropdown * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .analystDropdown {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  width: 100%;
+  border: 1px solid #26776d !important;
+}
+::ng-deep .peerName {
+  background-color: #2d2d2d !important;
+  color: white;
+  border: 1px solid #26776d !important;
+}
+
+:host::ng-deep .unitsDropdown * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .unitsDropdown {
+  background-color: #2d2d2d !important;
+  color: white !important;
+
+  border: 1px solid #26776d !important;
+}
+
+:host::ng-deep .currencyDropdown * {
+  background-color: #2d2d2d !important;
+  color: white !important;
+}
+
+::ng-deep .currencyDropdown {
+  background-color: #2d2d2d !important;
+  color: white !important;
+
+  border: 1px solid #26776d !important;
+}
+
+.calender2 {
+  border: 1px solid #26776d !important;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white !important;
+  background-color: #2d2d2d !important;
+}
+
+.calender2:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.calender2::-webkit-calendar-picker-indicator {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+::ng-deep .pageNo {
+  background-color: #2d2d2d !important;
+  color: white;
+  border: 1px solid #26776d !important;
+}
+
+::ng-deep .previewDataCard {
+  margin-top: 300px !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-family: Helvetica !important;
+  width: 50% !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 400px;
+}
+
+::ng-deep .existingDataCard {
+  margin-top: 40px !important;
+  background-color: #2d2d2d !important;
+  color: white !important;
+  font-family: Helvetica !important;
+  width: 80% !important;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 200px;
+  border: 3px solid orange;
+}
+/* ::ng-deep .overrideCard {
+  content: " ";
+  border: 1px solid white;
+  margin-bottom: 50px;
+  justify-content: center;
+  position: relative;
+  align-content: center;
+} */
+::ng-deep .overrideCard {
+  content: " ";
+
+  margin-top: -15%;
+  width: 100%;
+  margin-left:120px;
+  height: auto;
+  position: relative;
+  justify-content: center;
+  overflow: hidden;
+} 
+
+::ng-deep.custom-card {
+  /* margin-top: 20px !important; */
+  /* background-color: #2d2d2d !important; */
+  /* color: white !important; */
+  width: 80%;
+  /* height: auto; */
+  font-family: Helvetica !important;
+  /* justify-content: center; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  border: 3px solid black;
+}
+
+.grid {
+  display: grid; /* Change from flex to grid */
+
+  /* border: 1px solid; */
+
+  grid-template-columns: 70% 30%;
+}
+
+.left-section {
+  background-color: #7c7b7b !important;
+
+  padding: auto;
+
+  /* border: 1px solid; */
+  margin-left: 10px;
+  height: 700px;
+}
+
+.right-section {
+  background-color: #3d3d3d !important;
+  color: black !important;
+  padding: 10px;
+
+  /* border: 1px solid; */
+
+  height: 100%;
+}
+.heading {
+  margin-top: -20px;
+}
+
+.labels {
+  font-size: medium;
+  font-weight: bold;
+  color: white;
+}
+
+::ng-deep .cancelPreviewBtn {
+  background-color: #2d2d2d !important;
+  color: #d04a02 !important;
+  border: 1px solid !important;
+}
+
+::ng-deep .updateButton {
+  background-color: #d04a02 !important;
+  color: white !important;
+  border: none !important;
+}
+/* ::ng-deep .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item {
+  color: white !important;
+  background-color: #2d2d2d !important;
+}
+::ng-deep
+  .p-cascadeselect-panel
+  .p-cascadeselect-items
+  .p-cascadeselect-item:hover {
+  color: white !important;
+  background-color: #2d2d2d !important;
+} */
+
+.spinner1 {
+  /* backdrop-filter: blur(2px); */
+  background-color: rgba(188, 170, 170, 0.2);
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  justify-content: center;
+}
+.spinner2 {
+  /* backdrop-filter: blur(2px); */
+  background-color: rgba(188, 170, 170, 0.2);
+  content: " ";
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  justify-content: center;
+}
+
+app-spinner {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: -700px;
+}

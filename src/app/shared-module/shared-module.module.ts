@@ -9,7 +9,7 @@ import {DialogModule} from 'primeng/dialog';
 import {CardModule} from 'primeng/card';
 import {InputTextModule} from 'primeng/inputtext';
 import {InputSwitchModule} from 'primeng/inputswitch';
-import {TableModule} from 'primeng/table';
+import {TableHeaderCheckbox, TableModule} from 'primeng/table';
 import {TabViewModule} from 'primeng/tabview';
 import { RouterModule } from '@angular/router';
 import {DividerModule} from 'primeng/divider';
@@ -33,6 +33,21 @@ import {CalendarModule} from 'primeng/calendar';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { SpreadsheetAllModule } from '@syncfusion/ej2-angular-spreadsheet';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {TooltipModule} from 'primeng/tooltip';
+import {InputMaskModule} from 'primeng/inputmask';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {PaginatorModule} from 'primeng/paginator';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {ChipsModule} from 'primeng/chips';
+import { FullCalendarModule } from '@fullcalendar/angular'; // the main FullCalendar module
+import dayGridPlugin from '@fullcalendar/daygrid'; // the dayGrid plugin
+import timeGridPlugin from '@fullcalendar/timegrid'; // the timeGrid plugin
+import interactionPlugin from '@fullcalendar/interaction'; // the interaction plugin
+import {ProgressBarModule} from 'primeng/progressbar';
+import {MenuItem} from 'primeng/api';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -68,7 +83,17 @@ import { SpreadsheetAllModule } from '@syncfusion/ej2-angular-spreadsheet';
     CalendarModule,
     MessagesModule,
     MessageModule,
-    SpreadsheetAllModule
+    SpreadsheetAllModule,
+    ProgressSpinnerModule,
+    TooltipModule,
+    InputMaskModule,
+    OverlayPanelModule,
+    PaginatorModule,
+    AutoCompleteModule,
+    SelectButtonModule,
+    ChipsModule,
+    FullCalendarModule,
+    ProgressBarModule
   ],
   exports:[
     RouterModule,
@@ -100,7 +125,17 @@ import { SpreadsheetAllModule } from '@syncfusion/ej2-angular-spreadsheet';
     MultiSelectModule,
     TreeSelectModule,
     CalendarModule,
-    SpreadsheetAllModule
+    SpreadsheetAllModule,
+    ProgressSpinnerModule,
+    TooltipModule,
+    InputMaskModule,
+    OverlayPanelModule,
+    PaginatorModule,
+    AutoCompleteModule,
+    SelectButtonModule,
+    ChipsModule,
+    FullCalendarModule,
+    ProgressBarModule
   ]
 })
 export class SharedModuleModule { }

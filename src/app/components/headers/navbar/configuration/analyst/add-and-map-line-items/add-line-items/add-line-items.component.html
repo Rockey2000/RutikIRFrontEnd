@@ -1,14 +1,85 @@
 <div>
-  <div style="text-align: right; margin-bottom: 20px; margin-top: 20px">
-    <button
+  <div style="text-align: left; margin-top: 40px;">
+    <button style="float: right;"
+      type="button"
       pButton
       type="button"
       icon="pi pi-plus-circle"
-      class="p-button-sm addButton"
+      class="p-button-sm button"
       label="Add"
       (click)="addRow()"
     ></button>
+    <button
+    class="p-button-sm uploadBtn"
+    pButton
+    label="Upload"
+    icon="pi pi-upload"
+    iconPos="left"
+    (click)="onClickUpload()"
+    style="margin-left: 10px; float: right;"
+  ></button>
+  &nbsp;
+  <button
+  
+  class="p-button-sm downloadBtn"
+  pButton
+  label="Download"
+  icon="pi pi-download" iconPos="left"
+  style="float: right;"
+  (click)="onClickDownloadAnalystLineItem()"
+  ></button>
   </div>
+    <br />
+    <br />
+    <div class="uploadDialogBox">
+      <p-dialog
+        [(visible)]="uploadDialog"
+        [style]="{ width: '550px', height:'250px' }"
+        header="Upload Updated Excel Of Analyst Line Item"
+        [modal]="true"
+        styleClass="p-fluid uploadDialogAnalystLineItem"
+      >
+        <div class="p-field">
+          <span class="upload">
+          <input
+          class="padding"
+          type="file"
+          accept=".xlsx"
+          pInputText
+          id="dos"
+          name="file"
+          required
+          style="width: 80%"
+          id="file"
+          (change)="selectFile($event)"
+        />
+      </span>
+        </div>
+        <ng-template pTemplate="footer">
+          <span class="p-button-outlined cancelBtn">
+          <button
+            pButton
+            pRipple
+            label="Cancel"
+            icon="pi pi-times"
+            class="p-button-sm p-button-outlined"
+            (click)="hideDialog()"
+          ></button>
+        </span>
+        <span class="dialogSaveBtn">
+          <button
+            pButton
+            pRipple
+            label="Upload"
+            icon="pi pi-check"
+            class="p-button-sm"
+            [disabled]="!selectedFiles"
+            (click)="uploadExcel()"
+          ></button>
+        </span>
+        </ng-template>
+      </p-dialog>
+     </div>
   <form [formGroup]="analystLineItemForm">
     <div formArrayName="analystLineItemRow">
       <p-table
@@ -72,7 +143,6 @@
                 pInputText
                 placeholder="Enter"
                 formControlName="analystLineItemName"
-           
                 required
               />
               <div
@@ -119,7 +189,7 @@
       (click)="onClickSaveAll()"
       style="float: right;"
       [disabled]="!analystLineItemForm.valid"
-    ></button>
+      ></button>
   </form>
 </div>
 
@@ -131,8 +201,11 @@
   ></p-confirmDialog>
 
 
-
-
+  <br /><br />
+  <ng-container *ngIf="isLoading">
+    <div class="spinner"></div>
+    <app-spinner></app-spinner>
+  </ng-container>
 
 
 
@@ -282,4 +355,22 @@
 <p-toast></p-toast> -->
 
 
+<p-dialog [(visible)]="lineItemCard" (onHide)="cancelCard()" [modal]="true" styleClass="existingDataCardOverride">
+  <div class="flex flex-wrap">
+  <h2 style="margin-top: -1%; ">Warning</h2>
 
+</div>
+  <hr class="lineinCard" style="color:#d04a02; width: 100%;"/>
+  <p style="text-align: center; font-size: large; font-weight: bold;">These line items already exists!!!</p>
+  
+
+  <div class="cardButtons" *ngFor="let data of existingLineItems; let i = index">
+    <span> {{ i + 1 }})&nbsp;</span>
+    <span>Analyst Name :- </span>
+    <span>&nbsp;{{data.analystName}}&nbsp;,</span> 
+    <span>Line Item Name :- </span>
+    <span>&nbsp;{{data.analystLineItemName}}</span>
+  </div>
+
+  
+</p-dialog>
